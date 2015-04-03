@@ -31,6 +31,9 @@
 #endif
 
 
+#include <string.h>
+
+
 void REVariant::clean()
 {
 	if (_u.pointerValue)

@@ -24,6 +24,7 @@
 #include "../include/REBuffer.h"
 
 #include <math.h>
+
 #include <string.h>
 
 void * REBuffer::defaultMalloc(const RESizeT size)
