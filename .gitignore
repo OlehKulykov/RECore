@@ -20,6 +20,8 @@ project.xcworkspace
 build
 Debug
 Release
+RECore
+recore2_test_app
 *._*
 *.tlog
 *.log

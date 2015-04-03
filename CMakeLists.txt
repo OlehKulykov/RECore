@@ -517,7 +517,8 @@ set(RECORE_SOURCES	src/REBuffer.cpp
 				
 		
 
-set(RECORE_HEADERS include/REBuffer.h
+set(RECORE_HEADERS include/IREFileReadable.h
+				include/REBuffer.h
 				include/REBufferNoCopy.h
 				include/RECore.h
 				include/REList.h
