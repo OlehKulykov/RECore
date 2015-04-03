@@ -26,6 +26,8 @@
 
 #include "RECore.h"
 
+#include <string.h>
+
 /**
  @brief Class template of autopointer.
  @detailed Holds created pointer and delete when it's need, usually when no referecnces to pointer.

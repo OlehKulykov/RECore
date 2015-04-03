@@ -26,6 +26,8 @@
 
 #include "RECore.h"
 
+#include <string.h>
+
 /**
  @brief Class template for list.
  */

@@ -27,6 +27,8 @@
 
 #include "RECore.h"
 
+#include <string.h>
+
 /**
  @brief Map class template.
  */
