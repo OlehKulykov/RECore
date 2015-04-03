@@ -518,22 +518,22 @@ set(RECORE_SOURCES	src/REBuffer.cpp
 		
 
 set(RECORE_HEADERS include/IREFileReadable.h
-				include/REBuffer.h
-				include/REBufferNoCopy.h
-				include/RECore.h
-				include/REList.h
-				include/RELog.h
-				include/REMap.h
-				include/REMutableString.h
-				include/REPtr.h
-				include/REStaticString.h
-				include/REString.h
-				include/REStringBase.h
-				include/REStringList.h
-				include/REVariant.h
-				include/REVariantList.h
-				include/REVariantMap.h
-				include/REWideString.h
+		include/REBuffer.h
+		include/REBufferNoCopy.h
+		include/RECore.h
+		include/REList.h
+		include/RELog.h
+		include/REMap.h
+		include/REMutableString.h
+		include/REPtr.h
+		include/REStaticString.h
+		include/REString.h
+		include/REStringBase.h
+		include/REStringList.h
+		include/REVariant.h
+		include/REVariantList.h
+		include/REVariantMap.h
+		include/REWideString.h
 				)
 
 
