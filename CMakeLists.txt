@@ -564,7 +564,7 @@ install(TARGETS RECore
 
 
 install(FILES ${RECORE_HEADERS}
-		DESTINATION include/recore)
+		DESTINATION include/RECore)
 
 
 #	enable_testing()
