@@ -1,0 +1,28 @@
+language: cpp
+os:
+  - linux
+  - osx
+
+compiler:
+  - gcc
+  - clang
+
+before_script:
+  - mkdir ~/RECore-install-dir
+  - git submodule update --init --recursive
+  - mkdir build
+  - cd build
+  - cmake -DCMAKE_INSTALL_PREFIX:PATH=~/RECore-install-dir -DCMAKE_BUILD_TYPE=Release -DRECORE_BUILD_NUMBER=$TRAVIS_BUILD_NUMBER ..
+  - cd ..
+
+script:
+  - printenv
+  - cd build
+  - make
+#  - make test
+  - make install
+
+branches:
+  only:
+    - master
+    - dev
