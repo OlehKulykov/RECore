@@ -30,6 +30,8 @@
 class REString;
 class REWideString;
 
+#include <wchar.h>
+
 /**
  @brief Class of mutable UTF8 string.
  */

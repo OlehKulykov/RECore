@@ -34,6 +34,7 @@
 #include <stdarg.h>
 #endif
 
+#include <string.h>
 
 REMutableString & REMutableString::operator=(const char * utf8String)
 {

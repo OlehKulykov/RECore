@@ -27,6 +27,8 @@
 #include "REStringBase.h"
 #include "REMutableString.h"
 
+#include <wchar.h>
+
 /**
  @brief String class with wide charecters reperesentation.
  */

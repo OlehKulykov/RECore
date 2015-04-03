@@ -28,6 +28,8 @@
 #include "REPtr.h"
 #include "REBuffer.h"
 
+#include <wchar.h>
+
 /**
  @brief Type of the string.
  */

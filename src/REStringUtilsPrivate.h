@@ -27,6 +27,9 @@
 #include "../include/REPtr.h"
 #include "../include/REBuffer.h"
 
+#include <string.h>
+
+#include <wchar.h>
 
 class REStringUtilsPrivate
 {

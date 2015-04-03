@@ -26,6 +26,8 @@
 
 #include "REString.h"
 
+#include <wchar.h>
+
 class REVariantList;
 class REVariantMap;
 

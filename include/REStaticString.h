@@ -27,6 +27,8 @@
 
 #include "REString.h"
 
+#include <wchar.h>
+
 /**
  @brief Immutable string wrapper for holding pointer to UTF8 string without creation new buffer and copying string data.
  @code

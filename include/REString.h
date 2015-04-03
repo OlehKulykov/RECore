@@ -30,6 +30,8 @@
 class REMutableString;
 class REWideString;
 
+#include <wchar.h>
+
 /**
  @brief Class of the immutable string.
  */

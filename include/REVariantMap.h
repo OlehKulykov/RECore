@@ -29,6 +29,8 @@
 #include "REString.h"
 #include "REVariant.h"
 
+#include <wchar.h>
+
 /**
  @brief Class of the variant map. Keys is string objects and values is variants.
  */
