@@ -514,12 +514,12 @@ set(RECORE_SOURCES	src/REBuffer.cpp
 		src/REVariantMap.cpp
 		src/REWideString.cpp
 				)
-				
-		
+
 
 set(RECORE_HEADERS include/IREFileReadable.h
 		include/REBuffer.h
 		include/REBufferNoCopy.h
+		include/REBufferReader.h
 		include/RECore.h
 		include/REList.h
 		include/RELog.h
