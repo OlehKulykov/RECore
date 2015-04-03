@@ -1,0 +1,52 @@
+version: 3.0.1.{build}
+
+# branches to build
+branches:
+  only:
+  - master
+  - dev
+
+# Operating system (build VM template)
+os: Windows Server 2012
+
+# build platform, i.e. x86, x64, Any CPU. This setting is optional.
+platform:
+  - x86
+  - x64
+
+configuration:
+  - Release
+
+# clone directory
+clone_folder: c:\dev\RECore
+
+# scripts that run after cloning repository
+install:
+  - cd c:\dev\RECore
+  - md RECore-install-dir
+  - cmd: echo PLATFORM=%PLATFORM%
+  - cmd: echo APPVEYOR_REPO_BRANCH=%APPVEYOR_REPO_BRANCH%
+  - cmd: echo APPVEYOR_BUILD_VERSION=%APPVEYOR_BUILD_VERSION%
+  - cmd: set CMAKE_GENERATOR_STRING="Wrong CMake generator"
+  - cmd: set MSBUILD_PLATFORM_STRING="Wrong Platform"
+  - ps: if($env:PLATFORM -eq "x86") { $env:CMAKE_GENERATOR_STRING='"Visual Studio 11"'; }
+  - ps: if($env:PLATFORM -eq "x64") { $env:CMAKE_GENERATOR_STRING='"Visual Studio 11 Win64"'; }
+  - ps: if($env:PLATFORM -eq "x86") { $env:MSBUILD_PLATFORM_STRING='"Win32"'; }
+  - ps: if($env:PLATFORM -eq "x64") { $env:MSBUILD_PLATFORM_STRING='"x64"'; }
+  - cmd: echo CMAKE_GENERATOR_STRING=%CMAKE_GENERATOR_STRING%
+  - cmd: echo MSBUILD_PLATFORM_STRING=%MSBUILD_PLATFORM_STRING% 
+
+build:
+
+build_script:
+  - cd c:\dev\RECore
+  - md build
+  - cd build
+  - cmake -DCMAKE_INSTALL_PREFIX:PATH=c:\dev\RECore\RECore-install-dir -DCMAKE_BUILD_TYPE=Release -G%CMAKE_GENERATOR_STRING% -DRECORE_BUILD_NUMBER=%APPVEYOR_BUILD_NUMBER% ..
+  - msbuild /m /p:Configuration=Release /p:Platform=%MSBUILD_PLATFORM_STRING% RECore.sln
+  - cmd: cmake --build c:\dev\RECore\build --config RELEASE --target INSTALL
+  - cd c:\dev\RECore\RECore-install-dir
+
+after_build:
+
+test_script:
