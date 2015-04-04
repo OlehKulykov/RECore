@@ -503,6 +503,7 @@ set(RECORE_SOURCES	src/REBuffer.cpp
 		src/REBufferNoCopy.cpp
 		src/RELog.cpp
 		src/REMutableString.cpp
+		src/RERandomizer.cpp
 		src/REStaticString.cpp
 		src/REString.cpp
 		src/REStringBase.cpp
@@ -526,6 +527,7 @@ set(RECORE_HEADERS include/IREFileReadable.h
 		include/REMap.h
 		include/REMutableString.h
 		include/REPtr.h
+		include/RERandomizer.h
 		include/REStaticString.h
 		include/REString.h
 		include/REStringBase.h
