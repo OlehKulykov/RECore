@@ -47,7 +47,7 @@ void REBuffer::freeMemory(void * mem)
 	REBuffer::defaultFree(mem);
 }
 
-REBOOL REBuffer::isEqualToBuffer(const REBuffer & anotherBuffer) const
+bool REBuffer::isEqualToBuffer(const REBuffer & anotherBuffer) const
 {
 	if (_size == anotherBuffer._size)
 	{
@@ -71,7 +71,7 @@ RESizeT REBuffer::size() const
 	return _size;
 }
 
-REBOOL REBuffer::resize(const RESizeT newSize, REBOOL isCopyPrevData)
+bool REBuffer::resize(const RESizeT newSize, bool isCopyPrevData)
 {
 	if (_size == newSize)
 	{
@@ -114,7 +114,7 @@ void REBuffer::clear()
 	}
 }
 
-REBOOL REBuffer::set(const void * buff, const RESizeT buffSize)
+bool REBuffer::set(const void * buff, const RESizeT buffSize)
 {
 	this->clear();
 
@@ -133,7 +133,7 @@ REBOOL REBuffer::set(const void * buff, const RESizeT buffSize)
 	return false;
 }
 
-REBOOL REBuffer::append(const void * buff, const RESizeT buffSize)
+bool REBuffer::append(const void * buff, const RESizeT buffSize)
 {
 	if (_size && _buff)
 	{
@@ -154,7 +154,7 @@ REBOOL REBuffer::append(const void * buff, const RESizeT buffSize)
 	return this->set(buff, buffSize);
 }
 
-REBOOL REBuffer::append(const REBuffer & anotherBuff)
+bool REBuffer::append(const REBuffer & anotherBuff)
 {
 	return this->append(anotherBuff.buffer(), anotherBuff.size());
 }

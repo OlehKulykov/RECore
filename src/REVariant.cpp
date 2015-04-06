@@ -87,7 +87,7 @@ int64_t REVariant::toInt64() const
 		{
 			if (this->toString().isDigit())
 			{
-				REBOOL isOk = false;
+				bool isOk = false;
 				const REInt64 parsedValue = this->toString().integerValue(&isOk);
 				if (isOk) return (int64_t)parsedValue;
 			}
@@ -110,7 +110,7 @@ uint64_t REVariant::toUInt64() const
 		{
 			if (this->toString().isDigit())
 			{
-				REBOOL isOk = false;
+				bool isOk = false;
 				const REInt64 parsedValue = this->toString().integerValue(&isOk);
 				if (isOk) return (uint64_t)parsedValue;
 			}
@@ -133,7 +133,7 @@ double REVariant::toDouble() const
 		{
 			if (this->toString().isDigit())
 			{
-				REBOOL isOk = false;
+				bool isOk = false;
 				const REFloat64 parsedValue = this->toString().floatValue(&isOk);
 				if (isOk) return (double)parsedValue;
 			}

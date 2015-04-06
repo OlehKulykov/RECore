@@ -21,56 +21,25 @@
  */
 
 
-#include "../include/RERandomizer.h"
+#ifndef __REFILEMANAGER_H__
+#define __REFILEMANAGER_H__
 
-#if defined(HAVE_RECORE_CONFIG_H)
-#include "recore_config.h"
-#endif
-
-#ifndef RAND_MAX
-#define	RAND_MAX 0x7fffffff
-#endif
-
-#include <time.h>
+#include "REString.h"
 
 
-/* 0 to 32767 */
-REInt32 RERandomizer::intValue() const
+/**
+ @brief Class used for creating, checking files and directories
+ */
+class __RE_PUBLIC_CLASS_API__ REFileManager
 {
-	return rand();
-}
+protected:
 
-/* lowRange to upRange */
-REInt32 RERandomizer::intValueInRange(const REInt32 lowRange, const REInt32 upRange) const
-{
-	return ((rand() % upRange) + lowRange);
-}
+public:
+	REFileManager();
+	
 
-/* 0.0f to 0.9(9)f */
-REFloat32 RERandomizer::floatValue() const
-{
-	return (REFloat32)((REFloat64)rand() / (REFloat64)(RAND_MAX + 1.0));
-}
+	~REFileManager();
+};
 
-/* lowRange to upRange */	
-REFloat32 RERandomizer::floatValueInRange(const REFloat32 lowRange, const REFloat32 upRange) const
-{
-	return (REFloat32)((((REFloat64)rand() / (REFloat64)(RAND_MAX + 1.0)) * (upRange - lowRange)) + lowRange);
-}
-
-RERandomizer::RERandomizer()
-{
-	static bool isNeedInitialize = true;
-	if (isNeedInitialize) 
-	{
-		/* initialize random seed: */
-		srand ( (unsigned int)time(NULL) );
-		isNeedInitialize = false;
-	}
-}
-
-RERandomizer::~RERandomizer()
-{
-
-}
+#endif /* __REFILEMANAGER_H__ */
 

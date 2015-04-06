@@ -61,7 +61,7 @@ public:
 	 @brief Check pointer is NULL.
 	 @return True if pointer is NULL, othervice false;
 	 */
-	REBOOL isEmpty() const
+	bool isEmpty() const
 	{
 		return (_object == NULL);
 	}
@@ -71,7 +71,7 @@ public:
 	 @brief Check pointer is not NULL.
 	 @return True if not NULL, othervice false.
 	 */
-	REBOOL isNotEmpty() const
+	bool isNotEmpty() const
 	{
 		return (_object != NULL);
 	}
@@ -81,7 +81,7 @@ public:
 	 @brief Check this class is only one woner of the pointer.
 	 @return True is only one owner, othervice false.
 	 */
-	REBOOL isSingleOwner() const
+	bool isSingleOwner() const
 	{
 		return _referenceCount ? ((*_referenceCount) <= 1) : false;
 	}

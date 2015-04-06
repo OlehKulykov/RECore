@@ -70,14 +70,14 @@ public:
 	 @brief Check is string empty.
 	 @return True if string is empty, othervice false.
 	 */
-	REBOOL isEmpty() const;
+	bool isEmpty() const;
 
 
 	/**
 	 @brief Check is string not empty.
 	 @return True if string not empty(has characters), othervice false.
 	 */
-	REBOOL isNotEmpty() const;
+	bool isNotEmpty() const;
 
 
 	/**

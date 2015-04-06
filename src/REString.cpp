@@ -100,7 +100,7 @@ RESizeT REString::length() const
 	return REStringUtilsPrivate::stringLengthFromUTF8Buffer(_p);
 }
 
-REBOOL REString::isContainsNonASCII() const
+bool REString::isContainsNonASCII() const
 {
 	const char * ch = (const char *)this->UTF8String();
 	if (ch)
@@ -118,7 +118,7 @@ REBOOL REString::isContainsNonASCII() const
 	return false;
 }
 
-REBOOL REString::isContaines(const char * utf8String) const
+bool REString::isContaines(const char * utf8String) const
 {
 	if (utf8String)
 	{
@@ -131,7 +131,7 @@ REBOOL REString::isContaines(const char * utf8String) const
 	return false;
 }
 
-REBOOL REString::isContaines(const wchar_t * wideString) const
+bool REString::isContaines(const wchar_t * wideString) const
 {
 	if (wideString)
 	{
@@ -147,7 +147,7 @@ REBOOL REString::isContaines(const wchar_t * wideString) const
 	return false;
 }
 
-REBOOL REString::isDigit() const
+bool REString::isDigit() const
 {
 	const char * ch = this->UTF8String();
 	if (ch)
@@ -170,23 +170,23 @@ REBOOL REString::isDigit() const
 	return false;
 }
 
-REBOOL REString::isEqual(const REWideString & anotherString) const
+bool REString::isEqual(const REWideString & anotherString) const
 {
 	REString utf8String(anotherString);
 	return REStringUtilsPrivate::isBuffersEqual(_p, utf8String._p);
 }
 
-REBOOL REString::isEqual(const REString & anotherString) const
+bool REString::isEqual(const REString & anotherString) const
 {
 	return REStringUtilsPrivate::isBuffersEqual(_p, anotherString._p);
 }
 
-REBOOL REString::isEqual(const REMutableString & anotherString) const
+bool REString::isEqual(const REMutableString & anotherString) const
 {
 	return REStringUtilsPrivate::isBuffersEqual(_p, anotherString._p);
 }
 
-REBOOL REString::isEqual(const char * utf8String,
+bool REString::isEqual(const char * utf8String,
 						 const RESizeT utf8StringLength) const
 {
 	const RESizeT len = REStringUtilsPrivate::actualUTF8StringLength(utf8String, utf8StringLength);
@@ -201,7 +201,7 @@ REBOOL REString::isEqual(const char * utf8String,
 	return false;
 }
 
-REBOOL REString::isEqual(const wchar_t * wideString,
+bool REString::isEqual(const wchar_t * wideString,
 						 const RESizeT wideStringLength) const
 {
 	REPtr<REBuffer> p = REStringUtilsPrivate::getUTF8FromWide(wideString, wideStringLength);
@@ -213,10 +213,10 @@ REString REString::pathExtension() const
 	return REString( REStringUtilsPrivate::getPathExtension(_p) );
 }
 
-REInt64 REString::integerValue(REBOOL * isOk) const
+REInt64 REString::integerValue(bool * isOk) const
 {
 	REInt64 value = 0;
-	REBOOL reslt = false;
+	bool reslt = false;
 	const char * str = (const char *)this->stringBuffer();
 	if (str && (this->length() > 0))
 	{
@@ -226,10 +226,10 @@ REInt64 REString::integerValue(REBOOL * isOk) const
 	return value;
 }
 
-REFloat64 REString::floatValue(REBOOL * isOk) const
+REFloat64 REString::floatValue(bool * isOk) const
 {
 	REFloat64 value = 0.0;
-	REBOOL reslt = false;
+	bool reslt = false;
 	const char * str = (const char *)this->stringBuffer();
 	if (str && (this->length() > 0))
 	{

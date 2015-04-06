@@ -222,14 +222,6 @@ typedef size_t RESizeT;
 typedef uintptr_t REUIdentifier;
 
 
-/**
- @brief Boolean type.
- @detailed Boolean type with possible values: 'true' or 'false'
- */
-typedef bool REBOOL;
-
-
-
 #if defined(SIZEOF_FLOAT_T)
 /**
  @brief 32 bit float type.
@@ -344,6 +336,15 @@ typedef REFloat64 RETimeInterval;
 #define MAX(a,b) ((a) > (b) ? (a) : (b))
 #endif
 
+
+#if defined(_DEBUG) || defined(DEBUG)
+#ifndef _DEBUG
+#define _DEBUG 1
+#endif
+#ifndef DEBUG
+#define DEBUG 1
+#endif
+#endif
 
 
 #endif

@@ -354,8 +354,8 @@ REPtr<REBuffer> REStringUtilsPrivate::getAppendedWithPathComponent(const REPtr<R
 	//TODO: make separator windows logic
 #endif
 
-	REBOOL rep2 = false;
-	REBOOL rep1 = false;
+	bool rep2 = false;
+	bool rep1 = false;
 	RESizeT l1 = 0;
 	RESizeT l2 = 0;
 	const char * p1 = NULL;
@@ -455,7 +455,7 @@ REPtr<REBuffer> REStringUtilsPrivate::getRemovedPathExtension(const REPtr<REBuff
 	{
 		const char * e = (const char *)utf8Buffer->buffer();
 		e += (l - 1); // to last
-		const REBOOL needRepSingleSeparator = (*e == '\\');
+		const bool needRepSingleSeparator = (*e == '\\');
 		if ((*e == '/') || needRepSingleSeparator)
 		{
 			e--; l--;
@@ -522,7 +522,7 @@ REPtr<REBuffer> REStringUtilsPrivate::getRemovedLastPathComponent(const REPtr<RE
 	{
 		const char * e = (const char *)utf8Buffer->buffer();
 		e += (l - 1); // to last
-		const REBOOL needRepSingleSeparator = (*e == '\\');
+		const bool needRepSingleSeparator = (*e == '\\');
 		if ((*e == '/') || needRepSingleSeparator)
 		{
 			e--; l--;
@@ -629,7 +629,7 @@ REPtr<REBuffer> REStringUtilsPrivate::getPathExtension(const REPtr<REBuffer> & u
 	return REPtr<REBuffer>();
 }
 
-REBOOL REStringUtilsPrivate::isBuffersEqual(const REPtr<REBuffer> & b1, const REPtr<REBuffer> & b2)
+bool REStringUtilsPrivate::isBuffersEqual(const REPtr<REBuffer> & b1, const REPtr<REBuffer> & b2)
 {
 	if (b1.isNotEmpty() && b2.isNotEmpty())
 	{
@@ -638,7 +638,7 @@ REBOOL REStringUtilsPrivate::isBuffersEqual(const REPtr<REBuffer> & b1, const RE
 	return false;
 }
 
-REBOOL REStringUtilsPrivate::readFirstNumber(const char * str, REInt64 * i64vOrNull, REFloat64 * f64vOrNull)
+bool REStringUtilsPrivate::readFirstNumber(const char * str, REInt64 * i64vOrNull, REFloat64 * f64vOrNull)
 {
 	bool isPlus = false, isMinus = false;
 	int isDig = false;
@@ -657,7 +657,7 @@ REBOOL REStringUtilsPrivate::readFirstNumber(const char * str, REInt64 * i64vOrN
 			}
 			if (isDig)
 			{
-				REBOOL reslt = false;
+				bool reslt = false;
 				if (i64vOrNull)
 				{
 					long long int v = 0;

@@ -47,7 +47,7 @@ public:
 	 @brief Checks is buffer equal with another buffer.
 	 @return True if this buffer has the same size as another and content is byte-to-byte equal, othervice false.
 	 */
-	REBOOL isEqualToBuffer(const REBuffer & anotherBuffer) const;
+	bool isEqualToBuffer(const REBuffer & anotherBuffer) const;
 
 
 	/**
@@ -77,7 +77,7 @@ public:
 	 @param isCopyPrevData Flag indicates copying previous data during resize.
 	 @return true if memory was resized to 'newSize', or false if new memory not created.
 	 */
-	REBOOL resize(const RESizeT newSize, REBOOL isCopyPrevData);
+	bool resize(const RESizeT newSize, bool isCopyPrevData);
 
 
 	/**
@@ -92,7 +92,7 @@ public:
 	 @param buffSize Target memory buffer size in bytes. This size will be copyed to destination(this).
 	 @return True if new buffer with size created and target memory was copyed.
 	 */
-	REBOOL set(const void * buff, const RESizeT buffSize);
+	bool set(const void * buff, const RESizeT buffSize);
 
 
 	/**
@@ -110,7 +110,7 @@ public:
 	 @param buffSize Target memory buffer size in bytes. This size will be appended to destination(this).
 	 @return True if new memory created, and appended, othervice false.
 	 */
-	REBOOL append(const void * buff, const RESizeT buffSize);
+	bool append(const void * buff, const RESizeT buffSize);
 
 
 	/**
@@ -119,7 +119,7 @@ public:
 	 @param anotherBuff Another buffer object to append.
 	 @return True if new memory created, and appended, othervice false.
 	 */
-	REBOOL append(const REBuffer & anotherBuff);
+	bool append(const REBuffer & anotherBuff);
 
 
 	/**

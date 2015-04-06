@@ -64,7 +64,7 @@ public:
 		return wideString ? wcslen(wideString) : 0;
 	}
 
-	static REBOOL isStringExists(const REPtr<REBuffer> & stringBuffer)
+	static bool isStringExists(const REPtr<REBuffer> & stringBuffer)
 	{
 		if (stringBuffer.isNotEmpty())
 		{
@@ -98,9 +98,9 @@ public:
 
 	static REPtr<REBuffer> getRemovedLastPathComponent(const REPtr<REBuffer> & utf8Buffer);
 
-	static REBOOL isBuffersEqual(const REPtr<REBuffer> & b1, const REPtr<REBuffer> & b2);
+	static bool isBuffersEqual(const REPtr<REBuffer> & b1, const REPtr<REBuffer> & b2);
 
-	static REBOOL readFirstNumber(const char * str, REInt64 * i64vOrNull, REFloat64 * f64vOrNull);
+	static bool readFirstNumber(const char * str, REInt64 * i64vOrNull, REFloat64 * f64vOrNull);
 };
 
 

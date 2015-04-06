@@ -70,7 +70,7 @@ public:
 	 @brief Check is string containes non ASCII symbols.
 	 @return True if containes, othervice false.
 	 */
-	REBOOL isContainsNonASCII() const;
+	bool isContainsNonASCII() const;
 
 
 	/**
@@ -78,7 +78,7 @@ public:
 	 @param utf8String The UTF8 string to search.
 	 @return True if containes, othervice false.
 	 */
-	REBOOL isContaines(const char * utf8String) const;
+	bool isContaines(const char * utf8String) const;
 
 
 	/**
@@ -87,7 +87,7 @@ public:
 	 @param wideString The wide string to search.
 	 @return True if containes, othervice false.
 	 */
-	REBOOL isContaines(const wchar_t * wideString) const;
+	bool isContaines(const wchar_t * wideString) const;
 
 
 	/**
@@ -95,7 +95,7 @@ public:
 	 @detailed Checked for +/- and dot.
 	 @return True if digit, othervice false.
 	 */
-	REBOOL isDigit() const;
+	bool isDigit() const;
 
 
 	/**
@@ -103,7 +103,7 @@ public:
 	 @param anotherString Wide string object.
 	 @return True is equal, othervice false.
 	 */
-	REBOOL isEqual(const REWideString & anotherString) const;
+	bool isEqual(const REWideString & anotherString) const;
 
 
 	/**
@@ -111,7 +111,7 @@ public:
 	 @param anotherString String object.
 	 @return True is equal, othervice false.
 	 */
-	REBOOL isEqual(const REString & anotherString) const;
+	bool isEqual(const REString & anotherString) const;
 
 
 	/**
@@ -119,7 +119,7 @@ public:
 	 @param anotherString String object.
 	 @return True is equal, othervice false.
 	 */
-	REBOOL isEqual(const REMutableString & anotherString) const;
+	bool isEqual(const REMutableString & anotherString) const;
 
 
 	/**
@@ -128,7 +128,7 @@ public:
 	 @param utf8StringLength Length of the UTF8 string, don't include NULL terminated char. This is not count of the UTF8 characters.
 	 @return True is equal, othervice false.
 	 */
-	REBOOL isEqual(const char * utf8String, const RESizeT utf8StringLength = RENotFound) const;
+	bool isEqual(const char * utf8String, const RESizeT utf8StringLength = RENotFound) const;
 
 
 	/**
@@ -137,7 +137,7 @@ public:
 	 @param wideStringLength Length of the wide string, don't include NULL terminated char.
 	 @return True is equal, othervice false.
 	 */
-	REBOOL isEqual(const wchar_t * wideString, const RESizeT wideStringLength = RENotFound) const;
+	bool isEqual(const wchar_t * wideString, const RESizeT wideStringLength = RENotFound) const;
 
 
 	/**
@@ -212,7 +212,7 @@ public:
 	 @param isOk Pointer to flag which indicates successfull conversion.
 	 @return Integer value or zero.
 	 */
-	REInt64 integerValue(REBOOL * isOk = NULL) const;
+	REInt64 integerValue(bool * isOk = NULL) const;
 
 
 	/**
@@ -220,7 +220,7 @@ public:
 	 @param isOk Pointer to flag which indicates successfull conversion.
 	 @return Float value or zero.
 	 */
-	REFloat64 floatValue(REBOOL * isOk = NULL) const;
+	REFloat64 floatValue(bool * isOk = NULL) const;
 
 
 	/**

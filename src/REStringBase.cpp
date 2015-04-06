@@ -38,12 +38,12 @@ RESizeT REStringBase::stringBufferSize() const
 	return b ? b->size() : 0;
 }
 
-REBOOL REStringBase::isEmpty() const
+bool REStringBase::isEmpty() const
 {
 	return ( !REStringUtilsPrivate::isStringExists(_p) );
 }
 
-REBOOL REStringBase::isNotEmpty() const
+bool REStringBase::isNotEmpty() const
 {
 	return REStringUtilsPrivate::isStringExists(_p);
 }

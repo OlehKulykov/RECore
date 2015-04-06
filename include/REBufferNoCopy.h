@@ -36,7 +36,7 @@ public:
 
 private:
 	REBufferNoCopy::FreeOriginalBuff _freeOriginalBuff;
-	REBOOL _isNeedToFreeOriginalBuff;
+	bool _isNeedToFreeOriginalBuff;
 
 protected:
 	virtual void freeMemory(void * mem);

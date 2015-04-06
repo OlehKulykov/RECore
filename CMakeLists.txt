@@ -501,6 +501,7 @@ include_directories(${PROJECT_BINARY_DIR})
 
 set(RECORE_SOURCES	src/REBuffer.cpp
 		src/REBufferNoCopy.cpp
+		src/REFileManager.cpp
 		src/RELog.cpp
 		src/REMutableString.cpp
 		src/RERandomizer.cpp
@@ -522,6 +523,7 @@ set(RECORE_HEADERS include/IREFileReadable.h
 		include/REBufferNoCopy.h
 		include/REBufferReader.h
 		include/RECore.h
+		include/REFileManager.h
 		include/REList.h
 		include/RELog.h
 		include/REMap.h
