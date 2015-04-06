@@ -174,9 +174,9 @@ if(HAVE_SYS_STAT_H)
 	list(APPEND CMAKE_EXTRA_INCLUDE_FILES sys/stat.h)
 endif(HAVE_SYS_STAT_H)
 
-#	check_include_file("fcntl.h" HAVE_FCNTL_H)
+check_include_file("fcntl.h" HAVE_FCNTL_H)
 check_include_file("pthread.h" HAVE_PTHREAD_H)
-#	check_include_file("sys/resource.h" HAVE_SYS_RESOURCE_H)
+check_include_file("sys/resource.h" HAVE_SYS_RESOURCE_H)
 
 check_include_file("direct.h" HAVE_DIRECT_H)
 if(HAVE_DIRECT_H)
@@ -210,7 +210,12 @@ endif(HAVE_UNISTD_H)
 
 check_include_file("dispatch/dispatch.h" HAVE_DISPATCH_DISPATCH_H)
 
+# BOOST headers
+check_include_file("boost/filesystem.hpp" HAVE_BOOST_FILESYSTEM_HPP)
+
+
 message(CMAKE_EXTRA_INCLUDE_FILES ": " ${CMAKE_EXTRA_INCLUDE_FILES})
+
 
 # To check the size of a primitive type:
 check_type_size("void*" SIZEOF_VOIDP_T)
@@ -484,6 +489,7 @@ check_function_exists(dispatch_get_global_queue HAVE_FUNCTION_DISPATCH_GET_GLOBA
 check_function_exists(dispatch_after HAVE_FUNCTION_DISPATCH_AFTER)
 endif(HAVE_DISPATCH_DISPATCH_H)
 
+
 set(__RECORE_HAVE_CONFIG__ 1)
 
 
@@ -501,9 +507,11 @@ include_directories(${PROJECT_BINARY_DIR})
 
 set(RECORE_SOURCES	src/REBuffer.cpp
 		src/REBufferNoCopy.cpp
+		src/REDate.cpp
 		src/REFileManager.cpp
 		src/RELog.cpp
 		src/REMutableString.cpp
+		src/REMutex.cpp
 		src/RERandomizer.cpp
 		src/REStaticString.cpp
 		src/REString.cpp
@@ -523,11 +531,13 @@ set(RECORE_HEADERS include/IREFileReadable.h
 		include/REBufferNoCopy.h
 		include/REBufferReader.h
 		include/RECore.h
+		include/REDate.h
 		include/REFileManager.h
 		include/REList.h
 		include/RELog.h
 		include/REMap.h
 		include/REMutableString.h
+		include/REMutex.h
 		include/REPtr.h
 		include/RERandomizer.h
 		include/REStaticString.h
@@ -547,6 +557,10 @@ add_library(RECore_static STATIC ${RECORE_SOURCES} ${RECORE_HEADERS})
 
 add_library(RECore SHARED ${RECORE_SOURCES} ${RECORE_HEADERS})
 
+
+if(HAVE_BOOST_FILESYSTEM_HPP)
+	target_link_libraries(RECore boost_filesystem-mt)
+endif(HAVE_BOOST_FILESYSTEM_HPP)
 
 
 if(HAVE_PTHREAD_H)

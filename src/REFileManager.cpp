@@ -22,9 +22,15 @@
 
 
 #include "../include/REFileManager.h"
+#include "../include/REWideString.h"
+
 
 #if defined(HAVE_RECORE_CONFIG_H)
 #include "recore_config.h"
+#endif
+
+#if defined(HAVE_BOOST_FILESYSTEM_HPP)
+#include <boost/filesystem.hpp>
 #endif
 
 #if defined(HAVE_SYS_STAT_H)
@@ -59,14 +65,102 @@
 #include <direct.h>
 #endif
 
+bool REFileManager::moveFile(const wchar_t * sourceFilePath, const wchar_t * destinationFilePath)
+{
+	//TODO: .....
+	return false;
+}
+
+bool REFileManager::moveFile(const char * sourceFilePath, const char * destinationFilePath)
+{
+	if (sourceFilePath && destinationFilePath)
+	{
+		const int r = rename(sourceFilePath, destinationFilePath);
+		return (r == 0);
+	}
+	return false;
+}
+
+bool REFileManager::moveFile(const REString & sourceFilePath, const REString & destinationFilePath)
+{
+#if defined(__RE_OS_WINDOWS__)
+	if (sourceFilePath.isContainsNonASCII() || destinationFilePath.isContainsNonASCII())
+	{
+		REWideString s(sourceFilePath);
+		REWideString d(destinationFilePath);
+		return this->moveFile((const wchar_t *)s.wideChars(), (const wchar_t *)d.wideChars());
+	}
+#endif
+
+	return this->moveFile((const char *)sourceFilePath.UTF8String(), (const char *)destinationFilePath.UTF8String());
+}
 
 
 
 
+bool REFileManager::isExistsAtPath(const wchar_t & path, bool * isDirectory) const
+{
+	//TODO: .....
+	return false;
+}
+
+bool REFileManager::isExistsAtPath(const char * path, bool * isDirectory) const
+{
+	if (isDirectory) *isDirectory = false;
+	if (!path) return false;
+
+#if defined(HAVE_STRUCT__STAT)	&& defined(HAVE_FUNCTION__STAT)
+	struct _stat statbuf;
+	if (_stat(path, &statbuf) != 0) return false;
+#elif defined(HAVE_STRUCT_STAT) && defined(HAVE_FUNCTION_STAT)
+	struct stat statbuf;
+	if (stat(path, &statbuf) != 0) return false;
+#else
+#error "Unimplemented REFileManager::isFileExistsAtPath"
+#endif
+
+	if (isDirectory)
+	{
+		if ((statbuf.st_mode & S_IFMT) == S_IFDIR)
+		{
+			*isDirectory = true;
+		}
+	}
+
+	return true;
+}
+
+bool REFileManager::isExistsAtPath(const REString & path, bool * isDirectory) const
+{
+	if (isDirectory) *isDirectory = false;
+	if (path.isEmpty()) return false;
+
+#if defined(__RE_OS_WINDOWS__)
+	if (path.isContainsNonASCII())
+	{
+		REWideString p(path);
+		return this->isExistsAtPath(p.wideChars(), isDirectory);
+	}
+	else
+	{
+		return this->isExistsAtPath(path.UTF8String(), isDirectory);
+	}
+#else
+	return this->isExistsAtPath(path.UTF8String(), isDirectory);
+#endif
+
+}
 
 
+REFileManager::REFileManager()
+{
 
+}
 
+REFileManager::~REFileManager()
+{
+
+}
 
 
 
@@ -83,7 +177,7 @@
 
 bool REFileManager::isReadableFileAtPath(const char * path) const
 {
-	if (path) 
+	if (path)
 	{
 #if defined(HAVE_FUNCTION_ACCESS)
 		if (access(path, R_OK) == 0)
@@ -463,15 +557,7 @@ bool REFileManager::createDirectoryAtPath(const REString & path, bool isCreateIn
 #endif /* WIN */
 }
 
-REFileManager::REFileManager()
-{
-	
-}
 
-REFileManager::~REFileManager()
-{
-	
-}
 
 
 /*

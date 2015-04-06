@@ -21,35 +21,27 @@
  */
 
 
-#ifndef __REFILEMANAGER_H__
-#define __REFILEMANAGER_H__
+#ifndef __REMUTEX_H__
+#define __REMUTEX_H__
 
-#include "REString.h"
+#include "RECore.h"
 
-#include <wchar.h>
-
-/**
- @brief Class used for creating, checking files and directories
- */
-class __RE_PUBLIC_CLASS_API__ REFileManager
+class __RE_PUBLIC_CLASS_API__ REMutex
 {
-private:
-	bool moveFile(const wchar_t * sourceFilePath, const wchar_t * destinationFilePath);
-	bool isExistsAtPath(const wchar_t & path, bool * isDirectory) const;
+protected:
+	void * _m;
 
 public:
-	bool moveFile(const char * sourceFilePath, const char * destinationFilePath);
-	bool moveFile(const REString & sourceFilePath, const REString & destinationFilePath);
+	void lock();
 
+	void unlock();
 
-	bool isExistsAtPath(const char * path, bool * isDirectory) const;
-	bool isExistsAtPath(const REString & path, bool * isDirectory) const;
+	REMutex();
 
-	REFileManager();
-	
-
-	virtual ~REFileManager();
+	virtual ~REMutex();
 };
 
-#endif /* __REFILEMANAGER_H__ */
+
+#endif
+
 
