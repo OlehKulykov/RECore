@@ -24,6 +24,8 @@ include(CheckLibraryExists)
 
 include_directories(${PROJECT_BINARY_DIR})
 
+include_directories(${PROJECT_BINARY_DIR})
+
 link_directories(${PROJECT_BINARY_DIR})
 
 remove_definitions(-DCMAKE_BUILD)

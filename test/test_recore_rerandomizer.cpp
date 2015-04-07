@@ -36,7 +36,7 @@
 
 #define HAVE_ASSERT_H 1
 
-#include <RECore/RECore.h>
+#include "../include/RECore.h"
 
 
 #if defined(HAVE_RECORE_CONFIG_H)
@@ -48,8 +48,8 @@
 #undef CMAKE_BUILD
 #endif
 
-#include <RECore/RERandomizer.h>
-#include <RECore/RELog.h>
+#include "../include/RERandomizer.h"
+#include "../include/RELog.h"
 
 
 int testInt()
