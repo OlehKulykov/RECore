@@ -558,8 +558,6 @@ set(RECORE_HEADERS include/IREFileReadable.h
 
 add_definitions(-DHAVE_RECORE_CONFIG_H)
 
-add_library(RECore_static STATIC ${RECORE_SOURCES} ${RECORE_HEADERS})
-
 add_library(RECore SHARED ${RECORE_SOURCES} ${RECORE_HEADERS})
 
 
@@ -578,10 +576,7 @@ if(HAVE_COREFOUNDATION_FRAMEWORK)
 endif(HAVE_COREFOUNDATION_FRAMEWORK)
 
 
-
-install(TARGETS RECore_static
-		DESTINATION lib)
-		
+	
 install(TARGETS RECore
 		DESTINATION lib)
 
