@@ -27,14 +27,20 @@
 #include <time.h>
 #include <math.h>
 
+#if defined(HAVE_RECORE_CONFIG_H)
+#include "recore_config.h"
+#endif
+
 #ifndef ABS
 #define ABS(A) ((A)<0?(-(A)):(A))
 #endif
 
 class REDateInternal 
 {
-private: 
+private:
+#if defined(HAVE_STRUCT_TM_TM_ZONE)
 	void setTimeZone(const char * tz);
+#endif
 	
 public:
 	time_t rawtime;
@@ -45,6 +51,7 @@ public:
 	~REDateInternal();
 };
 
+#if defined(HAVE_STRUCT_TM_TM_ZONE)
 void REDateInternal::setTimeZone(const char * tz)
 {
 	if (timestruct.tm_zone) 
@@ -69,30 +76,37 @@ void REDateInternal::setTimeZone(const char * tz)
 		}
 	}
 }
+#endif
 
 REDateInternal::REDateInternal(const REDateInternal & di) :
 	rawtime(di.rawtime),
 	timestruct(di.timestruct)
 {
+#if defined(HAVE_STRUCT_TM_TM_ZONE)
 	timestruct.tm_zone = NULL;
 	this->setTimeZone(di.timestruct.tm_zone);
+#endif
 }
 
 REDateInternal::REDateInternal(const time_t rt, struct tm ts) : 
 	rawtime(rt),
 	timestruct(ts)
 {
+#if defined(HAVE_STRUCT_TM_TM_ZONE)
 	timestruct.tm_zone = NULL;
 	this->setTimeZone(ts.tm_zone);
+#endif
 }
 
 REDateInternal::~REDateInternal()
 {
+#if defined(HAVE_STRUCT_TM_TM_ZONE)
 	if (timestruct.tm_zone) 
 	{
 		char * prevTZ = const_cast<char *>(timestruct.tm_zone);
 		free(prevTZ);
 	}
+#endif
 }
 
 #define IS_LEAP_YEAR(y) ((((y % 4 == 0) && (y % 100 != 0)) || (y % 400 == 0)) ? 1 : 0)

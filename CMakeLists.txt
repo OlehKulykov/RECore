@@ -45,6 +45,7 @@ include(CheckIncludeFile)
 include(CheckIncludeFileCXX)
 
 include(CheckTypeSize)
+include(CheckStructHasMember)
 include(CheckSymbolExists)
 
 include(CheckCCompilerFlag)
@@ -421,6 +422,7 @@ if(SIZEOF_VOIDP_T EQUAL 8)
 	set(__RE_64BIT_PLATFORM__ 1)
 endif()
 
+
 check_type_size("struct stat" SIZEOF_STRUCT_STAT)
 if(SIZEOF_STRUCT_STAT)
 	set(HAVE_STRUCT_STAT 1)
@@ -430,6 +432,9 @@ check_type_size("struct _stat" SIZEOF_STRUCT__STAT)
 if(SIZEOF_STRUCT__STAT)
 	set(HAVE_STRUCT__STAT 1)
 endif()
+
+
+check_struct_has_member("struct tm" tm_zone time.h HAVE_STRUCT_TM_TM_ZONE)
 
 
 # functions
