@@ -27,6 +27,9 @@
 #include "recore_config.h"
 #endif
 
+#if defined(HAVE_ASSERT_H)
+#include <assert.h>
+#endif
 
 #if !defined(__RE_HAVE_THREADS__) && defined(__RE_OS_WINDOWS__)
 #include <Windows.h>
