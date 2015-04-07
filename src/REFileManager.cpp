@@ -23,6 +23,7 @@
 
 #include "../include/REFileManager.h"
 #include "../include/REWideString.h"
+#include "../include/RERandomizer.h"
 
 
 #if defined(HAVE_RECORE_CONFIG_H)
@@ -64,6 +65,8 @@
 #if defined(HAVE_DIRECT_H) 
 #include <direct.h>
 #endif
+
+#include <ctype.h>
 
 bool REFileManager::moveFile(const wchar_t * sourceFilePath, const wchar_t * destinationFilePath)
 {
@@ -151,6 +154,19 @@ bool REFileManager::isExistsAtPath(const REString & path, bool * isDirectory) co
 
 }
 
+REString REFileManager::randomName(const RESizeT nameLength)
+{
+	REPtr<REBuffer> buff = REPtr<REBuffer>(new REBuffer(nameLength + 1));
+	if (buff.isNotEmpty())
+	{
+		char * b = (char *)buff->buffer();
+		RERandomizer r;
+		RESizeT index = 0;
+		while (index++ <= nameLength) *b++ = (char)r.intValueInRange('a', 'z');
+		*b = (char)0;
+	}
+	return REString(buff);
+}
 
 REFileManager::REFileManager()
 {

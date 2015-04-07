@@ -41,12 +41,12 @@ public:
 	bool moveFile(const char * sourceFilePath, const char * destinationFilePath);
 	bool moveFile(const REString & sourceFilePath, const REString & destinationFilePath);
 
-
 	bool isExistsAtPath(const char * path, bool * isDirectory) const;
 	bool isExistsAtPath(const REString & path, bool * isDirectory) const;
 
+	REString randomName(const RESizeT nameLength = 8);
+
 	REFileManager();
-	
 
 	virtual ~REFileManager();
 };

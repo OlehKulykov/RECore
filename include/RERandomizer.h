@@ -31,7 +31,7 @@
 class __RE_PUBLIC_CLASS_API__ RERandomizer
 {
 public:
-	/// Return random signed integer number in range [0, 32767]
+	/// Return random signed integer number in range [0, RAND_MAX]
 	REInt32 intValue() const;
 	
 	/// Return random signed integer number in range ['lowRange', 'upRange']

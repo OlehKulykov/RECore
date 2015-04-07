@@ -586,8 +586,8 @@ install(FILES ${RECORE_HEADERS}
 		DESTINATION include/RECore)
 
 
-#	enable_testing()
-#	add_subdirectory(test)
+enable_testing()
+add_subdirectory(test)
 
 # This must always be last!
-#	include(CPack)
+include(CPack)
