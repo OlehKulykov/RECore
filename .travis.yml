@@ -19,7 +19,7 @@ script:
   - printenv
   - cd build
   - make
-#  - make test
+  - make test
   - make install
 
 branches:
