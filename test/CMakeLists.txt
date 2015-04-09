@@ -35,5 +35,11 @@ target_link_libraries(test_recore_rerandomizer RECore)
 add_test(test_recore_rerandomizer test_recore_rerandomizer)
 
 
-install(TARGETS test_recore_rerandomizer DESTINATION bin)
+add_executable(test_recore_uuidv4 test_recore_uuidv4.cpp)
+target_link_libraries(test_recore_uuidv4 RECore)
+add_test(test_recore_uuidv4 test_recore_uuidv4)
+
+
+#install(TARGETS test_recore_rerandomizer DESTINATION bin)
+#install(TARGETS test_recore_uuidv4 DESTINATION bin)
 
