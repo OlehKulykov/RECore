@@ -29,6 +29,10 @@
 
 #include <string.h>
 
+#if defined(HAVE_ASSERT_H)
+#include <assert.h>
+#endif
+
 /**
  @brief Map class template.
  */
@@ -138,6 +142,9 @@ public:
 	static NodePtr allocateNode(const TK & newKey, const TV & newValue)
 	{
 		NodePtr node = (NodePtr)malloc(sizeof(Node));
+#if defined(HAVE_ASSERT_H)
+		assert(node);
+#endif
 		if (node)
 		{
 			node->key = newKey;
@@ -360,6 +367,9 @@ public:
 	_head(NULL)
 	{
 		NodeBase * newHead = (NodeBase *)malloc(sizeof(NodeBase));
+#if defined(HAVE_ASSERT_H)
+		assert(newHead);
+#endif
 		if (newHead)
 		{
 			this->_head = newHead;

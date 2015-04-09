@@ -28,6 +28,10 @@
 
 #include <string.h>
 
+#if defined(HAVE_ASSERT_H)
+#include <assert.h>
+#endif
+
 /**
  @brief Class template for list.
  */
@@ -166,6 +170,9 @@ public:
 	static NodePtr allocateNode(const T & newValue)
 	{
 		NodePtr node = (NodePtr)malloc(sizeof(Node));
+#if defined(HAVE_ASSERT_H)
+		assert(node);
+#endif
 		if (node)
 		{
 			node->value = newValue;
@@ -407,6 +414,9 @@ public:
 	_head(NULL)
 	{
 		NodeBase * newHead = (NodeBase *)malloc(sizeof(NodeBase));
+#if defined(HAVE_ASSERT_H)
+		assert(newHead);
+#endif
 		if (newHead)
 		{
 			this->_head = newHead;
