@@ -21,44 +21,75 @@
  */
 
 
-#ifndef __REUUIDV4_H__
-#define __REUUIDV4_H__
+#include <stdlib.h>
+#include <stdio.h>
 
-#include "RECore.h"
+#include <assert.h>
 
-/**
- @brief UUID generator.
- @detailed Version 4 UUIDs use a scheme relying only on random numbers
- */
-class __RE_PUBLIC_CLASS_API__ REUUIDv4
-{
-protected:
-	char _u[38];
-
-public:
-	/**
-	 @brief Get C string pointer to generated UUID.
-	 */
-	const char * uuid() const;
-
-
-	/**
-	 @brief Default const char * C strng operator
-	 @code
-	 std::cout << REUUIDv4() << std::endl;
-	 @endcode
-	 */
-	operator const char* () const { return this->uuid(); }
-
-
-	/**
-	 @brief Constucts UUID object and generates UUID string.
-	 @param isLowercase The flag for selecting lowercase or uppercase generated string. Default is lowercase.
-	 */
-	REUUIDv4(bool isLowercase = true);
-};
-
-
+#if defined(CMAKE_BUILD)
+#undef CMAKE_BUILD
 #endif
 
+#if defined(__BUILDING_RECORE_DYNAMIC_LIBRARY__)
+#undef __BUILDING_RECORE_DYNAMIC_LIBRARY__
+#endif
+
+#define HAVE_ASSERT_H 1
+
+#include "../include/RECore.h"
+
+
+#if defined(HAVE_RECORE_CONFIG_H)
+#include "recore_config.h"
+#endif
+
+
+#if defined(CMAKE_BUILD)
+#undef CMAKE_BUILD
+#endif
+
+#include "../include/REUUIDv4.h"
+#include "../include/RELog.h"
+#include "../include/REList.h"
+#include "../include/REString.h"
+
+
+int test1UUIDv4()
+{
+	REList<REString> _uuids;
+
+	for (int i = 0; i < 10000; i++)
+	{
+		REString u = REUUIDv4().uuid();
+
+		if (u.length() != 36)
+		{
+			return EXIT_FAILURE;
+		}
+
+//		std::cout << u << std::endl;
+
+		if (_uuids.isContaines(u))
+		{
+			return EXIT_FAILURE;
+		}
+
+		_uuids.add(u);
+	}
+
+	return EXIT_SUCCESS;
+}
+
+int main(int argc, char* argv[])
+{
+	RELog::log("Test test1UUIDv4 ...");
+	int test = test1UUIDv4();
+	assert(test == EXIT_SUCCESS);
+	if (test != EXIT_SUCCESS) return EXIT_FAILURE;
+	RELog::log("Test test1UUIDv4 OK");
+
+	RELog::log("All tests OK");
+
+	return EXIT_SUCCESS;
+}
 

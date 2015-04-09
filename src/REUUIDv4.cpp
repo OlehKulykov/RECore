@@ -29,9 +29,11 @@ const char * REUUIDv4::uuid() const
 	return (char *)&_u[0];
 }
 
-REUUIDv4::REUUIDv4()
+REUUIDv4::REUUIDv4(bool isLowercase)
 {
 	RERandomizer r;
+
+	const char * format = isLowercase ? "%x" : "%X";
 
 	char * s = (char *)&_u[0];
 	for (int i = 0; i < 36; i++)
@@ -50,11 +52,11 @@ REUUIDv4::REUUIDv4()
 				break;
 
 			case 19:
-				sprintf(s++, "%x", r.intValueInRange(8, 11));
+				sprintf(s++, format, r.intValueInRange(8, 11));
 				break;
 
 			default:
-				sprintf(s++, "%x", r.intValueInRange(0, 16));
+				sprintf(s++, format, r.intValueInRange(0, 16));
 				break;
 		}
 

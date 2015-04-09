@@ -524,6 +524,7 @@ set(RECORE_SOURCES	src/REBuffer.cpp
 		src/REStringList.cpp
 		src/REStringUtilsPrivate.cpp
 		src/RETime.cpp
+		src/REUUIDv4.cpp
 		src/REVariant.cpp
 		src/REVariantList.cpp
 		src/REVariantMap.cpp
@@ -550,6 +551,7 @@ set(RECORE_HEADERS include/IREFileReadable.h
 		include/REStringBase.h
 		include/REStringList.h
 		include/RETime.h
+		include/REUUIDv4.h
 		include/REVariant.h
 		include/REVariantList.h
 		include/REVariantMap.h
