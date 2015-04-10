@@ -96,6 +96,8 @@ public:
 
 	static REPtr<REBuffer> getPathExtension(const REPtr<REBuffer> & utf8Buffer);
 
+	static REPtr<REBuffer> getLastPathComponent(const REPtr<REBuffer> & utf8Buffer);
+
 	static REPtr<REBuffer> getRemovedLastPathComponent(const REPtr<REBuffer> & utf8Buffer);
 
 	static bool isBuffersEqual(const REPtr<REBuffer> & b1, const REPtr<REBuffer> & b2);

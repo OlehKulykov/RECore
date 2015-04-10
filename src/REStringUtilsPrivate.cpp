@@ -515,6 +515,38 @@ REPtr<REBuffer> REStringUtilsPrivate::getRemovedPathExtension(const REPtr<REBuff
 	return REPtr<REBuffer>();
 }
 
+REPtr<REBuffer> REStringUtilsPrivate::getLastPathComponent(const REPtr<REBuffer> & utf8Buffer)
+{
+	RESizeT l = REStringUtilsPrivate::stringLengthFromUTF8Buffer(utf8Buffer);
+	if (l > 0)
+	{
+		const char * src = (const char *)utf8Buffer->buffer();
+		src += l;
+		RESizeT len = 0;
+		while (l > 0)
+		{
+			src--;
+			if ((*src == '/') || (*src == '\\')) { src++; break; }
+			l--; len++;
+		}
+		if (len)
+		{
+			REBuffer * newBuff = new REBuffer();
+			if (newBuff)
+			{
+				if (newBuff->resize(len + 1, false))
+				{
+					char * dst = (char *)newBuff->buffer();
+					memcpy(dst, src, len);
+					dst[len] = (char)0;
+					return REPtr<REBuffer>(newBuff);
+				}
+			}
+		}
+	}
+	return REPtr<REBuffer>();
+}
+
 REPtr<REBuffer> REStringUtilsPrivate::getRemovedLastPathComponent(const REPtr<REBuffer> & utf8Buffer)
 {
 	RESizeT l = REStringUtilsPrivate::stringLengthFromUTF8Buffer(utf8Buffer);

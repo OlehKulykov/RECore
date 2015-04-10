@@ -208,6 +208,13 @@ public:
 
 
 	/**
+	 @brief Last path component.
+	 @return Returns string with last path componect.
+	 */
+	REString lastPathComponent() const;
+
+
+	/**
 	 @brief Try find first integer value from the string.
 	 @param isOk Pointer to flag which indicates successfull conversion.
 	 @return Integer value or zero.

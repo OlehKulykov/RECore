@@ -213,6 +213,11 @@ REString REString::pathExtension() const
 	return REString( REStringUtilsPrivate::getPathExtension(_p) );
 }
 
+REString REString::lastPathComponent() const
+{
+	return REString( REStringUtilsPrivate::getLastPathComponent(_p) );
+}
+
 REInt64 REString::integerValue(bool * isOk) const
 {
 	REInt64 value = 0;

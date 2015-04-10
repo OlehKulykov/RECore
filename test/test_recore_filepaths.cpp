@@ -119,9 +119,69 @@ int testPathExtension()
 	return EXIT_SUCCESS;
 }
 
-int test1()
+int testGetLastPathComponent()
 {
 	REMutableString path;
+
+	path = "/dir/file";
+	if (!path.lastPathComponent().isEqual("file")) return EXIT_FAILURE;
+
+	path = "/dir/file.ext";
+	if (!path.lastPathComponent().isEqual("file.ext")) return EXIT_FAILURE;
+
+	path = "/dir/file.ext.txt";
+	if (!path.lastPathComponent().isEqual("file.ext.txt")) return EXIT_FAILURE;
+
+	path = "/dir/";
+	if (path.lastPathComponent().isNotEmpty()) return EXIT_FAILURE;
+
+
+
+
+	path = "/file";
+	if (!path.lastPathComponent().isEqual("file")) return EXIT_FAILURE;
+
+	path = "/file.ext";
+	if (!path.lastPathComponent().isEqual("file.ext")) return EXIT_FAILURE;
+
+	path = "/file.ext.txt";
+	if (!path.lastPathComponent().isEqual("file.ext.txt")) return EXIT_FAILURE;
+
+	path = "/";
+	if (path.lastPathComponent().isNotEmpty()) return EXIT_FAILURE;
+
+	path = "";
+	if (path.lastPathComponent().isNotEmpty()) return EXIT_FAILURE;
+
+	path = "file";
+	if (!path.lastPathComponent().isEqual("file")) return EXIT_FAILURE;
+
+	path = "file.ext";
+	if (!path.lastPathComponent().isEqual("file.ext")) return EXIT_FAILURE;
+
+	path = "file.ext.txt";
+	if (!path.lastPathComponent().isEqual("file.ext.txt")) return EXIT_FAILURE;
+
+	path = "f";
+	if (!path.lastPathComponent().isEqual("f")) return EXIT_FAILURE;
+
+	path = ".ext";
+	if (!path.lastPathComponent().isEqual(".ext")) return EXIT_FAILURE;
+
+	path = "/.ext";
+	if (!path.lastPathComponent().isEqual(".ext")) return EXIT_FAILURE;
+
+	path = "/dir/.ext";
+	if (!path.lastPathComponent().isEqual(".ext")) return EXIT_FAILURE;
+
+	path = ".";
+	if (!path.lastPathComponent().isEqual(".")) return EXIT_FAILURE;
+
+	path = "/.";
+	if (!path.lastPathComponent().isEqual(".")) return EXIT_FAILURE;
+
+	path = "/dir/.";
+	if (!path.lastPathComponent().isEqual(".")) return EXIT_FAILURE;
 
 	REString s;
 
@@ -130,11 +190,17 @@ int test1()
 
 int main(int argc, char* argv[])
 {
-	RELog::log("Test testPathExtension ...");
+	RELog::log("Test PathExtension ...");
 	int test = testPathExtension();
 	assert(test == EXIT_SUCCESS);
 	if (test != EXIT_SUCCESS) return EXIT_FAILURE;
-	RELog::log("Test testPathExtension OK");
+	RELog::log("Test PathExtension OK");
+
+	RELog::log("Test GetLastPathComponent ...");
+	test = testGetLastPathComponent();
+	assert(test == EXIT_SUCCESS);
+	if (test != EXIT_SUCCESS) return EXIT_FAILURE;
+	RELog::log("Test GetLastPathComponent OK");
 
 	RELog::log("All tests OK");
 
