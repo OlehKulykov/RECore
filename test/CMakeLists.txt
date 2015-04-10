@@ -40,6 +40,11 @@ target_link_libraries(test_recore_uuidv4 RECore)
 add_test(test_recore_uuidv4 test_recore_uuidv4)
 
 
+add_executable(test_recore_filepaths test_recore_filepaths.cpp)
+target_link_libraries(test_recore_filepaths RECore)
+add_test(test_recore_filepaths test_recore_filepaths)
+
+
 #install(TARGETS test_recore_rerandomizer DESTINATION bin)
 #install(TARGETS test_recore_uuidv4 DESTINATION bin)
 
