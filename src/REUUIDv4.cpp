@@ -26,7 +26,7 @@
 
 const char * REUUIDv4::uuid() const
 {
-	return (char *)&_u[0];
+	return (const char *)&_u[0];
 }
 
 REUUIDv4::REUUIDv4(bool isLowercase)

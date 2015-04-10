@@ -26,47 +26,82 @@
 
 #include "RECore.h"
 
-/// Class using for getting time.
-/// No matter how many instances of the class will still be used static methods.
+/**
+ @brief Class using for getting time.
+ @detailed No matter how many instances of the class will still be used static methods.
+ */
 class __RE_PUBLIC_CLASS_API__ RETime
 {
 public:
-	/// Returns current time.
-	/// Result value will be same as RETime::time();
+	/**
+	 @brief Returns current time.
+	 @return Result value will be same as RETime::time();
+	 */
 	const RETimeInterval getTime() const;
-	
-	/// Pausing time functionality.
-	/// Returns true if paused otherwise returns false on error of if already paused.
-	/// Result value will be same as RETime::pause();
+
+
+	/**
+	 @brief Pausing time functionality.
+	 @detailed Result value will be same as RETime::pause();
+	 @return Returns true if paused otherwise returns false on error of if already paused.
+	 */
 	bool pauseTime();
-	
-	/// Resuming time functionality.
-	/// Returns true if resumed otherwise returns false on error of if already resumed or not paused.
-	/// Result value will be same as RETime::resume();
+
+
+	/**
+	 @brief Resuming time functionality.
+	 @detailed Result value will be same as RETime::resume();
+	 @return Returns true if resumed otherwise returns false on error of if already resumed or not paused.
+	 */
 	bool resumeTime();
-	
-	/// Checks is time functionality paused.
-	/// Result value will be same as RETime::isPaused();
+
+
+	/**
+	 @brief Checks is time functionality paused.
+	 @return Result value will be same as RETime::isPaused();
+	 */
 	bool isTimePaused() const;
-	
-	/// Returns current time.
+
+
+	/**
+	 @return Returns current time in seconds.
+	 */
 	static const RETimeInterval time();
-	
-	/// Pausing time functionality.
-	/// Returns true if paused otherwise returns false on error of if already paused.
+
+
+	/**
+	 @brief Pausing time functionality.
+	 @return Returns true if paused otherwise returns false on error of if already paused.
+	 */
 	static bool pause();
-	
-	/// Resuming time functionality.
-	/// Returns true if resumed otherwise returns false on error of if already resumed or not paused.
+
+
+	/**
+	 @brief Resuming time functionality.
+	 @return Returns true if resumed otherwise returns false on error of if already resumed or not paused.
+	 */
 	static bool resume();
-	
-	/// Checks is time functionality paused.
+
+
+	/**
+	 @brief Checks is time functionality paused.
+	 */
 	static bool isPaused();
-	
-	/// Converts seconds to milliseconds.
+
+
+	/**
+	 @brief Converts seconds to milliseconds.
+	 @param seconds Time in seconds.
+	 @return Time in milliseconds.
+	 */
 	static const REUInt64 convertSecondsToMilliseconds(const RETimeInterval seconds);
-	
-	/// Converts seconds to microseconds.
+
+
+	/**
+	 @brief Converts seconds to microseconds.
+	 @param seconds Time in seconds.
+	 @return Time in microseconds.
+	 */
 	static const REUInt64 convertSecondsToMicroseconds(const RETimeInterval seconds);
 };
 

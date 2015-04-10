@@ -38,12 +38,14 @@ protected:
 public:
 	/**
 	 @brief Get C string pointer to generated UUID.
+	 @return Generated UUID const C string.
 	 */
 	const char * uuid() const;
 
 
 	/**
 	 @brief Default const char * C strng operator
+	 @return Generated UUID const C string.
 	 @code
 	 std::cout << REUUIDv4() << std::endl;
 	 @endcode

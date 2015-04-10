@@ -58,10 +58,6 @@
 #include <io.h>
 #endif
 
-#if defined(HAVE_WCHAR_H)
-#include <wchar.h>
-#endif
-
 #if defined(HAVE_DIRECT_H) 
 #include <direct.h>
 #endif
