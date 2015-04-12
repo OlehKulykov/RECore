@@ -52,11 +52,11 @@
 #include "../include/RELog.h"
 #include "../include/REList.h"
 #include "../include/REString.h"
-
+#include "../include/REStringList.h"
 
 int test1UUIDv4()
 {
-	REList<REString> _uuids;
+	REStringList _uuids;
 
 	for (int i = 0; i < 10000; i++)
 	{
