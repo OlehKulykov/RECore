@@ -36,7 +36,7 @@
  @brief Class template for list.
  */
 template <typename T>
-class __RE_PUBLIC_CLASS_API__ REList
+class /* __RE_PUBLIC_CLASS_API__ */ REList
 {
 public:
 	/**

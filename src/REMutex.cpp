@@ -44,19 +44,41 @@
 #endif
 
 
-void REMutex::lock()
+void REMutex::lock() const
 {
 #if defined(__RE_THREADING_PTHREAD__)
-	if (_m) pthread_mutex_lock((pthread_mutex_t *)_m);
+	if (_m)
+	{
+		pthread_mutex_t * m = const_cast<pthread_mutex_t *>(static_cast<const pthread_mutex_t *>(_m));
+#if defined(HAVE_ASSERT_H)
+		assert(m);
+#endif
+		int r = 0;
+		r = pthread_mutex_lock(m);
+#if defined(HAVE_ASSERT_H)
+		assert(r == 0);
+#endif
+	}
 #elif defined(__RE_THREADING_WINDOWS__)
 	if (_m) TryEnterCriticalSection((LPCRITICAL_SECTION)_m);
 #endif
 }
 
-void REMutex::unlock()
+void REMutex::unlock() const
 {
 #if defined(__RE_THREADING_PTHREAD__)
-	if (_m) pthread_mutex_unlock((pthread_mutex_t *)_m);
+	if (_m)
+	{
+		pthread_mutex_t * m = const_cast<pthread_mutex_t *>(static_cast<const pthread_mutex_t *>(_m));
+#if defined(HAVE_ASSERT_H)
+		assert(m);
+#endif
+		int r = 0;
+		r = pthread_mutex_unlock(m);
+#if defined(HAVE_ASSERT_H)
+		assert(r == 0);
+#endif
+	}
 #elif defined(__RE_THREADING_WINDOWS__)
 	if (_m) LeaveCriticalSection((LPCRITICAL_SECTION)_m);
 #endif
@@ -84,12 +106,18 @@ REMutex::REMutex() : _m(NULL)
 {
 #if defined(__RE_THREADING_PTHREAD__)
 	void * m = malloc(sizeof(pthread_mutex_t));
+#if defined(HAVE_ASSERT_H)
+	assert(m);
+#endif
 	if (m)
 	{
 		if (remutex_init_recursive_private((pthread_mutex_t *)m)) _m = m;
 		else free(m);
 	}
 #elif defined(__RE_THREADING_WINDOWS__)
+#if defined(HAVE_ASSERT_H)
+	assert(m);
+#endif
 	_m = malloc(sizeof(CRITICAL_SECTION));
 	if (_m) InitializeCriticalSection((LPCRITICAL_SECTION)_m);
 #endif

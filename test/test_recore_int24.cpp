@@ -21,27 +21,62 @@
  */
 
 
-#ifndef __REMUTEX_H__
-#define __REMUTEX_H__
+#include <stdlib.h>
+#include <stdio.h>
 
-#include "RECore.h"
+#include <assert.h>
 
-class __RE_PUBLIC_CLASS_API__ REMutex
-{
-protected:
-	void * _m;
-
-public:
-	void lock() const;
-
-	void unlock() const;
-
-	REMutex();
-
-	virtual ~REMutex();
-};
-
-
+#if defined(CMAKE_BUILD)
+#undef CMAKE_BUILD
 #endif
 
+#if defined(__BUILDING_RECORE_DYNAMIC_LIBRARY__)
+#undef __BUILDING_RECORE_DYNAMIC_LIBRARY__
+#endif
+
+#define HAVE_ASSERT_H 1
+
+#include "../include/RECore.h"
+
+
+#if defined(HAVE_RECORE_CONFIG_H)
+#include "recore_config.h"
+#endif
+
+
+#if defined(CMAKE_BUILD)
+#undef CMAKE_BUILD
+#endif
+
+#include "../include/REUUIDv4.h"
+#include "../include/RELog.h"
+#include "../include/REInt24.h"
+
+int testInt24()
+{
+	for (int number = INT24_MIN; number <= INT24_MAX; number++)
+	{
+		REInt24 i = number;
+		const int ret = i;
+		if (ret != number)
+		{
+			return EXIT_FAILURE;
+		}
+	}
+
+	return EXIT_SUCCESS;
+}
+
+int main(int argc, char* argv[])
+{
+	RELog::log("Test Int24 ...");
+	int test = testInt24();
+	assert(test == EXIT_SUCCESS);
+	if (test != EXIT_SUCCESS) return EXIT_FAILURE;
+	RELog::log("Test Int24 OK");
+
+	RELog::log("All tests OK");
+
+	return EXIT_SUCCESS;
+}
 
