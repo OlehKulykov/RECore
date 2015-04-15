@@ -23,6 +23,30 @@
 
 #include "../include/REVariantList.h"
 
+#include "REJsonUtilsPrivate.h"
+
+#if defined(HAVE_RECORE_CONFIG_H)
+#include "recore_config.h"
+#endif
+
+#if defined(HAVE_ASSERT_H)
+#include <assert.h>
+#endif
+
+REString REVariantList::jsonString() const
+{
+#if defined(HAVE_JANSSON_H) 
+	REJanssonGenerator generator(*this);
+	return REString(generator.string());
+#else
+	return REString("[]");
+#endif
+}
+
+void REVariantList::fromJSONString(const REString & jsonString)
+{
+
+}
 
 REVariantList & REVariantList::operator+=(int v)
 {

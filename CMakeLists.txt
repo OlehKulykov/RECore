@@ -93,6 +93,25 @@ add_definitions(-DCMAKE_BUILD)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
 
+message("Looking for jansson...")
+find_package(JANSSON QUIET)
+if(NOT JANSSON_FOUND)
+	message("jansson not found, using bundled copy.")
+	add_subdirectory(jansson)
+	list(APPEND JANSSON_INCLUDE_DIRS
+				${CMAKE_CURRENT_SOURCE_DIR}/jansson/src
+				${CMAKE_BINARY_DIR}/jansson/include)
+	set(JANSSON_FOUND 1)
+endif()
+
+if(JANSSON_FOUND)
+	message("jansson include dirs: ${JANSSON_INCLUDE_DIRS}")
+	message("jansson libraries: ${JANSSON_LIBRARIES}")
+	include_directories(${JANSSON_INCLUDE_DIRS})
+	set(HAVE_JANSSON_H 1)
+endif(JANSSON_FOUND)
+
+
 check_include_file("stdlib.h" HAVE_STDLIB_H)
 if(HAVE_STDLIB_H)
 	list(APPEND CMAKE_EXTRA_INCLUDE_FILES stdlib.h)
@@ -514,6 +533,7 @@ set(RECORE_SOURCES	src/REBuffer.cpp
 		src/REBufferNoCopy.cpp
 		src/REDate.cpp
 		src/REFileManager.cpp
+		src/REJsonUtilsPrivate.cpp
 		src/RELog.cpp
 		src/REMutableString.cpp
 		src/REMutex.cpp
@@ -562,6 +582,10 @@ set(RECORE_HEADERS include/IREFileReadable.h
 add_definitions(-DHAVE_RECORE_CONFIG_H)
 
 add_library(RECore SHARED ${RECORE_SOURCES} ${RECORE_HEADERS})
+
+if(HAVE_JANSSON_H)
+	target_link_libraries(RECore jansson)
+endif(HAVE_JANSSON_H)
 
 
 if(HAVE_BOOST_FILESYSTEM_HPP)

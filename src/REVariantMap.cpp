@@ -24,6 +24,8 @@
 #include "../include/REVariantMap.h"
 #include "../include/REStaticString.h"
 
+#include "REJsonUtilsPrivate.h"
+
 #if defined(HAVE_RECORE_CONFIG_H)
 #include "recore_config.h"
 #endif
@@ -32,6 +34,22 @@
 #include <assert.h>
 #endif
 
+
+REString REVariantMap::jsonString() const
+{
+#if defined(HAVE_JANSSON_H)
+	REJanssonGenerator generator(*this);
+	return REString(generator.string());
+#else
+	return REString("{}");
+#endif
+}
+
+
+void REVariantMap::fromJSONString(const REString & jsonString)
+{
+	this->clear();
+}
 
 REVariant * REVariantMap::findTypedValue(const char * key, const REVariant::VariantType type) const
 {

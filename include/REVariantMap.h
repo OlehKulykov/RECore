@@ -114,6 +114,19 @@ public:
 
 
 	/**
+	 @brief Generate JSON string.
+	 @return JSON string or empty if not implemented.
+	 */
+	REString jsonString() const;
+
+
+	/**
+	 @brief Clear map and parse json string
+	 */
+	void fromJSONString(const REString & jsonString);
+
+
+	/**
 	 @brief Contructs map with keys/values from another map.
 	 */
 	REVariantMap(const REVariantMap & map);

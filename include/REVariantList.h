@@ -139,6 +139,19 @@ public:
 
 
 	/**
+	 @brief Generate JSON string.
+	 @return JSON string or empty if not implemented.
+	 */
+	REString jsonString() const;
+
+
+	/**
+	 @brief Clear list and parse json string
+	 */
+	void fromJSONString(const REString & jsonString);
+
+
+	/**
 	 @brief Constructs list with objects from another list.
 	 */
 	REVariantList(const REVariantList & list);
