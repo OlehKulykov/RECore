@@ -40,6 +40,11 @@ target_link_libraries(test_recore_int24 RECore)
 add_test(test_recore_int24 test_recore_int24)
 
 
+add_executable(test_recore_json test_recore_json.cpp)
+target_link_libraries(test_recore_json RECore)
+add_test(test_recore_json test_recore_json)
+
+
 add_executable(test_recore_uuidv4 test_recore_uuidv4.cpp)
 target_link_libraries(test_recore_uuidv4 RECore)
 add_test(test_recore_uuidv4 test_recore_uuidv4)

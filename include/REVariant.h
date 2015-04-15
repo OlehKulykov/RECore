@@ -125,8 +125,8 @@ protected:
 
 public:
 	/**
-	 @brief Checks union pointer for NULL, used for detecting strings, lists and maps.
-	 @return True if NULL, othervice false.
+	 @brief Checks union type TypeNone and pointer for NULL, used for detecting strings, lists and maps.
+	 @return True if type is TypeNone and pointer is NULL, othervice false.
 	 */
 	bool isNULL() const;
 
@@ -374,6 +374,24 @@ public:
 	 @return Address of the list, or undefined address if not list.
 	 */
 	REVariantList & toList();
+
+
+	/**
+	 @brief Checks is variants are equal.
+	 */
+	bool isEqualToVariant(const REVariant & v) const;
+
+
+	/**
+	 @brief Checks is variants are equal.
+	 */
+	bool operator==(const REVariant & v) const;
+
+
+	/**
+	 @brief Checks is variants not equal.
+	 */
+	bool operator!=(const REVariant & v) const;
 
 
 	/**

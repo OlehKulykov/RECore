@@ -114,6 +114,24 @@ public:
 
 
 	/**
+	 @brief Checks is maps are equal.
+	 */
+	bool isEqualToMap(const REVariantMap & map) const;
+
+
+	/**
+	 @brief Checks is maps are equal.
+	 */
+	bool operator==(const REVariantMap & map) const;
+
+
+	/**
+	 @brief Checks is maps not equal.
+	 */
+	bool operator!=(const REVariantMap & map) const;
+
+
+	/**
 	 @brief Generate JSON string.
 	 @return JSON string or empty if not implemented.
 	 */

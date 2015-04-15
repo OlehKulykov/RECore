@@ -139,6 +139,24 @@ public:
 
 
 	/**
+	 @brief Checks is lists are equal.
+	 */
+	bool isEqualToList(const REVariantList & list) const;
+
+
+	/**
+	 @brief Checks is lists are equal.
+	 */
+	bool operator==(const REVariantList & list) const;
+
+
+	/**
+	 @brief Checks is lists not equal.
+	 */
+	bool operator!=(const REVariantList & list) const;
+
+
+	/**
 	 @brief Generate JSON string.
 	 @return JSON string or empty if not implemented.
 	 */

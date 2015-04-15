@@ -45,11 +45,50 @@ REString REVariantMap::jsonString() const
 #endif
 }
 
-
 void REVariantMap::fromJSONString(const REString & jsonString)
 {
 	this->clear();
+
+#if defined(HAVE_JANSSON_H)
+	REJanssonParser parser(jsonString.UTF8String());
+	if (parser.isMap())
+	{
+		parser.toMap(*this);
+	}
+#endif
 }
+
+bool REVariantMap::isEqualToMap(const REVariantMap & map) const
+{
+	REVariantMap::Iterator i = this->iterator();
+	while (i.next())
+	{
+		Node * node = map.findNode(i.key());
+		if (node)
+		{
+			if (!i.value().isEqualToVariant(node->value))
+			{
+				return false;
+			}
+		}
+		else
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
+bool REVariantMap::operator==(const REVariantMap & map) const
+{
+	return this->isEqualToMap(map);
+}
+
+bool REVariantMap::operator!=(const REVariantMap & map) const
+{
+	return !this->isEqualToMap(map);
+}
+
 
 REVariant * REVariantMap::findTypedValue(const char * key, const REVariant::VariantType type) const
 {

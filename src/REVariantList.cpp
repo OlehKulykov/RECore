@@ -45,7 +45,47 @@ REString REVariantList::jsonString() const
 
 void REVariantList::fromJSONString(const REString & jsonString)
 {
+	this->clear();
 
+#if defined(HAVE_JANSSON_H)
+	REJanssonParser parser(jsonString.UTF8String());
+	if (parser.isList())
+	{
+		parser.toList(*this);
+	}
+#endif
+}
+
+bool REVariantList::isEqualToList(const REVariantList & list) const
+{
+	RESizeT count1 = 0;
+	RESizeT count2 = 0;
+	REVariantList::Iterator i1 = this->iterator();
+	REVariantList::Iterator i2 = list.iterator();
+	bool next1 = i1.next();
+	bool next2 = i2.next();
+	while (next1 && next2)
+	{
+		count1++; count2++;
+		if (!i1.value().isEqualToVariant(i2.value())) return false;
+		next1 = i1.next();
+		next2 = i2.next();
+	}
+
+	if (next1) { count1++; while (i1.next()) count1++; }
+	if (next2) { count2++; while (i2.next()) count2++; }
+
+	return (count1 == count2);
+}
+
+bool REVariantList::operator==(const REVariantList & list) const
+{
+	return this->isEqualToList(list);
+}
+
+bool REVariantList::operator!=(const REVariantList & list) const
+{
+	return !this->isEqualToList(list);
 }
 
 REVariantList & REVariantList::operator+=(int v)
