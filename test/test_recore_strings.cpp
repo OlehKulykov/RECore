@@ -21,49 +21,67 @@
  */
 
 
-#ifndef __RERANDOMIZER_H__
-#define __RERANDOMIZER_H__
+#include <stdlib.h>
+#include <stdio.h>
 
+#include <assert.h>
 
-#include "RECore.h"
-
-/**
- @brief Class using for generating random numbers.
- */
-class __RE_PUBLIC_CLASS_API__ RERandomizer
-{
-public:
-	/**
-	 @brief Return random signed integer number in range [0, RAND_MAX]
-	 */
-	REInt32 intValue() const;
-
-
-	/**
-	 @brief Return random signed integer number in range ['lowRange', 'upRange']
-	 */
-	REInt32 intValueInRange(const REInt32 lowRange, const REInt32 upRange) const;
-
-
-	/**
-	 @brief Return random 32-bit float number in range [0.0f, 0.9(9)f]
-	 */
-	REFloat32 floatValue() const;
-
-
-	/**
-	 @brief  Return random 32-bit float number in range ['lowRange', 'upRange']
-	 */
-	REFloat32 floatValueInRange(const REFloat32 lowRange, const REFloat32 upRange) const;
-
-
-	/**
-	 @brief Creates and initialize static randomizer.
-	 */
-	RERandomizer();
-
-	~RERandomizer();
-};
-
+#if defined(CMAKE_BUILD)
+#undef CMAKE_BUILD
 #endif
+
+#if defined(__BUILDING_RECORE_DYNAMIC_LIBRARY__)
+#undef __BUILDING_RECORE_DYNAMIC_LIBRARY__
+#endif
+
+#define HAVE_ASSERT_H 1
+
+#include "../include/RECore.h"
+
+
+#if defined(HAVE_RECORE_CONFIG_H)
+#include "recore_config.h"
+#endif
+
+
+#if defined(CMAKE_BUILD)
+#undef CMAKE_BUILD
+#endif
+
+#include "../include/REUUIDv4.h"
+#include "../include/RELog.h"
+#include "../include/REString.h"
+#include "../include/REMutableString.h"
+
+int testString1()
+{
+	REMutableString ms;
+
+	const char * cstr = "Application/JSON";
+	ms = cstr;
+
+	if (ms.isContainsNonASCII()) return EXIT_FAILURE;
+
+	if (ms.length() != strlen(cstr)) return EXIT_FAILURE;
+	ms.toLower();
+	if (ms.length() != strlen(cstr)) return EXIT_FAILURE;
+	if (!ms.isEqual("application/json")) return EXIT_FAILURE;
+
+
+	ms.clear();
+	return EXIT_SUCCESS;
+}
+
+int main(int argc, char* argv[])
+{
+	RELog::log("Test testString1 ...");
+	int test = testString1();
+	assert(test == EXIT_SUCCESS);
+	if (test != EXIT_SUCCESS) return EXIT_FAILURE;
+	RELog::log("Test testString1 OK");
+
+	RELog::log("All tests OK");
+
+	return EXIT_SUCCESS;
+}
 
