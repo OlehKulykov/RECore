@@ -24,6 +24,7 @@ clone_folder: c:\dev\RECore
 install:
   - cd c:\dev\RECore
   - md RECore-install-dir
+  - git submodule update --init --recursive
   - cmd: echo PLATFORM=%PLATFORM%
   - cmd: echo APPVEYOR_REPO_BRANCH=%APPVEYOR_REPO_BRANCH%
   - cmd: echo APPVEYOR_BUILD_VERSION=%APPVEYOR_BUILD_VERSION%
