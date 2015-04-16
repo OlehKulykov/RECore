@@ -29,6 +29,7 @@
 
 class REMutableString;
 class REWideString;
+class REStringList;
 
 #include <wchar.h>
 
@@ -88,6 +89,14 @@ public:
 	 @return True if containes, othervice false.
 	 */
 	bool isContaines(const wchar_t * wideString) const;
+
+
+	/**
+	 @brief Splits string with string delimeter.
+	 @detailed If delimeter not found returns empty list.
+	 @return List with at least 2 strings if delimeter found, otherwice empty list.
+	 */
+	REStringList split(const char * delimeterString) const;
 
 
 	/**

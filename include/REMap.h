@@ -273,6 +273,23 @@ public:
 
 
 	/**
+	 @brief Calculates count of the list by iterating all elements.
+	 @return Count of the elements.
+	 */
+	RESizeT count() const
+	{
+		RESizeT c = 0;
+		Node * next = this->_head->next;
+		while (next != this->_head)
+		{
+			c++;
+			next = next->next;
+		}
+		return c;
+	}
+
+
+	/**
 	 @brief Find node by key object.
 	 @detailed Comparing key objects using "==" operator.
 	 @param key The key object.

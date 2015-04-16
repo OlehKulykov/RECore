@@ -30,6 +30,11 @@ link_directories(${PROJECT_BINARY_DIR})
 
 remove_definitions(-DCMAKE_BUILD)
 
+add_executable(test_recore_stringsplit test_recore_stringsplit.cpp)
+target_link_libraries(test_recore_stringsplit RECore)
+add_test(test_recore_stringsplit test_recore_stringsplit)
+
+
 add_executable(test_recore_rerandomizer test_recore_rerandomizer.cpp)
 target_link_libraries(test_recore_rerandomizer RECore)
 add_test(test_recore_rerandomizer test_recore_rerandomizer)

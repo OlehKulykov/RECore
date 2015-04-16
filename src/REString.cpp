@@ -24,6 +24,7 @@
 #include "../include/REString.h"
 #include "../include/REMutableString.h"
 #include "../include/REWideString.h"
+#include "../include/REStringList.h"
 
 #include "REStringUtilsPrivate.h"
 
@@ -125,6 +126,42 @@ bool REString::isContaines(const char * utf8String) const
 		}
 	}
 	return false;
+}
+
+REStringList REString::split(const char * delimeterString) const
+{
+	REStringList list;
+	if (delimeterString)
+	{
+		const char * src = this->UTF8String();
+		if (src)
+		{
+			const RESizeT delLen = strlen(delimeterString);
+			const char * sub = strstr(src, delimeterString);
+			RESizeT count = 0;
+			while (sub)
+			{
+				const RESizeT len = (RESizeT)((REUIdentifier)sub - (REUIdentifier)src);
+				REString part(src, len);
+				list.add(part);
+				count++;
+				src = sub;
+				src += delLen;
+				sub = strstr(src, delimeterString);
+			}
+			if (count > 0)
+			{
+				// add last if available
+				const RESizeT leftLen = (*src) ? strlen(src) : 0;
+				if (leftLen > 0)
+				{
+					REString part(src, leftLen);
+					list.add(part);
+				}
+			}
+		}
+	}
+	return list;
 }
 
 bool REString::isContaines(const wchar_t * wideString) const

@@ -29,6 +29,11 @@ const char * REUUIDv4::uuid() const
 	return (const char *)&_u[0];
 }
 
+unsigned int REUUIDv4::length()
+{
+	return 36;
+}
+
 REUUIDv4::REUUIDv4(bool isLowercase)
 {
 	RERandomizer r;
@@ -36,7 +41,8 @@ REUUIDv4::REUUIDv4(bool isLowercase)
 	const char * format = isLowercase ? "%x" : "%X";
 
 	char * s = (char *)&_u[0];
-	for (int i = 0; i < 36; i++)
+	const unsigned int len = REUUIDv4::length();
+	for (unsigned int i = 0; i < len; i++)
 	{
 		switch (i)
 		{

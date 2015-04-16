@@ -290,6 +290,23 @@ public:
 		}
 	}
 
+	
+	/**
+	 @brief Calculates count of the list by iterating all elements.
+	 @return Count of the elements.
+	 */
+	RESizeT count() const
+	{
+		RESizeT c = 0;
+		Node * next = this->_head->next;
+		while (next != this->_head)
+		{
+			c++;
+			next = next->next;
+		}
+		return c;
+	}
+
 
 	/**
 	 @brief Locate node with same value described as void pointer.

@@ -58,6 +58,12 @@ public:
 	 @param isLowercase The flag for selecting lowercase or uppercase generated string. Default is lowercase.
 	 */
 	REUUIDv4(bool isLowercase = true);
+
+
+	/**
+	 @brief Length of the UUID string without terminated NULL character.
+	 */
+	static unsigned int length();
 };
 
 
