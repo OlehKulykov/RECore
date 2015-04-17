@@ -44,7 +44,7 @@
 #endif
 
 
-void REMutex::lock() const
+bool REMutex::lock() const
 {
 #if defined(__RE_THREADING_PTHREAD__)
 	if (_m)
@@ -53,18 +53,21 @@ void REMutex::lock() const
 #if defined(HAVE_ASSERT_H)
 		assert(m);
 #endif
-		int r = 0;
-		r = pthread_mutex_lock(m);
+		const bool r = (pthread_mutex_lock(m) == 0);
 #if defined(HAVE_ASSERT_H)
-		assert(r == 0);
+		assert(r);
 #endif
+		return r;
 	}
+	return false;
 #elif defined(__RE_THREADING_WINDOWS__)
 	if (_m) TryEnterCriticalSection((LPCRITICAL_SECTION)_m);
+#else
+	return false;
 #endif
 }
 
-void REMutex::unlock() const
+bool REMutex::unlock() const
 {
 #if defined(__RE_THREADING_PTHREAD__)
 	if (_m)
@@ -73,14 +76,17 @@ void REMutex::unlock() const
 #if defined(HAVE_ASSERT_H)
 		assert(m);
 #endif
-		int r = 0;
-		r = pthread_mutex_unlock(m);
+		const bool r = (pthread_mutex_unlock(m) == 0);
 #if defined(HAVE_ASSERT_H)
-		assert(r == 0);
+		assert(r);
 #endif
+		return r;
 	}
+	return false;
 #elif defined(__RE_THREADING_WINDOWS__)
 	if (_m) LeaveCriticalSection((LPCRITICAL_SECTION)_m);
+#else
+	return false;
 #endif
 }
 

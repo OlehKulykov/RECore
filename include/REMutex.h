@@ -32,9 +32,9 @@ protected:
 	void * _m;
 
 public:
-	void lock() const;
+	bool lock() const;
 
-	void unlock() const;
+	bool unlock() const;
 
 	REMutex();
 
