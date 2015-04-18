@@ -585,6 +585,9 @@ add_library(RECore SHARED ${RECORE_SOURCES} ${RECORE_HEADERS})
 
 set_target_properties(RECore PROPERTIES VERSION ${CPACK_PACKAGE_VERSION} SOVERSION ${CPACK_PACKAGE_VERSION_MAJOR}) 
 
+add_dependencies(RECore jansson)
+
+
 if(HAVE_JANSSON_H)
 	target_link_libraries(RECore jansson)
 endif(HAVE_JANSSON_H)
