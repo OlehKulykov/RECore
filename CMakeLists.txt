@@ -559,11 +559,13 @@ set(RECORE_HEADERS include/IREFileReadable.h
 		include/RECore.h
 		include/REDate.h
 		include/REFileManager.h
+		include/REInt24.h
 		include/REList.h
 		include/RELog.h
 		include/REMap.h
 		include/REMutableString.h
 		include/REMutex.h
+		include/REPoint2.h
 		include/REPtr.h
 		include/RERandomizer.h
 		include/REStaticString.h
