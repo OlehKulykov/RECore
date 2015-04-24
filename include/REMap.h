@@ -273,7 +273,7 @@ public:
 
 
 	/**
-	 @brief Calculates count of the list by iterating all elements.
+	 @brief Calculates count of the map by iterating all elements.
 	 @return Count of the elements.
 	 */
 	RESizeT count() const

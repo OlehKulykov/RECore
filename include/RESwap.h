@@ -21,75 +21,29 @@
  */
 
 
-#ifndef __REBUFFERREADER_H__
-#define __REBUFFERREADER_H__
+#ifndef __RESWAP_H__
+#define __RESWAP_H__
 
 #include "RECore.h"
 
-#include <string.h>
-
-class __RE_PUBLIC_CLASS_API__ REBufferReader
+template<typename T> static T swap(const T v)
 {
-protected:
-	REUByte * _buff;
-	RESizeT _size;
+	T resValue = 0;
+	const RESizeT valueSize = sizeof(T);
 
-public:
-	REUByte * buffer() const { return _buff; }
+	const REUByte * from = (const REUByte *)&v;
+	from += valueSize;
 
-	RESizeT size() const { return _size; }
+	REUByte * to = (REUByte *)&resValue;
 
-	template<typename T> T read()
+	for (RESizeT i = 0; i < valueSize; i++)
 	{
-		T resValue;
-		const RESizeT valueSize = sizeof(T);
-
-		if (_size < valueSize)
-		{
-			memset(&resValue, 0, valueSize);
-			return resValue;
-		}
-
-		memcpy(&resValue, _buff, valueSize);
-
-		_buff += valueSize;
-		_size -= valueSize;
-
-		return resValue;
+		from--;
+		*to = *from;
+		to++;
 	}
 
-	template<typename T> T readSwaped()
-	{
-		T resValue;
-		const RESizeT valueSize = sizeof(T);
-
-		if (_size < valueSize)
-		{
-			memset(&resValue, 0, valueSize);
-			return resValue;
-		}
-
-		REUByte * from = _buff;
-		from += valueSize;
-
-		REUByte * to = (REUByte *)&resValue;
-
-		for (RESizeT i = 0; i < valueSize; i++)
-		{
-			from--;
-			*to = *from;
-			to++;
-		}
-
-		_buff += valueSize;
-		_size -= valueSize;
-
-		return resValue;
-	}
-
-	REBufferReader(REUByte * buffer, const RESizeT size) : _buff(buffer), _size(size) { }
-
-	virtual ~REBufferReader() { }
-};
+	return resValue;
+}
 
 #endif
