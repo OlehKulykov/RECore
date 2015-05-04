@@ -32,7 +32,7 @@ REBufferNoCopy::REBufferNoCopy(const char * string) : REBuffer()
 		_buff = static_cast<void *>(s);
 		if (_buff)
 		{
-			_size = (RESizeT)strlen(string);
+			_size = (RESizeT)(strlen(string) + 1);
 		}
 	}
 }
