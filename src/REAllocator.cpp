@@ -45,7 +45,25 @@ void REFreeNULL(void * m)
 
 }
 
-REAllocator allocatorMalloc = { &REMalloc, &REFree };
+REAllocator allocatorMalloc =
+{
+#if defined(__clang__)
+	.allocateMemory = &REMalloc,
+	.freeMemory = &REFree
+#else
+	&REMalloc,
+	&REFree
+#endif
+};
 
-REAllocator allocatorNULL = { &REMallocNULL, &REFreeNULL };
+REAllocator allocatorNULL =
+{
+#if defined(__clang__)
+	.allocateMemory = &REMallocNULL,
+	.freeMemory = &REFreeNULL
+#else
+	&REMallocNULL,
+	&REFreeNULL
+#endif
+};
 
