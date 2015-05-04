@@ -45,15 +45,7 @@ void REFreeNULL(void * m)
 
 }
 
-REAllocator allocatorMalloc =
-{
-	.allocateMemory = &REMalloc,
-	.freeMemory = &REFree
-};
+REAllocator allocatorMalloc = { &REMalloc, &REFree };
 
-REAllocator allocatorNULL =
-{
-	.allocateMemory = &REMallocNULL,
-	.freeMemory = &REFreeNULL
-};
+REAllocator allocatorNULL = { &REMallocNULL, &REFreeNULL };
 
