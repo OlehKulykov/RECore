@@ -529,12 +529,14 @@ configure_file("${PROJECT_SOURCE_DIR}/recore_config.h.in"
 include_directories(${PROJECT_BINARY_DIR})
 
 
-set(RECORE_SOURCES	src/REBuffer.cpp
+set(RECORE_SOURCES	src/REAllocator.cpp
+		src/REBuffer.cpp
 		src/REBufferNoCopy.cpp
 		src/REDate.cpp
 		src/REFileManager.cpp
 		src/REJsonUtilsPrivate.cpp
 		src/RELog.cpp
+		src/REMutableBuffer.cpp
 		src/REMutableString.cpp
 		src/REMutex.cpp
 		src/RERandomizer.cpp
@@ -553,6 +555,7 @@ set(RECORE_SOURCES	src/REBuffer.cpp
 
 
 set(RECORE_HEADERS include/IREFileReadable.h
+		include/REAllocator.h
 		include/REBuffer.h
 		include/REBufferNoCopy.h
 		include/REBufferReader.h
@@ -563,6 +566,7 @@ set(RECORE_HEADERS include/IREFileReadable.h
 		include/REList.h
 		include/RELog.h
 		include/REMap.h
+		include/REMutableBuffer.h
 		include/REMutableString.h
 		include/REMutex.h
 		include/REPoint2.h

@@ -22,30 +22,9 @@
 
 
 #include "../include/REBuffer.h"
-
-#include <math.h>
+#include "../include/REMutableBuffer.h"
 
 #include <string.h>
-
-void * REBuffer::defaultMalloc(const RESizeT size)
-{
-	return malloc((size_t)size);
-}
-
-void REBuffer::defaultFree(void * mem)
-{
-	free(mem);
-}
-
-void * REBuffer::mallocNewMemory(const RESizeT size)
-{
-	return REBuffer::defaultMalloc(size);
-}
-
-void REBuffer::freeMemory(void * mem)
-{
-	REBuffer::defaultFree(mem);
-}
 
 bool REBuffer::isEqualToBuffer(const REBuffer & anotherBuffer) const
 {
@@ -56,12 +35,7 @@ bool REBuffer::isEqualToBuffer(const REBuffer & anotherBuffer) const
 	return false;
 }
 
-void * REBuffer::buffer() const
-{
-	return _buff;
-}
-
-void * REBuffer::buffer()
+const void * REBuffer::buffer() const
 {
 	return _buff;
 }
@@ -71,136 +45,67 @@ RESizeT REBuffer::size() const
 	return _size;
 }
 
-bool REBuffer::resize(const RESizeT newSize, bool isCopyPrevData)
+REBuffer::REBuffer(const char * string) :
+	_allocator(allocatorMalloc),
+	_buff(NULL),
+	_size(0)
 {
-	if (_size == newSize)
+	const size_t len = string ? strlen(string) : 0;
+	if (len > 0)
 	{
-		return true;
-	}
-
-	void * newBuff = this->mallocNewMemory(newSize);
-	if (newBuff)
-	{
+		_buff = _allocator.allocateMemory(len + 1);
 		if (_buff)
 		{
-			if (isCopyPrevData)
-			{
-				const RESizeT copySize = MIN(newSize, _size);
-				if (copySize)
-				{
-					memcpy(newBuff, _buff, (size_t)copySize);
-				}
-			}
-
-			this->freeMemory(_buff);
+			_size = (len + 1);
 		}
-
-		_buff = newBuff;
-		_size = newSize;
-
-		return true;
 	}
-
-	return false;
 }
 
-void REBuffer::clear()
+REBuffer::REBuffer(const REBuffer & buffer) :
+	_allocator(allocatorMalloc),
+	_buff(NULL),
+	_size(0)
 {
+	if (buffer._buff && buffer._size)
+	{
+		_buff = _allocator.allocateMemory(buffer._size);
+		if (_buff)
+		{
+			memcpy(_buff, buffer._buff, (size_t)buffer._size);
+			_size = buffer._size;
+		}
+	}
+}
+
+REBuffer::REBuffer(const void * memory, const RESizeT size) :
+	_allocator(allocatorMalloc),
+	_buff(NULL),
+	_size(0)
+{
+	if (memory && size)
+	{
+		_buff = _allocator.allocateMemory(size);
+		if (_buff)
+		{
+			memcpy(_buff, memory, (size_t)size);
+		}
+	}
+}
+
+REBuffer::REBuffer(const RESizeT size) :
+	_allocator(allocatorMalloc),
+	_buff(NULL),
+	_size(0)
+{
+	_buff = _allocator.allocateMemory(size);
 	if (_buff)
 	{
-		this->freeMemory(_buff);
-		_buff = NULL;
-		_size = 0;
+		_size = size;
 	}
 }
 
-bool REBuffer::set(const void * buff, const RESizeT buffSize)
-{
-	this->clear();
-
-	if (buff && buffSize)
-	{
-		void * newBuff = this->mallocNewMemory(buffSize);
-		if (newBuff)
-		{
-			memcpy(newBuff, buff, (size_t)buffSize);
-			_buff = newBuff;
-			_size = buffSize;
-			return true;
-		}
-	}
-
-	return false;
-}
-
-bool REBuffer::append(const void * buff, const RESizeT buffSize)
-{
-	if (_size && _buff)
-	{
-		const RESizeT newSize = _size + buffSize;
-		char * newBuff = (char *)this->mallocNewMemory(newSize);
-		if (newBuff)
-		{
-			memcpy(newBuff, _buff, (size_t)_size);
-			memcpy(&newBuff[_size], buff, (size_t)buffSize);
-			this->freeMemory(_buff);
-			_buff = newBuff;
-			_size = newSize;
-			return true;
-		}
-		return false;
-	}
-
-	return this->set(buff, buffSize);
-}
-
-bool REBuffer::append(const REBuffer & anotherBuff)
-{
-	return this->append(anotherBuff.buffer(), anotherBuff.size());
-}
-
-REBuffer & REBuffer::operator+=(const REBuffer & anotherBuff)
-{
-	this->append(anotherBuff.buffer(), anotherBuff.size());
-	return (*this);
-}
-
-REBuffer & REBuffer::operator=(const REBuffer & anotherBuff)
-{
-	this->set(anotherBuff._buff, anotherBuff._size);
-	return (*this);
-}
-
-REBuffer::REBuffer(const REBuffer & anotherBuff) :
-	_buff(NULL),
-	_size(0)
-{
-	this->set(anotherBuff._buff, anotherBuff._size);
-}
-
-REBuffer::REBuffer(const void * buff, const RESizeT buffSize) :
-	_buff(NULL),
-	_size(0)
-{
-	this->set(buff, buffSize);
-}
-
-REBuffer::REBuffer(const RESizeT buffSize) :
-	_buff(NULL),
-	_size(0)
-{
-	if (buffSize)
-	{
-		void * newBuff = this->mallocNewMemory(buffSize);
-		if (newBuff)
-		{
-			_buff = newBuff;
-			_size = buffSize;
-		}
-	}
-}
-
-REBuffer::REBuffer():
+REBuffer::REBuffer() :
+	_allocator(allocatorMalloc),
 	_buff(NULL),
 	_size(0)
 {
@@ -209,12 +114,7 @@ REBuffer::REBuffer():
 
 REBuffer::~REBuffer()
 {
-	if (_buff)
-	{
-		REBuffer::defaultFree(_buff);
-		_buff = NULL;
-		_size = 0;
-	}
+	_allocator.freeMemory(_buff);
 }
 
 

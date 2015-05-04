@@ -23,56 +23,57 @@
 
 #include "../include/REBufferNoCopy.h"
 
-
-void REBufferNoCopy::freeMemory(void * mem)
+REBufferNoCopy::REBufferNoCopy(const char * string) : REBuffer()
 {
-	if (_isNeedToFreeOriginalBuff)
+	_allocator = allocatorNULL;
+	char * s = string ? const_cast<char *>(string) : NULL;
+	if (s)
 	{
-		_freeOriginalBuff(mem);
-		_isNeedToFreeOriginalBuff = false;
-	}
-	else
-	{
-		REBuffer::defaultFree(mem);
+		_buff = static_cast<void *>(s);
+		if (_buff)
+		{
+			_size = (RESizeT)strlen(string);
+		}
 	}
 }
 
-REBufferNoCopy::REBufferNoCopy(const void * originalBuff, const RESizeT buffSize, REBufferNoCopy::FreeOriginalBuff freeOriginalBuff) : REBuffer(),
-_freeOriginalBuff(freeOriginalBuff),
-_isNeedToFreeOriginalBuff(false)
+REBufferNoCopy::REBufferNoCopy(const REMutableBuffer & buffer) : REBuffer()
 {
-	if (_freeOriginalBuff)
+	_allocator = allocatorNULL;
+	_buff = buffer.buffer();
+	_size = buffer.size();
+}
+
+REBufferNoCopy::REBufferNoCopy(const REBuffer & buffer) : REBuffer()
+{
+	_allocator = allocatorNULL;
+
+	const void * b = buffer.buffer();
+	const RESizeT s = buffer.size();
+	if (b && s)
 	{
-		if (originalBuff && buffSize)
+		_buff = const_cast<void *>(b);
+		if (_buff)
 		{
-			void * ob = const_cast<void *>(originalBuff);
-			if (originalBuff == ob)
-			{
-				_buff = ob;
-				_size = buffSize;
-				_isNeedToFreeOriginalBuff = true;
-			}
+			_size = s;
 		}
 	}
-	else
-	{
-		this->set(originalBuff, buffSize);
-	}
+}
+
+REBufferNoCopy::REBufferNoCopy(void * memory, const RESizeT size) : REBuffer()
+{
+	_allocator = allocatorNULL;
+	_buff = memory;
+	_size = size;
+}
+
+REBufferNoCopy::REBufferNoCopy() : REBuffer()
+{
+	_allocator = allocatorNULL;
 }
 
 REBufferNoCopy::~REBufferNoCopy()
 {
-	if (_isNeedToFreeOriginalBuff)
-	{
-		_freeOriginalBuff(_buff);
-		_isNeedToFreeOriginalBuff = false;
-	}
-	else
-	{
-		REBuffer::defaultFree(_buff);
-	}
-	_buff = NULL;
-	_size = 0;
-}
 
+}
 

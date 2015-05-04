@@ -21,21 +21,20 @@
  */
 
 
-#ifndef __REBUFFERNOCOPY_H__
-#define __REBUFFERNOCOPY_H__
+#ifndef __REALLOCATOR_H__
+#define __REALLOCATOR_H__
 
-#include "REMutableBuffer.h"
+#include "RECore.h"
 
-class REBufferNoCopy : public REBuffer
+typedef struct _REAllocator
 {
-public:
-	REBufferNoCopy(const char * string);
-	REBufferNoCopy(const REMutableBuffer & buffer);
-	REBufferNoCopy(const REBuffer & buffer);
-	REBufferNoCopy(void * memory, const RESizeT size);
-	REBufferNoCopy();
-	virtual ~REBufferNoCopy();
-};
+	void * (*allocateMemory)(RESizeT);
+	void (*freeMemory)(void *);
+} REAllocator;
+
+__RE_EXTERN__ REAllocator allocatorMalloc;
+
+__RE_EXTERN__ REAllocator allocatorNULL;
 
 #endif 
 

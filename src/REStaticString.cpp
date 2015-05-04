@@ -36,7 +36,7 @@ REStaticString::REStaticString(const char * utf8String, const REUInt32 utf8Strin
 	const RESizeT len = REStringUtilsPrivate::actualUTF8StringLength(utf8String, utf8StringLength);
 	if (len)
 	{
-		REBufferNoCopy * newBuff = new REBufferNoCopy(const_cast<char *>(utf8String), len + 1, &REStaticString::freeNonCopyBuffMem);
+		REBufferNoCopy * newBuff = new REBufferNoCopy(utf8String);
 		if (newBuff)
 		{
 			_p = REPtr<REBuffer>(newBuff);
@@ -49,7 +49,7 @@ REStaticString::REStaticString(const wchar_t * wideString, const REUInt32 wideSt
 	const RESizeT len = REStringUtilsPrivate::actualWideStringLength(wideString, wideStringLength);
 	if (len)
 	{
-		REBufferNoCopy * newBuff = new REBufferNoCopy(const_cast<wchar_t *>(wideString), sizeof(wchar_t) * (len + 1), &REStaticString::freeNonCopyBuffMem);
+		REBufferNoCopy * newBuff = new REBufferNoCopy(const_cast<wchar_t *>(wideString), sizeof(wchar_t) * (len + 1));
 		if (newBuff)
 		{
 			_p = REPtr<REBuffer>(newBuff);

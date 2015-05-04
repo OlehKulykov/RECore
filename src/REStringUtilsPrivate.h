@@ -25,7 +25,7 @@
 #define __RESTRINGUTILSPRIVATE_H__
 
 #include "../include/REPtr.h"
-#include "../include/REBuffer.h"
+#include "../include/REMutableBuffer.h"
 
 #include <string.h>
 
@@ -38,7 +38,7 @@ private:
 
 	static int wideToChars(const wchar_t * wideString, int wideStringLength, char * charsString);
 
-	static REBuffer * newBufferWithSize(const RESizeT newSize);
+	static REMutableBuffer * newBufferWithSize(const RESizeT newSize);
 public:
 	static REPtr<REBuffer> newBuffForUTF8String(const char * utf8String, const RESizeT utf8StringLength = RENotFound);
 

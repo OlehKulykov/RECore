@@ -141,7 +141,7 @@ REMutableString & REMutableString::append(const char * utf8String,
 	{
 		const RESizeT thisLen = this->length();
 		const RESizeT newLen = len + thisLen;
-		REBuffer * newBuffer = new REBuffer();
+		REMutableBuffer * newBuffer = new REMutableBuffer();
 		if (newBuffer)
 		{
 			if (newBuffer->resize(newLen + 1, false))
@@ -216,7 +216,7 @@ void REMutableString::replaceWithLen(const char * charsStringValue,
 		if (ocurencesCount)
 		{
 			const RESizeT resultLen = (length + (ocurencesCount * secondLen)) - (ocurencesCount * firstLen);
-			REBuffer * newBuffer = new REBuffer();
+			REMutableBuffer * newBuffer = new REMutableBuffer();
 			if (!newBuffer) return;
 			if (!newBuffer->resize(resultLen + 1, false)) return;
 

@@ -26,7 +26,7 @@
 
 
 
-void * REStringBase::stringBuffer() const
+const void * REStringBase::stringBuffer() const
 {
 	const REBuffer * b = _p;
 	return b ? b->buffer() : NULL;
@@ -117,7 +117,7 @@ REStringBase::REStringBase(const wchar_t * wideString,
 }
 
 REStringBase::REStringBase(const REPtr<REBuffer> & stringBuffer) :
-_p(stringBuffer)
+	_p(stringBuffer)
 {
 
 }

@@ -28,9 +28,9 @@
 #endif
 
 
-REBuffer * REStringUtilsPrivate::newBufferWithSize(const RESizeT newSize)
+REMutableBuffer * REStringUtilsPrivate::newBufferWithSize(const RESizeT newSize)
 {
-	REBuffer * b = new REBuffer(newSize);
+	REMutableBuffer * b = new REMutableBuffer(newSize);
 	if (b)
 	{
 		if (b->size() == newSize)
@@ -48,7 +48,7 @@ REPtr<REBuffer> REStringUtilsPrivate::newBuffForUTF8String(const char * utf8Stri
 	const RESizeT len = REStringUtilsPrivate::actualUTF8StringLength(utf8String, utf8StringLength);
 	if (len)
 	{
-		REBuffer * newBuff = REStringUtilsPrivate::newBufferWithSize(len + 1);
+		REMutableBuffer * newBuff = REStringUtilsPrivate::newBufferWithSize(len + 1);
 		if (newBuff)
 		{
 			char * buff = (char *)newBuff->buffer();
@@ -66,7 +66,7 @@ REPtr<REBuffer> REStringUtilsPrivate::newBuffForWideString(const wchar_t * wideS
 	const RESizeT len = REStringUtilsPrivate::actualWideStringLength(wideString, wideStringLength);
 	if (len)
 	{
-		REBuffer * newBuff = REStringUtilsPrivate::newBufferWithSize((len + 1) * sizeof(wchar_t));
+		REMutableBuffer * newBuff = REStringUtilsPrivate::newBufferWithSize((len + 1) * sizeof(wchar_t));
 		if (newBuff)
 		{
 			wchar_t * buff = (wchar_t *)newBuff->buffer();
@@ -85,7 +85,7 @@ REPtr<REBuffer> REStringUtilsPrivate::getWideFromUTF8(const char * utf8String,
 	const RESizeT len = REStringUtilsPrivate::actualUTF8StringLength(utf8String, utf8StringLength);
 	if (len)
 	{
-		REBuffer * newBuff = REStringUtilsPrivate::newBufferWithSize((len + 1) * sizeof(wchar_t));
+		REMutableBuffer * newBuff = REStringUtilsPrivate::newBufferWithSize((len + 1) * sizeof(wchar_t));
 		if (newBuff)
 		{
 			wchar_t * wideString = (wchar_t *)newBuff->buffer();
@@ -107,7 +107,7 @@ REPtr<REBuffer> REStringUtilsPrivate::getUTF8FromWide(const wchar_t * wideString
 	const RESizeT len = REStringUtilsPrivate::actualWideStringLength(wideString, wideStringLength);
 	if (len)
 	{
-		REBuffer * newBuffer = REStringUtilsPrivate::newBufferWithSize((len + 1) * sizeof(wchar_t));
+		REMutableBuffer * newBuffer = REStringUtilsPrivate::newBufferWithSize((len + 1) * sizeof(wchar_t));
 		if (newBuffer)
 		{
 			char * charString = (char *)newBuffer->buffer();
@@ -155,7 +155,7 @@ REPtr<REBuffer> REStringUtilsPrivate::makeCopy(const REPtr<REBuffer> & sourceBuf
 		const RESizeT size = sourceBuffer->size();
 		if (size > 0)
 		{
-			REBuffer * newBuff = REStringUtilsPrivate::newBufferWithSize(size);
+			REMutableBuffer * newBuff = REStringUtilsPrivate::newBufferWithSize(size);
 			if (newBuff)
 			{
 				memcpy(newBuff->buffer(), sourceBuffer->buffer(), size);
@@ -395,7 +395,7 @@ REPtr<REBuffer> REStringUtilsPrivate::getAppendedWithPathComponent(const REPtr<R
 	if ((l1 > 0) || (l2 > 0))
 	{
 		const RESizeT l = l1 + l2 + 2; // +1 - separator, +1 - NULL char
-		REBuffer * newBuff = new REBuffer();
+		REMutableBuffer * newBuff = new REMutableBuffer();
 		if (newBuff)
 		{
 			if (newBuff->resize(l, false))
@@ -492,7 +492,7 @@ REPtr<REBuffer> REStringUtilsPrivate::getRemovedPathExtension(const REPtr<REBuff
 
 		if (needLen > 0)
 		{
-			REBuffer * newBuff = new REBuffer();
+			REMutableBuffer * newBuff = new REMutableBuffer();
 			if (newBuff)
 			{
 				if (newBuff->resize(needLen + 1, false))
@@ -531,7 +531,7 @@ REPtr<REBuffer> REStringUtilsPrivate::getLastPathComponent(const REPtr<REBuffer>
 		}
 		if (len)
 		{
-			REBuffer * newBuff = new REBuffer();
+			REMutableBuffer * newBuff = new REMutableBuffer();
 			if (newBuff)
 			{
 				if (newBuff->resize(len + 1, false))
@@ -591,7 +591,7 @@ REPtr<REBuffer> REStringUtilsPrivate::getRemovedLastPathComponent(const REPtr<RE
 
 		if (needLen > 0)
 		{
-			REBuffer * newBuff = new REBuffer();
+			REMutableBuffer * newBuff = new REMutableBuffer();
 			if (newBuff)
 			{
 				if (newBuff->resize(needLen + 1, false))
@@ -643,7 +643,7 @@ REPtr<REBuffer> REStringUtilsPrivate::getPathExtension(const REPtr<REBuffer> & u
 
 		if (from && (needLen > 0))
 		{
-			REBuffer * newBuff = new REBuffer();
+			REMutableBuffer * newBuff = new REMutableBuffer();
 			if (newBuff)
 			{
 				if (newBuff->resize(needLen + 1, false))

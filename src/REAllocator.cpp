@@ -21,21 +21,39 @@
  */
 
 
-#ifndef __REBUFFERNOCOPY_H__
-#define __REBUFFERNOCOPY_H__
+#include "../include/REAllocator.h"
 
-#include "REMutableBuffer.h"
+#include <string.h>
 
-class REBufferNoCopy : public REBuffer
+void * REMalloc(RESizeT size)
 {
-public:
-	REBufferNoCopy(const char * string);
-	REBufferNoCopy(const REMutableBuffer & buffer);
-	REBufferNoCopy(const REBuffer & buffer);
-	REBufferNoCopy(void * memory, const RESizeT size);
-	REBufferNoCopy();
-	virtual ~REBufferNoCopy();
+	return (size > 0) ? malloc(size) : NULL;
+}
+
+void REFree(void * m)
+{
+	if (m) free(m);
+}
+
+void * REMallocNULL(RESizeT size)
+{
+	return NULL;
+}
+
+void REFreeNULL(void * m)
+{
+
+}
+
+REAllocator allocatorMalloc =
+{
+	.allocateMemory = &REMalloc,
+	.freeMemory = &REFree
 };
 
-#endif 
+REAllocator allocatorNULL =
+{
+	.allocateMemory = &REMallocNULL,
+	.freeMemory = &REFreeNULL
+};
 

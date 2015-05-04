@@ -26,7 +26,7 @@
 
 
 #include "REPtr.h"
-#include "REBuffer.h"
+#include "REMutableBuffer.h"
 
 #include <string.h>
 
@@ -63,7 +63,7 @@ class __RE_PUBLIC_CLASS_API__ REStringBase
 protected:
 	REPtr<REBuffer> _p;
 
-	void * stringBuffer() const;
+	const void * stringBuffer() const;
 	RESizeT stringBufferSize() const;
 public:
 	/**
