@@ -88,6 +88,7 @@ REBuffer::REBuffer(const void * memory, const RESizeT size) :
 		if (_buff)
 		{
 			memcpy(_buff, memory, (size_t)size);
+			_size = size;
 		}
 	}
 }

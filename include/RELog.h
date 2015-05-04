@@ -46,6 +46,17 @@ public:
 	static void logA(const char * logString, va_list arguments);
 };
 
+
+#if defined(DEBUG) || defined(_DEBUG)
+#define RE_DEBUG_LOG(s) RELog::log(s);
+#define RE_DEBUG_LOGA(s, ...) RELog::log(s, __VA_ARGS__);
+#else
+#define RE_DEBUG_LOG(s)
+#define RE_DEBUG_LOGA(s, ...)
+#endif
+
+
+
 #endif
 
 
