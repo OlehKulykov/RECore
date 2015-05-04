@@ -23,6 +23,8 @@
 
 #include "../include/REBufferNoCopy.h"
 
+#include <string.h>
+
 REBufferNoCopy::REBufferNoCopy(const char * string) : REBuffer()
 {
 	_allocator = allocatorNULL;
