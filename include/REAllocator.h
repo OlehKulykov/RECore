@@ -32,6 +32,12 @@ typedef struct _REAllocator
 	void (*freeMemory)(void *);
 } REAllocator;
 
+__RE_EXTERN__ void * REMalloc(RESizeT size);
+
+__RE_EXTERN__ void * REMallocZero(RESizeT size);
+
+__RE_EXTERN__ void REFree(void * memory);
+
 __RE_EXTERN__ REAllocator allocatorMalloc;
 
 __RE_EXTERN__ REAllocator allocatorNULL;

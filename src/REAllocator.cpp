@@ -27,12 +27,22 @@
 
 void * REMalloc(RESizeT size)
 {
-	return (size > 0) ? malloc(size) : NULL;
+	return (size > 0) ? malloc((size_t)size) : NULL;
 }
 
-void REFree(void * m)
+void * REMallocZero(RESizeT size)
 {
-	if (m) free(m);
+	void * m = (size > 0) ? malloc((size_t)size) : NULL;
+	if (m)
+	{
+		memset(m, 0, (size_t)size);
+	}
+	return m;
+}
+
+void REFree(void * memory)
+{
+	if (memory) free(memory);
 }
 
 void * REMallocNULL(RESizeT size)
