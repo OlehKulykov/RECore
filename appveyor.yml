@@ -32,7 +32,7 @@ build_script:
   - cmake -DCMAKE_INSTALL_PREFIX:PATH=c:\dev\RECore\RECore-install-dir -DCMAKE_BUILD_TYPE=Release -DRECORE_BUILD_NUMBER=%APPVEYOR_BUILD_NUMBER% ..
   - cmake --build . --config Release
   - cmake --build . --config Release --target INSTALL
-  - ctest
+#  - ctest
 
 after_build:
 
