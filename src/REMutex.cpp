@@ -63,7 +63,7 @@ bool REMutex::lock() const
 #elif defined(__RE_THREADING_WINDOWS__)
 	if (_m)
 	{
-		LPCRITICAL_SECTION * m = const_cast<LPCRITICAL_SECTION>(static_cast<const LPCRITICAL_SECTION>(_m));
+		LPCRITICAL_SECTION m = const_cast<LPCRITICAL_SECTION>(static_cast<const LPCRITICAL_SECTION>(_m));
 #if defined(HAVE_ASSERT_H)
 		assert(m);
 #endif
@@ -97,7 +97,7 @@ bool REMutex::unlock() const
 #elif defined(__RE_THREADING_WINDOWS__)
 	if (_m)
 	{
-		LPCRITICAL_SECTION * m = const_cast<LPCRITICAL_SECTION>(static_cast<const LPCRITICAL_SECTION>(_m));
+		LPCRITICAL_SECTION m = const_cast<LPCRITICAL_SECTION>(static_cast<const LPCRITICAL_SECTION>(_m));
 #if defined(HAVE_ASSERT_H)
 		assert(m);
 #endif
