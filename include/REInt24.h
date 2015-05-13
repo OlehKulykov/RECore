@@ -60,115 +60,49 @@ public:
         return (REFloat32)this->get();
     }
 	
-    REInt24 & operator=(const REInt24 & v)
-    {
-        return this->set(v);
-    }
+	REInt24 & operator=(const REInt24 & v);
 	
-    REInt24 & operator=(const REInt32 v)
-    {
-		return this->set(v);
-    }
+	REInt24 & operator=(const REInt32 v);
 
-    REInt24 operator+(const REInt24 & v) const
-    {
-        return REInt24(this->get() + v.get());
-    }
+	REInt24 operator+(const REInt24 & v) const;
 	
-    REInt24 operator-(const REInt24 & v) const
-    {
-        return REInt24(this->get() - v.get());
-    }
+	REInt24 operator-(const REInt24 & v) const;
 	
-    REInt24 operator*(const REInt24 & v) const
-    {
-        return REInt24(this->get() * v.get());
-    }
+	REInt24 operator*(const REInt24 & v) const;
 	
-    REInt24 operator/(const REInt24 & v) const
-    {
-        return REInt24(this->get() / v.get());
-    }
+	REInt24 operator/(const REInt24 & v) const;
 	
-    REInt24 operator+(const REInt32 v) const
-    {
-        return REInt24(this->get() + v);
-    }
+	REInt24 operator+(const REInt32 v) const;
 	
-    REInt24 operator-(const REInt32 v) const
-    {
-        return REInt24(this->get() - v);
-    }
+	REInt24 operator-(const REInt32 v) const;
 	
-    REInt24 operator*(const REInt32 v) const
-    {
-        return REInt24(this->get() * v);
-    }
+	REInt24 operator*(const REInt32 v) const;
 	
-    REInt24 operator/(const REInt32 v) const
-    {
-        return REInt24(this->get() / v);
-    }
+	REInt24 operator/(const REInt32 v) const;
 	
-    REInt24 & operator+=(const REInt24 & v)
-    {
-		return this->set(this->get() + v.get());
-    }
+	REInt24 & operator+=(const REInt24 & v);
 	
-    REInt24 & operator-=(const REInt24 & v)
-    {
-		return this->set(this->get() - v.get());
-    }
+	REInt24 & operator-=(const REInt24 & v);
 	
-    REInt24 & operator*=(const REInt24 & v)
-    {
-		return this->set(this->get() * v.get());
-    }
+	REInt24 & operator*=(const REInt24 & v);
 	
-    REInt24 & operator/=(const REInt24 & v)
-    {
-		return this->set(this->get() / v.get());
-    }
+	REInt24 & operator/=(const REInt24 & v);
 	
-    REInt24 & operator+=(const REInt32 v)
-    {
-		return this->set(this->get() + v);
-    }
+	REInt24 & operator+=(const REInt32 v);
 	
-    REInt24 & operator-=(const REInt32 v)
-    {
-		return this->set(this->get() - v);
-    }
+	REInt24 & operator-=(const REInt32 v);
 	
-    REInt24 & operator*=(const REInt32 v)
-    {
-		return this->set(this->get() * v);
-    }
+	REInt24 & operator*=(const REInt32 v);
 	
-    REInt24 & operator/=(const REInt32 v)
-    {
-		return this->set(this->get() / v);
-    }
+	REInt24 & operator/=(const REInt32 v);
 	
-    REInt24 operator>>(const REInt32 v) const
-    {
-        return REInt24(this->get() >> v);
-    }
+	REInt24 operator>>(const REInt32 v) const;
 	
-    REInt24 operator<<(const REInt32 v) const
-    {
-        return REInt24(this->get() << v);
-    }
+	REInt24 operator<<(const REInt32 v) const;
 	
-    REInt24 & operator>>=(const REInt32 v)
-    {
-		return this->set(this->get() >> v);
-    }
+	REInt24 & operator>>=(const REInt32 v);
 	
-    REInt24 & operator<<=(const REInt32 v)
-    {
-		return this->set(this->get() << v);
-    }
+	REInt24 & operator<<=(const REInt32 v);
 	
     operator bool() const
     {
@@ -180,70 +114,31 @@ public:
         return !this->get();
     }
 	
-    REInt24 operator-()
-    {
-        return REInt24(-this->get());
-    }
+	REInt24 operator-();
 	
-    bool operator==(const REInt24 & v) const
-    {
-		return (this->get() == v.get());
-    }
+	bool operator==(const REInt24 & v) const;
 	
-    bool operator!=(const REInt24 & v) const
-    {
-		return (this->get() != v.get());
-    }
+	bool operator!=(const REInt24 & v) const;
 	
-    bool operator>=(const REInt24 & v) const
-    {
-		return (this->get() >= v.get());
-    }
+	bool operator>=(const REInt24 & v) const;
 	
-    bool operator<=(const REInt24 & v) const
-    {
-		return (this->get() <= v.get());
-    }
+	bool operator<=(const REInt24 & v) const;
 	
-    bool operator>(const REInt24 & v) const
-    {
-		return (this->get() > v.get());
-    }
+	bool operator>(const REInt24 & v) const;
 	
-    bool operator<(const REInt24 & v) const
-    {
-		return (this->get() < v.get());
-    }
+	bool operator<(const REInt24 & v) const;
 	
-    bool operator==(const REInt32 v) const
-    {
-		return (this->get() == v);
-    }
+	bool operator==(const REInt32 v) const;
 	
-    bool operator!=(const REInt32 v) const
-    {
-		return (this->get() != v);
-    }
+	bool operator!=(const REInt32 v) const;
 	
-    bool operator>=(const REInt32 v) const
-    {
-		return (this->get() >= v);
-    }
+	bool operator>=(const REInt32 v) const;
 	
-    bool operator<=(const REInt32 v) const
-    {
-		return (this->get() <= v);
-    }
+	bool operator<=(const REInt32 v) const;
 	
-    bool operator>(const REInt32 v) const
-    {
-		return (this->get() > v);
-    }
+	bool operator>(const REInt32 v) const;
 	
-    bool operator<(const REInt32 v) const
-    {
-		return (this->get() < v);
-    }
+	bool operator<(const REInt32 v) const;
 };
 
 #endif /* __REINT24_H__ */
