@@ -56,6 +56,17 @@ REStringType;
 
 typedef REPtr<REBuffer> REStringBuffer;
 
+
+#if defined(__RE_OS_WINDOWS__)
+
+/**
+ @brief Disable warning "needs to have dll-interface to be used by clients of class 'REStringBase'"
+ */
+#pragma warning( disable : 4251 )
+
+#endif
+
+
 /**
  @brief Base string class. Holds autopointer to string data buffer.
  @detailed During data assigment strings can be converted between UTF8 and wide char presentation.

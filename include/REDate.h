@@ -30,6 +30,16 @@
 class REDateInternal;
 class REString;
 
+#if defined(__RE_OS_WINDOWS__)
+
+/**
+ @brief Disable warning "needs to have dll-interface to be used by clients of class 'REStringBase'"
+ Template field is private.
+ */
+#pragma warning( disable : 4251 )
+
+#endif
+
 /// Class presents date object.
 class __RE_PUBLIC_CLASS_API__ REDate
 {
