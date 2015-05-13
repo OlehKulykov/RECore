@@ -71,7 +71,7 @@ bool REMutex::lock() const
 #if defined(HAVE_ASSERT_H)
 		assert(r);
 #endif
-		return r;
+		return (bool)r;
 	}
 #else
 	return false;
