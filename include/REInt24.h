@@ -38,44 +38,17 @@ protected:
 	REUByte _data[3];
 	
 public:
-	REInt24()
-    {
-		memset(_data, 0, 3);
-    }
+	REInt24();
+
+	REInt24(const REInt32 v);
+
+	REInt24(const REInt24 & v);
 	
-    REInt24(const REInt32 v)
-    {
-		this->set(v);
-    }
+	REInt32 get() const;
+
+	REInt24 & set(const REInt24 & v);
 	
-    REInt24(const REInt24 & v)
-    {
-		this->set(v);
-    }
-	
-	REInt32 get() const
-	{
-		if (_data[2] & 0x80)
-        {
-            return (0xff << 24) | (_data[2] << 16) | (_data[1] << 8) | (_data[0] << 0);
-        }
-        else
-        {
-            return (_data[2] << 16) | (_data[1] << 8) | (_data[0] << 0);
-        }
-	}
-	
-	REInt24 & set(const REInt24 & v)
-	{
-		memcpy(_data, v._data, 3);
-		return (*this);
-	}
-	
-	REInt24 & set(const REInt32 v)
-    {
-		memcpy(_data, &v, 3);
-		return (*this);
-    }
+	REInt24 & set(const REInt32 v);
 
     operator REInt32() const
     {
@@ -204,7 +177,7 @@ public:
 	
     bool operator !() const
     {
-        return  !this->get();
+        return !this->get();
     }
 	
     REInt24 operator-()

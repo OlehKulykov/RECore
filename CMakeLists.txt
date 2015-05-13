@@ -535,6 +535,7 @@ set(RECORE_SOURCES	src/REAllocator.cpp
 		src/REBufferNoCopy.cpp
 		src/REDate.cpp
 		src/REFileManager.cpp
+		src/REInt24.cpp
 		src/REJsonUtilsPrivate.cpp
 		src/RELog.cpp
 		src/REMutableBuffer.cpp
