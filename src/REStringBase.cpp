@@ -116,7 +116,7 @@ REStringBase::REStringBase(const wchar_t * wideString,
 	this->setFromWideString(wideString, wideStringLength, toType);
 }
 
-REStringBase::REStringBase(const REPtr<REBuffer> & stringBuffer) :
+REStringBase::REStringBase(const REStringBuffer & stringBuffer) :
 	_p(stringBuffer)
 {
 

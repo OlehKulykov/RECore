@@ -54,6 +54,8 @@ typedef enum _REStringType
 REStringType;
 
 
+typedef REPtr<REBuffer> REStringBuffer;
+
 /**
  @brief Base string class. Holds autopointer to string data buffer.
  @detailed During data assigment strings can be converted between UTF8 and wide char presentation.
@@ -61,7 +63,7 @@ REStringType;
 class __RE_PUBLIC_CLASS_API__ REStringBase
 {
 protected:
-	REPtr<REBuffer> _p;
+	REStringBuffer _p;
 
 	const void * stringBuffer() const;
 	RESizeT stringBufferSize() const;
@@ -149,7 +151,7 @@ public:
 	 @detailed Useful for imutable strings basic assigment, just retain buffer without creating new and copy data.
 	 @param stringBuffer Autopinter to string buffer.
 	 */
-	REStringBase(const REPtr<REBuffer> & stringBuffer);
+	REStringBase(const REStringBuffer & stringBuffer);
 
 
 	/**

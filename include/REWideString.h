@@ -176,7 +176,7 @@ public:
 	 @detailed NULL terminated char should be included.
 	 @param wideStringBuffer autopointer to string buffer with wide characters.
 	 */
-	REWideString(const REPtr<REBuffer> & wideStringBuffer);
+	REWideString(const REStringBuffer & wideStringBuffer);
 
 
 	/**

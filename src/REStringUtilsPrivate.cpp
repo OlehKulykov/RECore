@@ -42,7 +42,7 @@ REMutableBuffer * REStringUtilsPrivate::newBufferWithSize(const RESizeT newSize)
 	return NULL;
 }
 
-REPtr<REBuffer> REStringUtilsPrivate::newBuffForUTF8String(const char * utf8String,
+REStringBuffer REStringUtilsPrivate::newBuffForUTF8String(const char * utf8String,
 														   const RESizeT utf8StringLength)
 {
 	const RESizeT len = REStringUtilsPrivate::actualUTF8StringLength(utf8String, utf8StringLength);
@@ -54,13 +54,13 @@ REPtr<REBuffer> REStringUtilsPrivate::newBuffForUTF8String(const char * utf8Stri
 			char * buff = (char *)newBuff->buffer();
 			memcpy(buff, utf8String, len);
 			buff[len] = 0;
-			return REPtr<REBuffer>(newBuff);
+			return REStringBuffer(newBuff);
 		}
 	}
-	return REPtr<REBuffer>();
+	return REStringBuffer();
 }
 
-REPtr<REBuffer> REStringUtilsPrivate::newBuffForWideString(const wchar_t * wideString,
+REStringBuffer REStringUtilsPrivate::newBuffForWideString(const wchar_t * wideString,
 														   const RESizeT wideStringLength)
 {
 	const RESizeT len = REStringUtilsPrivate::actualWideStringLength(wideString, wideStringLength);
@@ -72,14 +72,14 @@ REPtr<REBuffer> REStringUtilsPrivate::newBuffForWideString(const wchar_t * wideS
 			wchar_t * buff = (wchar_t *)newBuff->buffer();
 			memcpy(buff, wideString, (len * sizeof(wchar_t)));
 			buff[len] = 0;
-			return REPtr<REBuffer>(newBuff);
+			return REStringBuffer(newBuff);
 		}
 	}
-	return REPtr<REBuffer>();
+	return REStringBuffer();
 }
 
 
-REPtr<REBuffer> REStringUtilsPrivate::getWideFromUTF8(const char * utf8String,
+REStringBuffer REStringUtilsPrivate::getWideFromUTF8(const char * utf8String,
 													  const RESizeT utf8StringLength)
 {
 	const RESizeT len = REStringUtilsPrivate::actualUTF8StringLength(utf8String, utf8StringLength);
@@ -94,14 +94,14 @@ REPtr<REBuffer> REStringUtilsPrivate::getWideFromUTF8(const char * utf8String,
 			{
 				wideString = (wchar_t *)newBuff->buffer();
 				wideString[resLen] = 0;
-				return REPtr<REBuffer>(newBuff);
+				return REStringBuffer(newBuff);
 			}
 		}
 	}
-	return REPtr<REBuffer>();
+	return REStringBuffer();
 }
 
-REPtr<REBuffer> REStringUtilsPrivate::getUTF8FromWide(const wchar_t * wideString,
+REStringBuffer REStringUtilsPrivate::getUTF8FromWide(const wchar_t * wideString,
 													  const RESizeT wideStringLength)
 {
 	const RESizeT len = REStringUtilsPrivate::actualWideStringLength(wideString, wideStringLength);
@@ -118,15 +118,15 @@ REPtr<REBuffer> REStringUtilsPrivate::getUTF8FromWide(const wchar_t * wideString
 			{
 				charString = (char *)newBuffer->buffer();
 				charString[resLen] = 0;
-				return REPtr<REBuffer>(newBuffer);
+				return REStringBuffer(newBuffer);
 			}
 			delete newBuffer;
 		}
 	}
-	return REPtr<REBuffer>();
+	return REStringBuffer();
 }
 
-REPtr<REBuffer> REStringUtilsPrivate::getWideFromUTF8(const REPtr<REBuffer> & utf8StringBuffer)
+REStringBuffer REStringUtilsPrivate::getWideFromUTF8(const REStringBuffer & utf8StringBuffer)
 {
 	const RESizeT len = REStringUtilsPrivate::stringLengthFromUTF8Buffer(utf8StringBuffer);
 	if (len > 0)
@@ -134,10 +134,10 @@ REPtr<REBuffer> REStringUtilsPrivate::getWideFromUTF8(const REPtr<REBuffer> & ut
 		return REStringUtilsPrivate::getWideFromUTF8((const char *)utf8StringBuffer->buffer(),
 													 len);
 	}
-	return REPtr<REBuffer>();
+	return REStringBuffer();
 }
 
-REPtr<REBuffer> REStringUtilsPrivate::getUTF8FromWide(const REPtr<REBuffer> & wideStringBuffer)
+REStringBuffer REStringUtilsPrivate::getUTF8FromWide(const REStringBuffer & wideStringBuffer)
 {
 	const RESizeT len = REStringUtilsPrivate::stringLengthFromWideBuffer(wideStringBuffer);
 	if (len > 0)
@@ -145,10 +145,10 @@ REPtr<REBuffer> REStringUtilsPrivate::getUTF8FromWide(const REPtr<REBuffer> & wi
 		return REStringUtilsPrivate::getUTF8FromWide((const wchar_t *)wideStringBuffer->buffer(),
 													 len);
 	}
-	return REPtr<REBuffer>();
+	return REStringBuffer();
 }
 
-REPtr<REBuffer> REStringUtilsPrivate::makeCopy(const REPtr<REBuffer> & sourceBuffer)
+REStringBuffer REStringUtilsPrivate::makeCopy(const REStringBuffer & sourceBuffer)
 {
 	if (REStringUtilsPrivate::isStringExists(sourceBuffer))
 	{
@@ -159,14 +159,14 @@ REPtr<REBuffer> REStringUtilsPrivate::makeCopy(const REPtr<REBuffer> & sourceBuf
 			if (newBuff)
 			{
 				memcpy(newBuff->buffer(), sourceBuffer->buffer(), size);
-				return REPtr<REBuffer>(newBuff);
+				return REStringBuffer(newBuff);
 			}
 		}
 	}
-	return REPtr<REBuffer>();
+	return REStringBuffer();
 }
 
-RESizeT REStringUtilsPrivate::stringLengthFromUTF8Buffer(const REPtr<REBuffer> & utf8StringBuffer)
+RESizeT REStringUtilsPrivate::stringLengthFromUTF8Buffer(const REStringBuffer & utf8StringBuffer)
 {
 	if (REStringUtilsPrivate::isStringExists(utf8StringBuffer))
 	{
@@ -176,7 +176,7 @@ RESizeT REStringUtilsPrivate::stringLengthFromUTF8Buffer(const REPtr<REBuffer> &
 	return 0;
 }
 
-RESizeT REStringUtilsPrivate::stringLengthFromWideBuffer(const REPtr<REBuffer> & wideStringBuffer)
+RESizeT REStringUtilsPrivate::stringLengthFromWideBuffer(const REStringBuffer & wideStringBuffer)
 {
 	if (REStringUtilsPrivate::isStringExists(wideStringBuffer))
 	{
@@ -347,7 +347,7 @@ int REStringUtilsPrivate::charsToWide(const char * charsString, int charsStringL
 	return stringLength;
 }
 
-REPtr<REBuffer> REStringUtilsPrivate::getAppendedWithPathComponent(const REPtr<REBuffer> & utf8Buffer,
+REStringBuffer REStringUtilsPrivate::getAppendedWithPathComponent(const REStringBuffer & utf8Buffer,
 																   const char * comp)
 {
 #ifdef __RE_OS_WINDOWS__
@@ -440,15 +440,15 @@ REPtr<REBuffer> REStringUtilsPrivate::getAppendedWithPathComponent(const REPtr<R
 					}
 				}
 				*p = 0;
-				return REPtr<REBuffer>(newBuff);
+				return REStringBuffer(newBuff);
 			}
 			delete newBuff;
 		}
 	}
-	return REPtr<REBuffer>();
+	return REStringBuffer();
 }
 
-REPtr<REBuffer> REStringUtilsPrivate::getRemovedPathExtension(const REPtr<REBuffer> & utf8Buffer)
+REStringBuffer REStringUtilsPrivate::getRemovedPathExtension(const REStringBuffer & utf8Buffer)
 {
 	RESizeT l = REStringUtilsPrivate::stringLengthFromUTF8Buffer(utf8Buffer);
 	if (l > 0)
@@ -463,7 +463,7 @@ REPtr<REBuffer> REStringUtilsPrivate::getRemovedPathExtension(const REPtr<REBuff
 			{
 				if (needRepSingleSeparator)
 				{
-					REPtr<REBuffer> newB = REStringUtilsPrivate::makeCopy(utf8Buffer);
+					REStringBuffer newB = REStringUtilsPrivate::makeCopy(utf8Buffer);
 					if (REStringUtilsPrivate::isStringExists(newB))
 					{
 						char * newBuff = (char *)newB->buffer();
@@ -506,16 +506,16 @@ REPtr<REBuffer> REStringUtilsPrivate::getRemovedPathExtension(const REPtr<REBuff
 						o++;
 					}
 					*n = 0;
-					return REPtr<REBuffer>(newBuff);
+					return REStringBuffer(newBuff);
 				}
 				delete newBuff;
 			}
 		}
 	}
-	return REPtr<REBuffer>();
+	return REStringBuffer();
 }
 
-REPtr<REBuffer> REStringUtilsPrivate::getLastPathComponent(const REPtr<REBuffer> & utf8Buffer)
+REStringBuffer REStringUtilsPrivate::getLastPathComponent(const REStringBuffer & utf8Buffer)
 {
 	RESizeT l = REStringUtilsPrivate::stringLengthFromUTF8Buffer(utf8Buffer);
 	if (l > 0)
@@ -539,15 +539,15 @@ REPtr<REBuffer> REStringUtilsPrivate::getLastPathComponent(const REPtr<REBuffer>
 					char * dst = (char *)newBuff->buffer();
 					memcpy(dst, src, len);
 					dst[len] = (char)0;
-					return REPtr<REBuffer>(newBuff);
+					return REStringBuffer(newBuff);
 				}
 			}
 		}
 	}
-	return REPtr<REBuffer>();
+	return REStringBuffer();
 }
 
-REPtr<REBuffer> REStringUtilsPrivate::getRemovedLastPathComponent(const REPtr<REBuffer> & utf8Buffer)
+REStringBuffer REStringUtilsPrivate::getRemovedLastPathComponent(const REStringBuffer & utf8Buffer)
 {
 	RESizeT l = REStringUtilsPrivate::stringLengthFromUTF8Buffer(utf8Buffer);
 	if (l > 0)
@@ -562,7 +562,7 @@ REPtr<REBuffer> REStringUtilsPrivate::getRemovedLastPathComponent(const REPtr<RE
 			{
 				if (needRepSingleSeparator)
 				{
-					REPtr<REBuffer> newB = REStringUtilsPrivate::makeCopy(utf8Buffer);
+					REStringBuffer newB = REStringUtilsPrivate::makeCopy(utf8Buffer);
 					if (REStringUtilsPrivate::isStringExists(newB))
 					{
 						char * newBuff = (char *)newB->buffer();
@@ -605,16 +605,16 @@ REPtr<REBuffer> REStringUtilsPrivate::getRemovedLastPathComponent(const REPtr<RE
 						o++;
 					}
 					*n = 0;
-					return REPtr<REBuffer>(newBuff);
+					return REStringBuffer(newBuff);
 				}
 				delete newBuff;
 			}
 		}
 	}
-	return REPtr<REBuffer>();
+	return REStringBuffer();
 }
 
-REPtr<REBuffer> REStringUtilsPrivate::getPathExtension(const REPtr<REBuffer> & utf8Buffer)
+REStringBuffer REStringUtilsPrivate::getPathExtension(const REStringBuffer & utf8Buffer)
 {
 	RESizeT l = REStringUtilsPrivate::stringLengthFromUTF8Buffer(utf8Buffer);
 	if (l > 0)
@@ -652,16 +652,16 @@ REPtr<REBuffer> REStringUtilsPrivate::getPathExtension(const REPtr<REBuffer> & u
 					memcpy(n, from, needLen);
 					n += needLen;
 					*n = 0;
-					return REPtr<REBuffer>(newBuff);
+					return REStringBuffer(newBuff);
 				}
 				delete newBuff;
 			}
 		}
 	}
-	return REPtr<REBuffer>();
+	return REStringBuffer();
 }
 
-bool REStringUtilsPrivate::isBuffersEqual(const REPtr<REBuffer> & b1, const REPtr<REBuffer> & b2)
+bool REStringUtilsPrivate::isBuffersEqual(const REStringBuffer & b1, const REStringBuffer & b2)
 {
 	if (b1.isNotEmpty() && b2.isNotEmpty())
 	{

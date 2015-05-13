@@ -153,7 +153,7 @@ REMutableString & REMutableString::append(const char * utf8String,
 				}
 				memcpy(&newData[thisLen], utf8String, len);
 				newData[newLen] = 0;
-				_p = REPtr<REBuffer>(newBuffer);
+				_p = REStringBuffer(newBuffer);
 				return (*this);
 			}
 			delete newBuffer;
@@ -245,7 +245,7 @@ void REMutableString::replaceWithLen(const char * charsStringValue,
 				*dstString++ = *srcString++;
 			}
 			newData[resultLen] = 0;
-			_p = REPtr<REBuffer>(newBuffer);
+			_p = REStringBuffer(newBuffer);
 		}
 	}
 }
@@ -348,7 +348,7 @@ REString(anotherString.UTF8String(), anotherString.length())
 
 }
 
-REMutableString::REMutableString(const REPtr<REBuffer> & utf8StringBuffer) :
+REMutableString::REMutableString(const REStringBuffer & utf8StringBuffer) :
 REString(utf8StringBuffer)
 {
 

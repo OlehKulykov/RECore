@@ -292,7 +292,7 @@ public:
 	 @detailed String buffer will be retained. NULL terminated character should be present at the end.
 	 @param utf8StringBuffer The UTF8 string buffer.
 	 */
-	REString(const REPtr<REBuffer> & utf8StringBuffer);
+	REString(const REStringBuffer & utf8StringBuffer);
 
 
 	/**

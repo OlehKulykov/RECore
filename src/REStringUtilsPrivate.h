@@ -26,6 +26,7 @@
 
 #include "../include/REPtr.h"
 #include "../include/REMutableBuffer.h"
+#include "../include/REStringBase.h"
 
 #include <string.h>
 
@@ -40,19 +41,19 @@ private:
 
 	static REMutableBuffer * newBufferWithSize(const RESizeT newSize);
 public:
-	static REPtr<REBuffer> newBuffForUTF8String(const char * utf8String, const RESizeT utf8StringLength = RENotFound);
+	static REStringBuffer newBuffForUTF8String(const char * utf8String, const RESizeT utf8StringLength = RENotFound);
 
-	static REPtr<REBuffer> newBuffForWideString(const wchar_t * wideString, const RESizeT wideStringLength = RENotFound);
+	static REStringBuffer newBuffForWideString(const wchar_t * wideString, const RESizeT wideStringLength = RENotFound);
 
-	static REPtr<REBuffer> getWideFromUTF8(const REPtr<REBuffer> & utf8StringBuffer);
+	static REStringBuffer getWideFromUTF8(const REStringBuffer & utf8StringBuffer);
 
-	static REPtr<REBuffer> getUTF8FromWide(const REPtr<REBuffer> & wideStringBuffer);
+	static REStringBuffer getUTF8FromWide(const REStringBuffer & wideStringBuffer);
 
-	static REPtr<REBuffer> getWideFromUTF8(const char * utf8String, const RESizeT utf8StringLength);
+	static REStringBuffer getWideFromUTF8(const char * utf8String, const RESizeT utf8StringLength);
 
-	static REPtr<REBuffer> getUTF8FromWide(const wchar_t * wideString, const RESizeT wideStringLength);
+	static REStringBuffer getUTF8FromWide(const wchar_t * wideString, const RESizeT wideStringLength);
 
-	static REPtr<REBuffer> makeCopy(const REPtr<REBuffer> & sourceBuffer);
+	static REStringBuffer makeCopy(const REStringBuffer & sourceBuffer);
 
 	static RESizeT UTF8StringLength(const char * utf8String)
 	{
@@ -64,7 +65,7 @@ public:
 		return wideString ? wcslen(wideString) : 0;
 	}
 
-	static bool isStringExists(const REPtr<REBuffer> & stringBuffer)
+	static bool isStringExists(const REStringBuffer & stringBuffer)
 	{
 		if (stringBuffer.isNotEmpty())
 		{
@@ -85,22 +86,22 @@ public:
 		return ( (len > 0) && (len != RENotFound) ) ? len : 0;
 	}
 
-	static RESizeT stringLengthFromUTF8Buffer(const REPtr<REBuffer> & utf8StringBuffer);
+	static RESizeT stringLengthFromUTF8Buffer(const REStringBuffer & utf8StringBuffer);
 
-	static RESizeT stringLengthFromWideBuffer(const REPtr<REBuffer> & wideStringBuffer);
+	static RESizeT stringLengthFromWideBuffer(const REStringBuffer & wideStringBuffer);
 
-	static REPtr<REBuffer> getAppendedWithPathComponent(const REPtr<REBuffer> & utf8Buffer,
-														const char * comp);
+	static REStringBuffer getAppendedWithPathComponent(const REStringBuffer & utf8Buffer,
+													   const char * comp);
 
-	static REPtr<REBuffer> getRemovedPathExtension(const REPtr<REBuffer> & utf8Buffer);
+	static REStringBuffer getRemovedPathExtension(const REStringBuffer & utf8Buffer);
 
-	static REPtr<REBuffer> getPathExtension(const REPtr<REBuffer> & utf8Buffer);
+	static REStringBuffer getPathExtension(const REStringBuffer & utf8Buffer);
 
-	static REPtr<REBuffer> getLastPathComponent(const REPtr<REBuffer> & utf8Buffer);
+	static REStringBuffer getLastPathComponent(const REStringBuffer & utf8Buffer);
 
-	static REPtr<REBuffer> getRemovedLastPathComponent(const REPtr<REBuffer> & utf8Buffer);
+	static REStringBuffer getRemovedLastPathComponent(const REStringBuffer & utf8Buffer);
 
-	static bool isBuffersEqual(const REPtr<REBuffer> & b1, const REPtr<REBuffer> & b2);
+	static bool isBuffersEqual(const REStringBuffer & b1, const REStringBuffer & b2);
 
 	static bool readFirstNumber(const char * str, REInt64 * i64vOrNull, REFloat64 * f64vOrNull);
 
@@ -108,34 +109,30 @@ public:
 	{
 		const unsigned char u = (unsigned char)byte;
 
-		if(u < 0x80)
-			return 1;
+		if (u < 0x80) return 1;
 
-		if(0x80 <= u && u <= 0xBF) {
-			/* second, third or fourth byte of a multi-byte
-			 sequence, i.e. a "continuation byte" */
+		if (0x80 <= u && u <= 0xBF)
+		{
 			return 0;
 		}
-		else if(u == 0xC0 || u == 0xC1) {
-			/* overlong encoding of an ASCII byte */
+		else if (u == 0xC0 || u == 0xC1)
+		{
 			return 0;
 		}
-		else if(0xC2 <= u && u <= 0xDF) {
-			/* 2-byte sequence */
+		else if (0xC2 <= u && u <= 0xDF)
+		{
 			return 2;
 		}
-
-		else if(0xE0 <= u && u <= 0xEF) {
-			/* 3-byte sequence */
+		else if (0xE0 <= u && u <= 0xEF)
+		{
 			return 3;
 		}
-		else if(0xF0 <= u && u <= 0xF4) {
-			/* 4-byte sequence */
+		else if (0xF0 <= u && u <= 0xF4)
+		{
 			return 4;
 		}
-		else { /* u >= 0xF5 */
-			/* Restricted (start of 4-, 5- or 6-byte sequence) or invalid
-			 UTF-8 */
+		else
+		{
 			return 0;
 		}
 	}

@@ -228,7 +228,7 @@ public:
 	 @detailed NULL terminated char should be included.
 	 @param utf8StringBuffer autopointer to string buffer with UTF8 characters.
 	 */
-	REMutableString(const REPtr<REBuffer> & utf8StringBuffer);
+	REMutableString(const REStringBuffer & utf8StringBuffer);
 
 
 	/**

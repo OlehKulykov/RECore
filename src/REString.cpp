@@ -168,7 +168,7 @@ bool REString::isContaines(const wchar_t * wideString) const
 {
 	if (wideString)
 	{
-		REPtr<REBuffer> utf8Buff = REStringUtilsPrivate::getUTF8FromWide(wideString,
+		REStringBuffer utf8Buff = REStringUtilsPrivate::getUTF8FromWide(wideString,
 																		 RENotFound);
 
 		const RESizeT len = REStringUtilsPrivate::stringLengthFromUTF8Buffer(utf8Buff);
@@ -237,7 +237,7 @@ bool REString::isEqual(const char * utf8String,
 bool REString::isEqual(const wchar_t * wideString,
 						 const RESizeT wideStringLength) const
 {
-	REPtr<REBuffer> p = REStringUtilsPrivate::getUTF8FromWide(wideString, wideStringLength);
+	REStringBuffer p = REStringUtilsPrivate::getUTF8FromWide(wideString, wideStringLength);
 	return REStringUtilsPrivate::isBuffersEqual(_p, p);
 }
 
@@ -312,7 +312,7 @@ REStringBase(anotherString.UTF8String(), anotherString.length(), REStringTypeUTF
 
 }
 
-REString::REString(const REPtr<REBuffer> & utf8StringBuffer) :
+REString::REString(const REStringBuffer & utf8StringBuffer) :
 REStringBase(utf8StringBuffer)
 {
 

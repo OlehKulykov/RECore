@@ -117,7 +117,7 @@ REStringBase(anotherString.UTF8String(), anotherString.length(), REStringTypeWid
 
 }
 
-REWideString::REWideString(const REPtr<REBuffer> & wideStringBuffer) :
+REWideString::REWideString(const REStringBuffer & wideStringBuffer) :
 REStringBase(wideStringBuffer)
 {
 
