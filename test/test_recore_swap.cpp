@@ -25,6 +25,7 @@
 #include <stdio.h>
 
 #include <assert.h>
+#include <string.h>
 
 #if defined(CMAKE_BUILD)
 #undef CMAKE_BUILD
