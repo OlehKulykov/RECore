@@ -21,30 +21,80 @@
  */
 
 
-#ifndef __RESWAP_H__
-#define __RESWAP_H__
+#include <stdlib.h>
+#include <stdio.h>
 
-#include "RECore.h"
+#include <assert.h>
 
-template<typename T>
-static const T RESwap(const T v)
+#if defined(CMAKE_BUILD)
+#undef CMAKE_BUILD
+#endif
+
+#if defined(__BUILDING_RECORE_DYNAMIC_LIBRARY__)
+#undef __BUILDING_RECORE_DYNAMIC_LIBRARY__
+#endif
+
+#define HAVE_ASSERT_H 1
+
+#include "../include/RECore.h"
+
+
+#if defined(HAVE_RECORE_CONFIG_H)
+#include "recore_config.h"
+#endif
+
+
+#if defined(CMAKE_BUILD)
+#undef CMAKE_BUILD
+#endif
+
+#include "../include/REUUIDv4.h"
+#include "../include/RELog.h"
+#include "../include/RESwap.h"
+
+typedef union _UDIGIT
 {
-	T resValue = 0;
-	const RESizeT valueSize = sizeof(T);
+	REUInt32 value;
+	char string[4];
+} UDIGIT;
 
-	const REUByte * from = (const REUByte *)&v;
-	from += valueSize;
-
-	REUByte * to = (REUByte *)&resValue;
-
-	for (RESizeT i = 0; i < valueSize; i++)
+int testSwap1()
+{
+	REUByte b1 = 124;
+	if (RESwap<REUByte>(b1) != 124)
 	{
-		from--;
-		*to = *from;
-		to++;
+		return EXIT_FAILURE;
 	}
 
-	return resValue;
+	UDIGIT d1;
+	memcpy(d1.string, "helo", 4);
+
+	UDIGIT d2;
+	d2.value = RESwap<REUInt32>(d1.value);
+	if (memcmp(d2.string, "oleh", 4) != 0)
+	{
+		return EXIT_FAILURE;
+	}
+
+	d2.value = RESwap<REUInt32>(d2.value);
+	if (d2.value != d1.value)
+	{
+		return EXIT_FAILURE;
+	}
+
+	return EXIT_SUCCESS;
 }
 
-#endif
+int main(int argc, char* argv[])
+{
+	RELog::log("Test Swap1 ...");
+	int test = testSwap1();
+	assert(test == EXIT_SUCCESS);
+	if (test != EXIT_SUCCESS) return EXIT_FAILURE;
+	RELog::log("Test Swap1 OK");
+
+	RELog::log("All tests OK");
+
+	return EXIT_SUCCESS;
+}
+

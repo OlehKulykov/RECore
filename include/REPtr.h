@@ -31,9 +31,9 @@
 /**
  @brief Class template of autopointer.
  @detailed Holds created pointer and delete when it's need, usually when no referecnces to pointer.
-	*/
+ */
 template <typename PointerType>
-class __RE_PUBLIC_CLASS_API__ REPtr
+class /* __RE_PUBLIC_CLASS_API__ */ REPtr
 {
 private:
 	PointerType* _object;
@@ -247,20 +247,20 @@ public:
 /**
  @brief Function template for casting objects using "static_cast".
  */
-template <typename resultType, typename sourceType>
-static resultType* REPtrCast(sourceType* sourcePointer)
+template <typename RESULTTYPE, typename SOURCETYPE>
+static RESULTTYPE* REPtrCast(SOURCETYPE* sourcePointer)
 {
-	return static_cast<resultType*>( static_cast<void*>(sourcePointer) );
+	return static_cast<RESULTTYPE*>( static_cast<void*>(sourcePointer) );
 }
 
 
 /**
  @brief Const version of function template for casting objects using "static_cast".
  */
-template <typename resultType, typename sourceType>
-static const resultType* REPtrCast(const sourceType* sourcePointer)
+template <typename RESULTTYPE, typename SOURCETYPE>
+static const RESULTTYPE* REPtrCast(const SOURCETYPE* sourcePointer)
 {
-	return static_cast<const resultType*>( static_cast<const void*>(sourcePointer) );
+	return static_cast<const RESULTTYPE*>( static_cast<const void*>(sourcePointer) );
 }
 
 #endif

@@ -26,7 +26,7 @@
 
 #include "REBuffer.h"
 
-class REMutableBuffer : public REBuffer
+class __RE_PUBLIC_CLASS_API__ REMutableBuffer : public REBuffer
 {
 
 public:

@@ -61,7 +61,18 @@ bool REMutex::lock() const
 	}
 	return false;
 #elif defined(__RE_THREADING_WINDOWS__)
-	if (_m) TryEnterCriticalSection((LPCRITICAL_SECTION)_m);
+	if (_m)
+	{
+		LPCRITICAL_SECTION * m = const_cast<LPCRITICAL_SECTION>(static_cast<const LPCRITICAL_SECTION>(_m));
+#if defined(HAVE_ASSERT_H)
+		assert(m);
+#endif
+		const BOOL r = TryEnterCriticalSection(m);
+#if defined(HAVE_ASSERT_H)
+		assert(r);
+#endif
+		return r;
+	}
 #else
 	return false;
 #endif
@@ -84,7 +95,15 @@ bool REMutex::unlock() const
 	}
 	return false;
 #elif defined(__RE_THREADING_WINDOWS__)
-	if (_m) LeaveCriticalSection((LPCRITICAL_SECTION)_m);
+	if (_m)
+	{
+		LPCRITICAL_SECTION * m = const_cast<LPCRITICAL_SECTION>(static_cast<const LPCRITICAL_SECTION>(_m));
+#if defined(HAVE_ASSERT_H)
+		assert(m);
+#endif
+		LeaveCriticalSection(m);
+		return true;
+	}
 #else
 	return false;
 #endif
@@ -121,10 +140,10 @@ REMutex::REMutex() : _m(NULL)
 		else free(m);
 	}
 #elif defined(__RE_THREADING_WINDOWS__)
-#if defined(HAVE_ASSERT_H)
-	assert(m);
-#endif
 	_m = malloc(sizeof(CRITICAL_SECTION));
+#if defined(HAVE_ASSERT_H)
+	assert(_m);
+#endif
 	if (_m) InitializeCriticalSection((LPCRITICAL_SECTION)_m);
 #endif
 }

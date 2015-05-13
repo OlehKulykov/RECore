@@ -26,7 +26,7 @@
 
 #include "REMutableBuffer.h"
 
-class REBufferNoCopy : public REBuffer
+class __RE_PUBLIC_CLASS_API__ REBufferNoCopy : public REBuffer
 {
 public:
 	REBufferNoCopy(const char * string);

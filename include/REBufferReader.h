@@ -28,7 +28,7 @@
 
 #include <string.h>
 
-class __RE_PUBLIC_CLASS_API__ REBufferReader
+class /* __RE_PUBLIC_CLASS_API__ */ REBufferReader
 {
 protected:
 	REUByte * _buff;

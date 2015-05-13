@@ -37,7 +37,7 @@
  @brief Map class template.
  */
 template <typename TK, typename TV>
-class __RE_PUBLIC_CLASS_API__ REMap
+class /* __RE_PUBLIC_CLASS_API__ */ REMap
 {
 public:
 	/**

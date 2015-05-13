@@ -29,7 +29,7 @@
 
 class REMutableBuffer;
 
-class REBuffer
+class __RE_PUBLIC_CLASS_API__ REBuffer
 {
 protected:
 	REAllocator _allocator;
