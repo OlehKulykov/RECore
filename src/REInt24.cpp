@@ -248,9 +248,10 @@ REInt24 & REInt24::operator<<=(const REInt32 v)
 
 REInt24 REInt24::operator-()
 {
-	const REInt32 v1 = this->get();
+	REInt32 r = this->get();
+	r = -r;
 
-	return REInt24(-v1);
+	return REInt24(r);
 }
 
 bool REInt24::operator==(const REInt24 & v) const
