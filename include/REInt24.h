@@ -50,14 +50,14 @@ public:
 	
 	REInt24 & set(const REInt32 v);
 
-    operator REInt32() const
+    operator int() const
     {
-        return this->get();
+        return (int)this->get();
     }
 	
-    operator REFloat32() const
+    operator float() const
     {
-        return (REFloat32)this->get();
+        return (float)this->get();
     }
 	
 	REInt24 & operator=(const REInt24 & v);
@@ -111,7 +111,7 @@ public:
 	
     bool operator !() const
     {
-        return !this->get();
+        return (!this->get());
     }
 	
 	REInt24 operator-();
