@@ -136,6 +136,8 @@ public:
 			return 0;
 		}
 	}
+
+	static bool isContainsNonASCII(const REStringBuffer & stringBuffer);
 };
 
 

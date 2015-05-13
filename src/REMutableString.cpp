@@ -310,46 +310,45 @@ REMutableString & REMutableString::removePathExtension()
 	return (*this);
 }
 
-REMutableString::REMutableString() :
-REString()
+REMutableString::REMutableString() : REString()
 {
 
 }
 
 REMutableString::REMutableString(const char * utf8String,
 								 const REUInt32 utf8StringLength) :
-REString(utf8String, utf8StringLength)
+	REString(utf8String, utf8StringLength)
 {
 
 }
 
 REMutableString::REMutableString(const wchar_t * wideString,
 								 const REUInt32 wideStringLength) :
-REString(wideString, wideStringLength)
+	REString(wideString, wideStringLength)
 {
 
 }
 
 REMutableString::REMutableString(const REWideString & anotherString) :
-REString(anotherString.wideChars(), anotherString.length())
+	REString(anotherString.wideChars(), anotherString.length())
 {
 
 }
 
 REMutableString::REMutableString(const REString & anotherString) :
-REString(anotherString.UTF8String(), anotherString.length())
+	REString(anotherString.UTF8String(), anotherString.length())
 {
 
 }
 
 REMutableString::REMutableString(const REMutableString & anotherString) :
-REString(anotherString.UTF8String(), anotherString.length())
+	REString(anotherString.UTF8String(), anotherString.length())
 {
 
 }
 
 REMutableString::REMutableString(const REStringBuffer & utf8StringBuffer) :
-REString(utf8StringBuffer)
+	REString(utf8StringBuffer)
 {
 
 }

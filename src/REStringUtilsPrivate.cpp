@@ -717,5 +717,17 @@ bool REStringUtilsPrivate::readFirstNumber(const char * str, REInt64 * i64vOrNul
 	return false;
 }
 
-
+bool REStringUtilsPrivate::isContainsNonASCII(const REStringBuffer & stringBuffer)
+{
+	const char * ch = stringBuffer.isNotEmpty() ? (const char *)stringBuffer->buffer() : NULL;
+	if (ch)
+	{
+		while (*ch)
+		{
+			if (REStringUtilsPrivate::getUTF8Len(*ch) > 1) return true;
+			ch++;
+		}
+	}
+	return false;
+}
 

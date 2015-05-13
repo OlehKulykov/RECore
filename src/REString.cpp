@@ -92,8 +92,7 @@ REWideString REString::wideString() const
 
 const char * REString::UTF8String() const
 {
-	const REBuffer * b = _p;
-	return b ? (const char *)b->buffer() : NULL;
+	return _p.isNotEmpty() ? (const char *)_p->buffer() : NULL;
 }
 
 RESizeT REString::length() const
@@ -103,16 +102,7 @@ RESizeT REString::length() const
 
 bool REString::isContainsNonASCII() const
 {
-	const char * ch = (const char *)this->UTF8String();
-	if (ch)
-	{
-		while (*ch)
-		{
-			if (REStringUtilsPrivate::getUTF8Len(*ch) > 1) return true;
-			ch++;
-		}
-	}
-	return false;
+	return REStringUtilsPrivate::isContainsNonASCII(_p);
 }
 
 bool REString::isContaines(const char * utf8String) const
