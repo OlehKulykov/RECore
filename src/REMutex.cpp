@@ -67,12 +67,13 @@ bool REMutex::lock() const
 #if defined(HAVE_ASSERT_H)
 		assert(m);
 #endif
-		const BOOL r = TryEnterCriticalSection(m);
+		const bool r = TryEnterCriticalSection(m) ? true : false;
 #if defined(HAVE_ASSERT_H)
 		assert(r);
 #endif
-		return (bool)r;
+		return r;
 	}
+	return false;
 #else
 	return false;
 #endif
@@ -104,6 +105,7 @@ bool REMutex::unlock() const
 		LeaveCriticalSection(m);
 		return true;
 	}
+	return false;
 #else
 	return false;
 #endif
@@ -144,7 +146,7 @@ REMutex::REMutex() : _m(NULL)
 #if defined(HAVE_ASSERT_H)
 	assert(_m);
 #endif
-	if (_m) InitializeCriticalSection((LPCRITICAL_SECTION)_m);
+	if (_m) InitializeCriticalSection(static_cast<LPCRITICAL_SECTION>(_m));
 #endif
 }
 
@@ -155,7 +157,7 @@ REMutex::~REMutex()
 #if defined(__RE_THREADING_PTHREAD__)
 		pthread_mutex_destroy((pthread_mutex_t *)_m);
 #elif defined(__RE_THREADING_WINDOWS__)
-		DeleteCriticalSection((LPCRITICAL_SECTION)_m);
+		DeleteCriticalSection(static_cast<LPCRITICAL_SECTION>(_m));
 #endif
 		free(_m);
 	}
