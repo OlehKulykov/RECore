@@ -83,7 +83,7 @@ REInt24 REInt24::operator+(const REInt24 & v) const
 	const REInt32 v1 = this->get();
 	const REInt32 v2 = v.get();
 
-	return REInt24(v1 + v2);
+	return REInt24((REInt32)(v1 + v2));
 }
 
 REInt24 REInt24::operator-(const REInt24 & v) const
@@ -91,7 +91,7 @@ REInt24 REInt24::operator-(const REInt24 & v) const
 	const REInt32 v1 = this->get();
 	const REInt32 v2 = v.get();
 
-	return REInt24(v1 - v2);
+	return REInt24((REInt32)(v1 - v2));
 }
 
 REInt24 REInt24::operator*(const REInt24 & v) const
@@ -99,7 +99,7 @@ REInt24 REInt24::operator*(const REInt24 & v) const
 	const REInt32 v1 = this->get();
 	const REInt32 v2 = v.get();
 
-	return REInt24(v1 * v2);
+	return REInt24((REInt32)(v1 * v2));
 }
 
 REInt24 REInt24::operator/(const REInt24 & v) const
@@ -107,35 +107,35 @@ REInt24 REInt24::operator/(const REInt24 & v) const
 	const REInt32 v1 = this->get();
 	const REInt32 v2 = v.get();
 
-	return REInt24(v1 / v2);
+	return REInt24((REInt32)(v1 / v2));
 }
 
 REInt24 REInt24::operator+(const REInt32 v) const
 {
 	const REInt32 v1 = this->get();
 
-	return REInt24(v1 + v);
+	return REInt24((REInt32)(v1 + v));
 }
 
 REInt24 REInt24::operator-(const REInt32 v) const
 {
 	const REInt32 v1 = this->get();
 
-	return REInt24(v1 - v);
+	return REInt24((REInt32)(v1 - v));
 }
 
 REInt24 REInt24::operator*(const REInt32 v) const
 {
 	const REInt32 v1 = this->get();
 
-	return REInt24(v1 * v);
+	return REInt24((REInt32)(v1 * v));
 }
 
 REInt24 REInt24::operator/(const REInt32 v) const
 {
 	const REInt32 v1 = this->get();
 
-	return REInt24(v1 / v);
+	return REInt24((REInt32)(v1 / v));
 }
 
 REInt24 & REInt24::operator+=(const REInt24 & v)
