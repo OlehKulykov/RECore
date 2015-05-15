@@ -32,21 +32,21 @@ typedef struct _REAllocator
 	void (*freeMemory)(void *);
 } REAllocator;
 
-__RE_EXTERN__ void * REMalloc(RESizeT size);
+__RE_EXTERN__ __RE_PUBLIC_CLASS_API__ void * REMalloc(RESizeT size);
 
-__RE_EXTERN__ void * REMallocZero(RESizeT size);
+__RE_EXTERN__ __RE_PUBLIC_CLASS_API__ void * REMallocZero(RESizeT size);
 
-__RE_EXTERN__ void * REMallocAligned(RESizeT size);
+__RE_EXTERN__ __RE_PUBLIC_CLASS_API__ void * REMallocAligned(RESizeT size);
 
-__RE_EXTERN__ void * REMallocAlignedA(RESizeT size, RESizeT * allocatedSize);
+__RE_EXTERN__ __RE_PUBLIC_CLASS_API__ void * REMallocAlignedA(RESizeT size, RESizeT * allocatedSize);
 
-__RE_EXTERN__ void * REMallocAlignedZero(RESizeT size);
+__RE_EXTERN__ __RE_PUBLIC_CLASS_API__ void * REMallocAlignedZero(RESizeT size);
 
-__RE_EXTERN__ void REFree(void * memory);
+__RE_EXTERN__ __RE_PUBLIC_CLASS_API__ void REFree(void * memory);
 
-__RE_EXTERN__ REAllocator kREAllocatorMalloc;
+__RE_EXTERN__ __RE_PUBLIC_CLASS_API__ REAllocator kREAllocatorMalloc;
 
-__RE_EXTERN__ REAllocator kREAllocatorNULL;
+__RE_EXTERN__ __RE_PUBLIC_CLASS_API__ REAllocator kREAllocatorNULL;
 
 #endif 
 
