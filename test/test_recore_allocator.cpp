@@ -21,94 +21,70 @@
  */
 
 
-#include "../include/REAllocator.h"
+#include <stdlib.h>
+#include <stdio.h>
+
+#include <assert.h>
+
+#if defined(CMAKE_BUILD)
+#undef CMAKE_BUILD
+#endif
+
+#if defined(__BUILDING_RECORE_DYNAMIC_LIBRARY__)
+#undef __BUILDING_RECORE_DYNAMIC_LIBRARY__
+#endif
+
+#define HAVE_ASSERT_H 1
+
+#include "../include/RECore.h"
+
 
 #if defined(HAVE_RECORE_CONFIG_H)
 #include "recore_config.h"
 #endif
 
-#include <string.h>
 
-void * REMalloc(RESizeT size)
-{
-	return (size > 0) ? malloc((size_t)size) : NULL;
-}
+#if defined(CMAKE_BUILD)
+#undef CMAKE_BUILD
+#endif
 
-void * REMallocZero(RESizeT size)
+#include "../include/REUUIDv4.h"
+#include "../include/RELog.h"
+#include "../include/REMutableString.h"
+#include "../include/REString.h"
+#include "../include/REAllocator.h"
+
+
+int testAllocator1()
 {
-	void * m = (size > 0) ? malloc((size_t)size) : NULL;
-	if (m)
+	REAllocator allocator = kREAllocatorMalloc;
+	if (!allocator.allocateMemory) return EXIT_FAILURE;
+	if (!allocator.freeMemory) return EXIT_FAILURE;
+
+	allocator = kREAllocatorNULL;
+	if (!allocator.allocateMemory) return EXIT_FAILURE;
+	if (!allocator.freeMemory) return EXIT_FAILURE;
+
+	for (size_t size = 1; size <= 131; size++)
 	{
-		memset(m, 0, (size_t)size);
+		void * mem = REMallocAligned(size);
+		if (!mem) return EXIT_FAILURE;
+		REFree(mem);
 	}
-	return m;
+
+	return EXIT_SUCCESS;
 }
 
-void * REMallocAligned(RESizeT size)
+int main(int argc, char* argv[])
 {
-	if (size > 0)
-	{
-#if defined(HAVE_FUNCTION_POSIX_MEMALIGN)
-		const size_t alignment = sizeof(void *);
-		if (size < alignment)
-		{
-			size = alignment;
-		}
-		else
-		{
-			const size_t left = (size % alignment);
-			if (left > 0)
-			{
-				size += (alignment - left);
-			}
-		}
+	RELog::log("Test Allocator1 ...");
+	int test = testAllocator1();
+	assert(test == EXIT_SUCCESS);
+	if (test != EXIT_SUCCESS) return EXIT_FAILURE;
+	RELog::log("Test Allocator1 OK");
 
-		void * m = NULL;
-		if (posix_memalign((void**)&m, alignment, size) == 0)
-		{
-			return m;
-		}
-#else
-		return malloc((size_t)size);
-#endif
-	}
-	return NULL;
+	RELog::log("All tests OK");
+
+	return EXIT_SUCCESS;
 }
-
-void REFree(void * memory)
-{
-	if (memory) free(memory);
-}
-
-void * REMallocNULL(RESizeT size)
-{
-	return NULL;
-}
-
-void REFreeNULL(void * m)
-{
-
-}
-
-REAllocator kREAllocatorMalloc =
-{
-#if defined(__clang__)
-	.allocateMemory = &REMalloc,
-	.freeMemory = &REFree
-#else
-	&REMalloc,
-	&REFree
-#endif
-};
-
-REAllocator kREAllocatorNULL =
-{
-#if defined(__clang__)
-	.allocateMemory = &REMallocNULL,
-	.freeMemory = &REFreeNULL
-#else
-	&REMallocNULL,
-	&REFreeNULL
-#endif
-};
 

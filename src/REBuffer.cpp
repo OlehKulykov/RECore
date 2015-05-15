@@ -46,7 +46,7 @@ RESizeT REBuffer::size() const
 }
 
 REBuffer::REBuffer(const char * string) :
-	_allocator(allocatorMalloc),
+	_allocator(kREAllocatorMalloc),
 	_buff(NULL),
 	_size(0)
 {
@@ -62,7 +62,7 @@ REBuffer::REBuffer(const char * string) :
 }
 
 REBuffer::REBuffer(const REBuffer & buffer) :
-	_allocator(allocatorMalloc),
+	_allocator(kREAllocatorMalloc),
 	_buff(NULL),
 	_size(0)
 {
@@ -78,7 +78,7 @@ REBuffer::REBuffer(const REBuffer & buffer) :
 }
 
 REBuffer::REBuffer(const void * memory, const RESizeT size) :
-	_allocator(allocatorMalloc),
+	_allocator(kREAllocatorMalloc),
 	_buff(NULL),
 	_size(0)
 {
@@ -94,7 +94,7 @@ REBuffer::REBuffer(const void * memory, const RESizeT size) :
 }
 
 REBuffer::REBuffer(const RESizeT size) :
-	_allocator(allocatorMalloc),
+	_allocator(kREAllocatorMalloc),
 	_buff(NULL),
 	_size(0)
 {
@@ -106,7 +106,7 @@ REBuffer::REBuffer(const RESizeT size) :
 }
 
 REBuffer::REBuffer() :
-	_allocator(allocatorMalloc),
+	_allocator(kREAllocatorMalloc),
 	_buff(NULL),
 	_size(0)
 {

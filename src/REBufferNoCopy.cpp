@@ -27,7 +27,7 @@
 
 REBufferNoCopy::REBufferNoCopy(const char * string) : REBuffer()
 {
-	_allocator = allocatorNULL;
+	_allocator = kREAllocatorNULL;
 	char * s = string ? const_cast<char *>(string) : NULL;
 	if (s)
 	{
@@ -41,14 +41,14 @@ REBufferNoCopy::REBufferNoCopy(const char * string) : REBuffer()
 
 REBufferNoCopy::REBufferNoCopy(const REMutableBuffer & buffer) : REBuffer()
 {
-	_allocator = allocatorNULL;
+	_allocator = kREAllocatorNULL;
 	_buff = buffer.buffer();
 	_size = buffer.size();
 }
 
 REBufferNoCopy::REBufferNoCopy(const REBuffer & buffer) : REBuffer()
 {
-	_allocator = allocatorNULL;
+	_allocator = kREAllocatorNULL;
 
 	const void * b = buffer.buffer();
 	const RESizeT s = buffer.size();
@@ -64,14 +64,14 @@ REBufferNoCopy::REBufferNoCopy(const REBuffer & buffer) : REBuffer()
 
 REBufferNoCopy::REBufferNoCopy(void * memory, const RESizeT size) : REBuffer()
 {
-	_allocator = allocatorNULL;
+	_allocator = kREAllocatorNULL;
 	_buff = memory;
 	_size = size;
 }
 
 REBufferNoCopy::REBufferNoCopy() : REBuffer()
 {
-	_allocator = allocatorNULL;
+	_allocator = kREAllocatorNULL;
 }
 
 REBufferNoCopy::~REBufferNoCopy()

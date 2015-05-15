@@ -36,11 +36,13 @@ __RE_EXTERN__ void * REMalloc(RESizeT size);
 
 __RE_EXTERN__ void * REMallocZero(RESizeT size);
 
+__RE_EXTERN__ void * REMallocAligned(RESizeT size);
+
 __RE_EXTERN__ void REFree(void * memory);
 
-__RE_EXTERN__ REAllocator allocatorMalloc;
+__RE_EXTERN__ REAllocator kREAllocatorMalloc;
 
-__RE_EXTERN__ REAllocator allocatorNULL;
+__RE_EXTERN__ REAllocator kREAllocatorNULL;
 
 #endif 
 

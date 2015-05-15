@@ -30,10 +30,14 @@ link_directories(${PROJECT_BINARY_DIR})
 
 remove_definitions(-DCMAKE_BUILD)
 
-
 add_executable(test_recore_swap test_recore_swap.cpp)
 target_link_libraries(test_recore_swap RECore)
 add_test(test_recore_swap test_recore_swap)
+
+
+add_executable(test_recore_allocator test_recore_allocator.cpp)
+target_link_libraries(test_recore_allocator RECore)
+add_test(test_recore_allocator test_recore_allocator)
 
 
 add_executable(test_recore_stringsplit test_recore_stringsplit.cpp)
