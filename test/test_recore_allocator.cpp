@@ -70,6 +70,15 @@ int testAllocator1()
 		void * mem = REMallocAligned(size);
 		if (!mem) return EXIT_FAILURE;
 		REFree(mem);
+
+		mem = REMallocAlignedZero(size);
+		if (!mem) return EXIT_FAILURE;
+		REFree(mem);
+
+		RESizeT asize = 0;
+		mem = REMallocAlignedA(size, &asize);
+		if (!mem || (asize == 0)) return EXIT_FAILURE;
+		REFree(mem);
 	}
 
 	return EXIT_SUCCESS;

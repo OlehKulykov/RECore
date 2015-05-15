@@ -36,15 +36,15 @@ void * REMalloc(RESizeT size)
 
 void * REMallocZero(RESizeT size)
 {
-	void * m = (size > 0) ? malloc((size_t)size) : NULL;
+	void * m = (size > 0) ? malloc(size) : NULL;
 	if (m)
 	{
-		memset(m, 0, (size_t)size);
+		memset(m, 0, size);
 	}
 	return m;
 }
 
-void * REMallocAligned(RESizeT size)
+void * REMallocAlignedA(RESizeT size, RESizeT * allocatedSize)
 {
 	if (size > 0)
 	{
@@ -66,13 +66,37 @@ void * REMallocAligned(RESizeT size)
 		void * m = NULL;
 		if (posix_memalign((void**)&m, alignment, size) == 0)
 		{
+			if (allocatedSize) *allocatedSize = size;
 			return m;
 		}
 #else
-		return malloc((size_t)size);
+		void * m = malloc(size);
+		if (m)
+		{
+			if (allocatedSize) *allocatedSize = size;
+			return m;
+		}
 #endif
 	}
+
+	if (allocatedSize) *allocatedSize = 0;
 	return NULL;
+}
+
+void * REMallocAlignedZero(RESizeT size)
+{
+	RESizeT asize = 0;
+	void * m = REMallocAlignedA(size, &asize);
+	if (m && asize)
+	{
+		memset(m, 0, asize);
+	}
+	return m;
+}
+
+void * REMallocAligned(RESizeT size)
+{
+	return REMallocAlignedA(size, NULL);
 }
 
 void REFree(void * memory)
