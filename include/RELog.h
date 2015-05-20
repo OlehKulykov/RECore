@@ -44,15 +44,47 @@ public:
 	 @param logString Format scring, same as for printf
 	 */
 	static void logA(const char * logString, va_list arguments);
+
+
+	/**
+	 @brief Log message to log file with arguments.
+	 @param logString Format scring, same as for printf
+	 */
+	static void logF(const char * logString, ...);
+
+
+	/**
+	 @brief Log message log file with arguments list.
+	 @param logString Format scring, same as for printf
+	 */
+	static void logFA(const char * logString, va_list arguments);
+
+
+	/**
+	 @brief Open log file for logining.
+	 @param logFilePath Full log file path.
+	 @return True if already opened or create/open, othervise false.
+	 */
+	static bool openLogFile(const char * logFilePath);
+
+
+	/**
+	 @brief Close log file if it's opened.
+	 */
+	static void closeLogFile();
 };
 
 
 #if defined(DEBUG) || defined(_DEBUG)
 #define RE_DEBUG_LOG(s) RELog::log(s);
 #define RE_DEBUG_LOGA(s, ...) RELog::log(s, __VA_ARGS__);
+#define RE_DEBUG_LOGF(s) RELog::logF(s);
+#define RE_DEBUG_LOGFA(s, ...) RELog::logF(s, __VA_ARGS__);
 #else
 #define RE_DEBUG_LOG(s)
 #define RE_DEBUG_LOGA(s, ...)
+#define RE_DEBUG_LOGF(s)
+#define RE_DEBUG_LOGFA(s, ...)
 #endif
 
 

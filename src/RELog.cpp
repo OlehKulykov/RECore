@@ -75,12 +75,62 @@ void RELog::logA(const char * logString, va_list arguments)
 		vsprintf(buff, logString, arguments);
 		qDebug() << buff;
 #else
-		fprintf(stdout, "\n");
 		vfprintf(stdout, logString, arguments);
+		fprintf(stdout, "\n");
 		fflush(stdout);
 #endif
 	}
 }
 
+static FILE * _RELogPrivateLogFile = NULL;
+
+void RELog::logF(const char * logString, ...)
+{
+	FILE * f = _RELogPrivateLogFile;
+	if (f && logString)
+	{
+		va_list args;
+		va_start(args, logString);
+
+		RELog::logFA(logString, args);
+
+		va_end(args);
+	}
+}
+
+void RELog::logFA(const char * logString, va_list arguments)
+{
+	FILE * f = _RELogPrivateLogFile;
+	if (f && logString)
+	{
+		vfprintf(f, logString, arguments);
+		fprintf(f, "\n");
+		fflush(f);
+	}
+}
+
+bool RELog::openLogFile(const char * logFilePath)
+{
+	if (!logFilePath) return false;
+
+	FILE * f = _RELogPrivateLogFile;
+	if (f) return true;
+
+	f = fopen(logFilePath, "w+b");
+	if (!f) return false;
+
+	_RELogPrivateLogFile = f;
+	return true;
+}
+
+void RELog::closeLogFile()
+{
+	FILE * f = _RELogPrivateLogFile;
+	_RELogPrivateLogFile = NULL;
+	if (f)
+	{
+		fclose(f);
+	}
+}
 
 
