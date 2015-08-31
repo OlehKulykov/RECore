@@ -1,3 +1,0 @@
-[submodule "jansson"]
-	path = jansson
-	url = git://github.com/OlehKulykov/jansson.git
