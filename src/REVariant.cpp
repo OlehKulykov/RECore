@@ -40,9 +40,9 @@ void REVariant::clean()
 	{
 		switch (_t)
 		{
-			case TypeString: delete (REString *)_u.pointerValue; break;
-			case TypeMap: delete (REVariantMap *)_u.pointerValue; break;
-			case TypeList: delete (REVariantList *)_u.pointerValue; break;
+			case TypeString: delete _u.stringValue; break;
+			case TypeMap: delete _u.mapValue; break;
+			case TypeList: delete _u.listValue; break;
 			default: break;
 		}
 	}
@@ -52,8 +52,6 @@ void REVariant::clean()
 
 bool REVariant::isNULL() const
 {
-	if (_t != TypeNone) return false;
-
 	return _u.pointerValue ? false : true;
 }
 
@@ -236,7 +234,7 @@ REVariant & REVariant::operator=(const REString & s)
 	REString * p = new REString(s);
 	if (p)
 	{
-		_u.pointerValue = p;
+		_u.stringValue = p;
 		_t = TypeString;
 	}
 	return *this;
@@ -250,7 +248,7 @@ REVariant & REVariant::operator=(const char * s)
 		REString * p = new REString(s);
 		if (p)
 		{
-			_u.pointerValue = p;
+			_u.stringValue = p;
 			_t = TypeString;
 		}
 	}
@@ -265,7 +263,7 @@ REVariant & REVariant::operator=(const wchar_t * s)
 		REString * p = new REString(s);
 		if (p)
 		{
-			_u.pointerValue = p;
+			_u.stringValue = p;
 			_t = TypeString;
 		}
 	}
@@ -278,7 +276,7 @@ REVariant & REVariant::operator=(const REVariantMap & m)
 	REVariantMap * p = new REVariantMap(m);
 	if (p)
 	{
-		_u.pointerValue = p;
+		_u.mapValue = p;
 		_t = TypeMap;
 	}
 	return *this;
@@ -290,7 +288,7 @@ REVariant & REVariant::operator=(const REVariantList & l)
 	REVariantList * p = new REVariantList(l);
 	if (p)
 	{
-		_u.pointerValue = p;
+		_u.listValue = p;
 		_t = TypeList;
 	}
 	return *this;
@@ -316,7 +314,7 @@ bool REVariant::isString() const
 
 const REString & REVariant::toString() const
 {
-	return *(const REString *)_u.pointerValue;
+	return *_u.stringValue;
 }
 
 bool REVariant::isMap() const
@@ -326,7 +324,7 @@ bool REVariant::isMap() const
 
 const REVariantMap & REVariant::toMap() const
 {
-	return *(const REVariantMap *)_u.pointerValue;
+	return *_u.mapValue;
 }
 
 bool REVariant::isList() const
@@ -336,22 +334,22 @@ bool REVariant::isList() const
 
 const REVariantList & REVariant::toList() const
 {
-	return *(const REVariantList *)_u.pointerValue;
+	return *_u.listValue;
 }
 
 REString & REVariant::toString()
 {
-	return *(REString *)_u.pointerValue;
+	return *_u.stringValue;
 }
 
 REVariantMap & REVariant::toMap()
 {
-	return *(REVariantMap *)_u.pointerValue;
+	return *_u.mapValue;
 }
 
 REVariantList & REVariant::toList()
 {
-	return *((REVariantList *)_u.pointerValue);
+	return *_u.listValue;
 }
 
 bool REVariant::isEqualToVariant(const REVariant & v) const
@@ -384,7 +382,6 @@ bool REVariant::isEqualToVariant(const REVariant & v) const
 	return false;
 }
 
-
 bool REVariant::operator==(const REVariant & v) const
 {
 	return this->isEqualToVariant(v);
@@ -396,104 +393,104 @@ bool REVariant::operator!=(const REVariant & v) const
 }
 
 REVariant::REVariant() :
-	_t(TypeNone)
+_t(TypeNone)
 {
 	memset(&_u, 0, sizeof(VariantUnion));
 }
 
 REVariant::REVariant(int v) :
-	_t(TypeNone)
+_t(TypeNone)
 {
 	memset(&_u, 0, sizeof(VariantUnion));
 	*this = v;
 }
 
 REVariant::REVariant(unsigned int v) :
-	_t(TypeNone)
+_t(TypeNone)
 {
 	memset(&_u, 0, sizeof(VariantUnion));
 	*this = v;
 }
 
 REVariant::REVariant(float v) :
-	_t(TypeNone)
+_t(TypeNone)
 {
 	memset(&_u, 0, sizeof(VariantUnion));
 	*this = v;
 }
 
 REVariant::REVariant(double v) :
-	_t(TypeNone)
+_t(TypeNone)
 {
 	memset(&_u, 0, sizeof(VariantUnion));
 	*this = v;
 }
 
 REVariant::REVariant(long long v) :
-	_t(TypeNone)
+_t(TypeNone)
 {
 	memset(&_u, 0, sizeof(VariantUnion));
 	*this = v;
 }
 
 REVariant::REVariant(unsigned long long v) :
-	_t(TypeNone)
+_t(TypeNone)
 {
 	memset(&_u, 0, sizeof(VariantUnion));
 	*this = v;
 }
 
 REVariant::REVariant(long double v) :
-	_t(TypeNone)
+_t(TypeNone)
 {
 	memset(&_u, 0, sizeof(VariantUnion));
 	*this = v;
 }
 
 REVariant::REVariant(bool v) :
-	_t(TypeNone)
+_t(TypeNone)
 {
 	memset(&_u, 0, sizeof(VariantUnion));
 	*this = v;
 }
 
 REVariant::REVariant(const char * v) :
-	_t(TypeNone)
+_t(TypeNone)
 {
 	memset(&_u, 0, sizeof(VariantUnion));
 	*this = v;
 }
 
 REVariant::REVariant(const wchar_t * v) :
-	_t(TypeNone)
+_t(TypeNone)
 {
 	memset(&_u, 0, sizeof(VariantUnion));
 	*this = v;
 }
 
 REVariant::REVariant(const REString & v) :
-	_t(TypeNone)
+_t(TypeNone)
 {
 	memset(&_u, 0, sizeof(VariantUnion));
 	*this = v;
 }
 
 REVariant::REVariant(const REVariantMap & v) :
-	_t(TypeNone)
+_t(TypeNone)
 {
 	memset(&_u, 0, sizeof(VariantUnion));
 	*this = v;
 }
 
 REVariant::REVariant(const REVariantList & v) :
-	_t(TypeNone)
+_t(TypeNone)
 {
 	memset(&_u, 0, sizeof(VariantUnion));
 	*this = v;
 }
 
 REVariant::REVariant(const REVariant & v) :
-	_t(TypeNone)
+_t(TypeNone)
 {
 	memset(&_u, 0, sizeof(VariantUnion));
 	*this = v;
@@ -503,6 +500,4 @@ REVariant::~REVariant()
 {
 	this->clean();
 }
-
-
 

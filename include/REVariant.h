@@ -98,7 +98,13 @@ protected:
 		uint64_t uint64Value;
 		double doubleValue;
 		bool boolValue;
-		void * pointerValue;
+		union
+		{
+			void * pointerValue;
+			REString * stringValue;
+			REVariantMap * mapValue;
+			REVariantList * listValue;
+		};
 	}
 	/**
 	 @brief Union for storing varian data.

@@ -60,9 +60,11 @@ void REVariantMap::fromJSONString(const REString & jsonString)
 
 bool REVariantMap::isEqualToMap(const REVariantMap & map) const
 {
+	RESizeT srcCount = 0;
 	REVariantMap::Iterator i = this->iterator();
 	while (i.next())
 	{
+		srcCount++;
 		Node * node = map.findNode(i.key());
 		if (node)
 		{
@@ -76,7 +78,9 @@ bool REVariantMap::isEqualToMap(const REVariantMap & map) const
 			return false;
 		}
 	}
-	return true;
+
+	const RESizeT dstCount = map.count();
+	return (srcCount == dstCount);
 }
 
 bool REVariantMap::operator==(const REVariantMap & map) const

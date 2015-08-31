@@ -33,7 +33,12 @@ class __RE_PUBLIC_CLASS_API__ REBuffer
 {
 protected:
 	REAllocator _allocator;
-	void * _buff;
+	union
+	{
+		void * _buff;
+		const char * _constCharBuffer;
+		const unsigned char * _constUnsignedCharBuffer;
+	};
 	RESizeT _size;
 
 public:
@@ -43,9 +48,18 @@ public:
 	 */
 	bool isEqualToBuffer(const REBuffer & anotherBuffer) const;
 
-	
+
+	/**
+	 @brief Get raw constant pointer to the buffer memory.
+	 @return Constant void pointer to the buffer memory.
+	 */
 	const void * buffer() const;
 
+
+	/**
+	 @brief Get size of the buffer memory in bytes.
+	 @return Size of the buffer memory.
+	 */
 	RESizeT size() const;
 
 	REBuffer(const char * string);
