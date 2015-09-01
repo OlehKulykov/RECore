@@ -22,6 +22,9 @@ install:
   - cd c:\dev\RECore
   - md RECore-install-dir
   - git submodule update --init --recursive
+  - cd jansson
+  - git apply < ../jansson_msc_1900.patch
+  - cd ..
 
 build:
 
