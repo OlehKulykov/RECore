@@ -28,11 +28,11 @@
 #endif
 
 
-#if defined(HAVE_MACH_MACH_TIME_H)
+#if defined(RE_HAVE_MACH_MACH_TIME_H)
 #include <mach/mach_time.h>
 #endif
 
-#if defined(HAVE_SYS_TIME_H)
+#if defined(RE_HAVE_SYS_TIME_H)
 #include <sys/time.h>
 #endif
 
@@ -41,7 +41,7 @@
 class RETimePrivate 
 {
 private:
-#if defined(HAVE_MACH_MACH_TIME_H)
+#if defined(RE_HAVE_MACH_MACH_TIME_H)
 	
 	uint64_t _absoluteAppStartTime;
 	uint64_t _absoluteLastCallTime;
@@ -73,7 +73,7 @@ RETimePrivate RETimePrivate::_time;
 
 RETimeInterval RETimePrivate::get() 
 {
-#if defined(HAVE_MACH_MACH_TIME_H)
+#if defined(RE_HAVE_MACH_MACH_TIME_H)
 	
 	const double seconds = (_nanoSecond * (mach_absolute_time() - _absoluteAppStartTime));
 	return (RETimeInterval)seconds;
@@ -85,7 +85,7 @@ RETimeInterval RETimePrivate::get()
 	const double returnTime = ((double)counterTime) * _performanceCounterTimeScale;
 	return (RETimeInterval)returnTime;
 	
-#elif defined(HAVE_FUNCTION_CLOCK_GETTIME)
+#elif defined(RE_HAVE_FUNCTION_CLOCK_GETTIME)
 	
 	struct timespec now;
 	if (clock_gettime(CLOCK_MONOTONIC, &now) == 0)
@@ -150,7 +150,7 @@ bool RETimePrivate::isPaused() const
 }
 
 RETimePrivate::RETimePrivate() :
-#if defined(HAVE_MACH_MACH_TIME_H) 
+#if defined(RE_HAVE_MACH_MACH_TIME_H)
 
 	_absoluteAppStartTime(0),
 	_absoluteLastCallTime(0),
@@ -167,7 +167,7 @@ RETimePrivate::RETimePrivate() :
 	_unusedTime(0.0),
 	_isPaused(0)
 {
-#if defined(HAVE_MACH_MACH_TIME_H) 
+#if defined(RE_HAVE_MACH_MACH_TIME_H) 
 	
 	_absoluteAppStartTime = mach_absolute_time();
 	_absoluteLastCallTime = _absoluteAppStartTime;

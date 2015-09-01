@@ -32,7 +32,7 @@
 #include "recore_config.h"
 #endif
 
-#if defined(HAVE_STDARG_H)
+#if defined(RE_HAVE_STDARG_H)
 #include <stdarg.h>
 #endif
 
@@ -321,9 +321,9 @@ REString REString::createWithFormat(const char * format, ...)
 		va_start(args, format);
 		char strBuff[1024];
 
-#if defined(HAVE_FUNCTION_VSNPRINTF)
+#if defined(RE_HAVE_FUNCTION_VSNPRINTF)
 		const int writed = vsnprintf(strBuff, 1024, format, args);
-#elif defined(HAVE_FUNCTION_VSPRINTF_S)
+#elif defined(RE_HAVE_FUNCTION_VSPRINTF_S)
 		const int writed = vsprintf_s(strBuff, format, args);
 #else
 		const int writed = vsprintf(strBuff, format, args);

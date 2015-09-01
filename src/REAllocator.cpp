@@ -48,7 +48,7 @@ void * REMallocAlignedA(RESizeT size, RESizeT * allocatedSize)
 {
 	if (size > 0)
 	{
-#if defined(HAVE_FUNCTION_POSIX_MEMALIGN)
+#if defined(RE_HAVE_FUNCTION_POSIX_MEMALIGN)
 		const size_t alignment = sizeof(void *);
 		if (size < alignment)
 		{

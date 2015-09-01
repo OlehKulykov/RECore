@@ -31,7 +31,7 @@
 #include "recore_config.h"
 #endif
 
-#if defined(HAVE_JANSSON_H) 
+#if defined(RE_HAVE_JANSSON_H) 
 
 #include <jansson.h>
 

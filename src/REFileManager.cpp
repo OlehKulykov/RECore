@@ -30,35 +30,35 @@
 #include "recore_config.h"
 #endif
 
-#if defined(HAVE_BOOST_FILESYSTEM_HPP)
+#if defined(RE_HAVE_BOOST_FILESYSTEM_HPP)
 #include <boost/filesystem.hpp>
 #endif
 
-#if defined(HAVE_SYS_STAT_H)
+#if defined(RE_HAVE_SYS_STAT_H)
 #include <sys/stat.h>
 #endif
 
-#if defined(HAVE_FCNTL_H)
+#if defined(RE_HAVE_FCNTL_H)
 #include <fcntl.h>
 #endif
 
-#if defined(HAVE_UNISTD_H)
+#if defined(RE_HAVE_UNISTD_H)
 #include <unistd.h>
 #endif
 
-#if defined(HAVE_ERRNO_H)
+#if defined(RE_HAVE_ERRNO_H)
 #include <errno.h>
 #endif
 
-#if defined(HAVE_SYS_ERRNO_H)
+#if defined(RE_HAVE_SYS_ERRNO_H)
 #include <sys/errno.h>
 #endif
 
-#if defined(HAVE_IO_H)
+#if defined(RE_HAVE_IO_H)
 #include <io.h>
 #endif
 
-#if defined(HAVE_DIRECT_H) 
+#if defined(RE_HAVE_DIRECT_H)
 #include <direct.h>
 #endif
 
@@ -108,22 +108,24 @@ bool REFileManager::isExistsAtPath(const char * path, bool * isDirectory) const
 	if (isDirectory) *isDirectory = false;
 	if (!path) return false;
 
-#if defined(HAVE_STRUCT__STAT)	&& defined(HAVE_FUNCTION__STAT)
+#if defined(RE_HAVE_STRUCT__STAT) && defined(RE_HAVE_FUNCTION__STAT)
 	struct _stat statbuf;
 	if (_stat(path, &statbuf) != 0) return false;
-#elif defined(HAVE_STRUCT_STAT) && defined(HAVE_FUNCTION_STAT)
+#elif defined(RE_HAVE_STRUCT_STAT) && defined(RE_HAVE_FUNCTION_STAT)
 	struct stat statbuf;
 	if (stat(path, &statbuf) != 0) return false;
 #else
-#error "Unimplemented REFileManager::isFileExistsAtPath"
+#warning "UNIMPLEMENTED REFileManager::isFileExistsAtPath"
 #endif
 
 	if (isDirectory)
 	{
+#if (defined(RE_HAVE_STRUCT__STAT) && defined(RE_HAVE_FUNCTION__STAT)) || (defined(RE_HAVE_STRUCT_STAT) && defined(RE_HAVE_FUNCTION_STAT))
 		if ((statbuf.st_mode & S_IFMT) == S_IFDIR)
 		{
 			*isDirectory = true;
 		}
+#endif
 	}
 
 	return true;

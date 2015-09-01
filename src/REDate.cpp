@@ -38,7 +38,7 @@
 class REDateInternal 
 {
 private:
-#if defined(HAVE_STRUCT_TM_TM_ZONE)
+#if defined(RE_HAVE_STRUCT_TM_TM_ZONE)
 	void setTimeZone(const char * tz);
 #endif
 	
@@ -51,7 +51,7 @@ public:
 	~REDateInternal();
 };
 
-#if defined(HAVE_STRUCT_TM_TM_ZONE)
+#if defined(RE_HAVE_STRUCT_TM_TM_ZONE)
 void REDateInternal::setTimeZone(const char * tz)
 {
 	if (timestruct.tm_zone) 
@@ -82,7 +82,7 @@ REDateInternal::REDateInternal(const REDateInternal & di) :
 	rawtime(di.rawtime),
 	timestruct(di.timestruct)
 {
-#if defined(HAVE_STRUCT_TM_TM_ZONE)
+#if defined(RE_HAVE_STRUCT_TM_TM_ZONE)
 	timestruct.tm_zone = NULL;
 	this->setTimeZone(di.timestruct.tm_zone);
 #endif
@@ -92,7 +92,7 @@ REDateInternal::REDateInternal(const time_t rt, struct tm ts) :
 	rawtime(rt),
 	timestruct(ts)
 {
-#if defined(HAVE_STRUCT_TM_TM_ZONE)
+#if defined(RE_HAVE_STRUCT_TM_TM_ZONE)
 	timestruct.tm_zone = NULL;
 	this->setTimeZone(ts.tm_zone);
 #endif
@@ -100,7 +100,7 @@ REDateInternal::REDateInternal(const time_t rt, struct tm ts) :
 
 REDateInternal::~REDateInternal()
 {
-#if defined(HAVE_STRUCT_TM_TM_ZONE)
+#if defined(RE_HAVE_STRUCT_TM_TM_ZONE)
 	if (timestruct.tm_zone) 
 	{
 		char * prevTZ = const_cast<char *>(timestruct.tm_zone);

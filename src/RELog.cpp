@@ -28,16 +28,16 @@
 #endif
 
 
-#if defined(HAVE_STDARG_H)
+#if defined(RE_HAVE_STDARG_H)
 #include <stdarg.h>
 #endif
 
-#if defined(HAVE_ANDROID_LOG_H)
+#if defined(RE_HAVE_ANDROID_LOG_H)
 #include <android/log.h>
 #define LOG_TAG "RECore"
 #endif
 
-#if defined(HAVE_QT)
+#if defined(RE_HAVE_QT)
 #include <QDebug>
 #endif
 
@@ -53,7 +53,7 @@ void RELog::log(const char * logString, ...)
 		va_list args;
 		va_start(args, logString);
 
-#if defined(HAVE_ANDROID_LOG_H)
+#if defined(RE_HAVE_ANDROID_LOG_H)
 		__android_log_vprint(ANDROID_LOG_INFO, LOG_TAG, logString, args);
 #else
 		RELog::logA(logString, args);
@@ -68,9 +68,9 @@ void RELog::logA(const char * logString, va_list arguments)
 {
 	if (logString)
 	{
-#if defined(HAVE_ANDROID_LOG_H)
+#if defined(RE_HAVE_ANDROID_LOG_H)
 		__android_log_vprint(ANDROID_LOG_INFO, LOG_TAG, logString, arguments);
-#elif defined(HAVE_QT)
+#elif defined(RE_HAVE_QT)
 		char buff[1024*2] = { 0 };
 		vsprintf(buff, logString, arguments);
 		qDebug() << buff;

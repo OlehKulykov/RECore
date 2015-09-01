@@ -30,14 +30,14 @@
 #include "recore_config.h"
 #endif
 
-#if defined(HAVE_ASSERT_H)
+#if defined(RE_HAVE_ASSERT_H)
 #include <assert.h>
 #endif
 
 
 REString REVariantMap::jsonString() const
 {
-#if defined(HAVE_JANSSON_H)
+#if defined(RE_HAVE_JANSSON_H)
 	REJanssonGenerator generator(*this);
 	return REString(generator.string());
 #else
@@ -49,7 +49,7 @@ void REVariantMap::fromJSONString(const REString & jsonString)
 {
 	this->clear();
 
-#if defined(HAVE_JANSSON_H)
+#if defined(RE_HAVE_JANSSON_H)
 	REJanssonParser parser(jsonString.UTF8String());
 	if (parser.isMap())
 	{
@@ -150,7 +150,7 @@ REVariant & REVariantMap::operator[](const REString & key)
 
 	node = this->addNewNodeWithKeyValue(key, REVariant());
 
-#if defined(HAVE_ASSERT_H)
+#if defined(RE_HAVE_ASSERT_H)
 	assert(node);
 #endif
 

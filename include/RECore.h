@@ -26,7 +26,7 @@
 
 #define RECORE_VERSION_MAJOR 3
 #define RECORE_VERSION_MINOR 0
-#define RECORE_VERSION_PATCH 1
+#define RECORE_VERSION_PATCH 2
 
 
 #if !defined(__RE_OS_WINDOWS__) && !defined(__RE_OS_ANDROID__)
@@ -44,9 +44,9 @@
 
 
 #if !defined(__RE_COMPILER_MINGW__)
-#if defined(__MINGW32__) || defined(__MINGW64__) || defined(MINGW)
-#define __RE_COMPILER_MINGW__ 1
-#endif
+#	if defined(__MINGW32__) || defined(__MINGW64__) || defined(MINGW)
+#		define __RE_COMPILER_MINGW__ 1
+#	endif
 #endif
 
 
@@ -65,16 +65,16 @@
 
 
 #if defined(TARGET_OS_MAC) || defined(TARGET_OS_IPHONE) || defined(TARGET_IPHONE_SIMULATOR) || defined(__APPLE__)
-#ifndef __APPLE__
-#define __APPLE__ 1
-#endif
+#	ifndef __APPLE__
+#		define __APPLE__ 1
+#	endif
 #endif
 
 
 #if defined(__cplusplus) || defined(_cplusplus)
-#define __RE_EXTERN__ extern "C"
+#	define __RE_EXTERN__ extern "C"
 #else
-#define __RE_EXTERN__ extern
+#	define __RE_EXTERN__ extern
 #endif
 
 
@@ -147,7 +147,7 @@
 #endif
 
 
-#if defined(HAVE_ASSERT_H)
+#if defined(RE_HAVE_ASSERT_H)
 #include <assert.h>
 #endif
 

@@ -27,7 +27,7 @@
 #include "recore_config.h"
 #endif
 
-#if defined(HAVE_ASSERT_H)
+#if defined(RE_HAVE_ASSERT_H)
 #include <assert.h>
 #endif
 
@@ -37,7 +37,7 @@
 #define __RE_HAVE_THREADS__ 1
 #endif
 
-#if !defined(__RE_HAVE_THREADS__) && defined(HAVE_PTHREAD_H)
+#if !defined(__RE_HAVE_THREADS__) && defined(RE_HAVE_PTHREAD_H)
 #include <pthread.h>
 #define __RE_THREADING_PTHREAD__ 1
 #define __RE_HAVE_THREADS__ 1
@@ -50,11 +50,11 @@ bool REMutex::lock() const
 	if (_m)
 	{
 		pthread_mutex_t * m = const_cast<pthread_mutex_t *>(static_cast<const pthread_mutex_t *>(_m));
-#if defined(HAVE_ASSERT_H)
+#if defined(RE_HAVE_ASSERT_H)
 		assert(m);
 #endif
 		const bool r = (pthread_mutex_lock(m) == 0);
-#if defined(HAVE_ASSERT_H)
+#if defined(RE_HAVE_ASSERT_H)
 		assert(r);
 #endif
 		return r;
@@ -64,11 +64,11 @@ bool REMutex::lock() const
 	if (_m)
 	{
 		LPCRITICAL_SECTION m = const_cast<LPCRITICAL_SECTION>(static_cast<const LPCRITICAL_SECTION>(_m));
-#if defined(HAVE_ASSERT_H)
+#if defined(RE_HAVE_ASSERT_H)
 		assert(m);
 #endif
 		const bool r = TryEnterCriticalSection(m) ? true : false;
-#if defined(HAVE_ASSERT_H)
+#if defined(RE_HAVE_ASSERT_H)
 		assert(r);
 #endif
 		return r;
@@ -85,11 +85,11 @@ bool REMutex::unlock() const
 	if (_m)
 	{
 		pthread_mutex_t * m = const_cast<pthread_mutex_t *>(static_cast<const pthread_mutex_t *>(_m));
-#if defined(HAVE_ASSERT_H)
+#if defined(RE_HAVE_ASSERT_H)
 		assert(m);
 #endif
 		const bool r = (pthread_mutex_unlock(m) == 0);
-#if defined(HAVE_ASSERT_H)
+#if defined(RE_HAVE_ASSERT_H)
 		assert(r);
 #endif
 		return r;
@@ -99,7 +99,7 @@ bool REMutex::unlock() const
 	if (_m)
 	{
 		LPCRITICAL_SECTION m = const_cast<LPCRITICAL_SECTION>(static_cast<const LPCRITICAL_SECTION>(_m));
-#if defined(HAVE_ASSERT_H)
+#if defined(RE_HAVE_ASSERT_H)
 		assert(m);
 #endif
 		LeaveCriticalSection(m);
@@ -122,7 +122,7 @@ bool remutex_init_recursive_private(pthread_mutex_t * m)
 			isInit = (pthread_mutex_init(m, &attr) == 0);
 		pthread_mutexattr_destroy(&attr);
 	}
-#if defined(HAVE_ASSERT_H)
+#if defined(RE_HAVE_ASSERT_H)
 	assert(isInit);
 #endif
 	return isInit;
@@ -133,7 +133,7 @@ REMutex::REMutex() : _m(NULL)
 {
 #if defined(__RE_THREADING_PTHREAD__)
 	void * m = malloc(sizeof(pthread_mutex_t));
-#if defined(HAVE_ASSERT_H)
+#if defined(RE_HAVE_ASSERT_H)
 	assert(m);
 #endif
 	if (m)
@@ -143,7 +143,7 @@ REMutex::REMutex() : _m(NULL)
 	}
 #elif defined(__RE_THREADING_WINDOWS__)
 	_m = malloc(sizeof(CRITICAL_SECTION));
-#if defined(HAVE_ASSERT_H)
+#if defined(RE_HAVE_ASSERT_H)
 	assert(_m);
 #endif
 	if (_m) InitializeCriticalSection(static_cast<LPCRITICAL_SECTION>(_m));

@@ -23,7 +23,7 @@
 
 #include "REJsonUtilsPrivate.h"
 
-#if defined(HAVE_JANSSON_H)
+#if defined(RE_HAVE_JANSSON_H)
 
 bool REJanssonParser::isMap() const
 {
