@@ -63,44 +63,63 @@
 #endif
 
 #include <ctype.h>
+#include <wchar.h>
 
-bool REFileManager::moveFile(const wchar_t * sourceFilePath, const wchar_t * destinationFilePath)
-{
-	//TODO: .....
-	return false;
-}
 
-bool REFileManager::moveFile(const char * sourceFilePath, const char * destinationFilePath)
+bool REFileManager::moveFile(const wchar_t * sourceFilePath, const wchar_t * destinationFilePath) const
 {
 	if (sourceFilePath && destinationFilePath)
 	{
-		const int r = rename(sourceFilePath, destinationFilePath);
-		return (r == 0);
+#if defined(__RE_OS_WINDOWS__)
+#error "UNIMPLEMENTED REFileManager::moveFile"
+#else
+		return this->moveFile(REString(sourceFilePath).UTF8String(), REString(destinationFilePath).UTF8String());
+#endif
 	}
 	return false;
 }
 
-bool REFileManager::moveFile(const REString & sourceFilePath, const REString & destinationFilePath)
+bool REFileManager::moveFile(const char * sourceFilePath, const char * destinationFilePath) const
+{
+	if (sourceFilePath && destinationFilePath)
+	{
+#if defined(RE_HAVE_FUNCTION_RENAME)
+		const int r = rename(sourceFilePath, destinationFilePath);
+		return (r == 0);
+#else
+#error "UNIMPLEMENTED REFileManager::moveFile"
+#endif
+	}
+	return false;
+}
+
+bool REFileManager::moveFile(const REString & sourceFilePath, const REString & destinationFilePath) const
 {
 #if defined(__RE_OS_WINDOWS__)
 	if (sourceFilePath.isContainsNonASCII() || destinationFilePath.isContainsNonASCII())
 	{
-		REWideString s(sourceFilePath);
-		REWideString d(destinationFilePath);
-		return this->moveFile((const wchar_t *)s.wideChars(), (const wchar_t *)d.wideChars());
+		return this->moveFile(REWideString(sourceFilePath).wideChars(), REWideString(destinationFilePath).wideChars());
 	}
 #endif
 
-	return this->moveFile((const char *)sourceFilePath.UTF8String(), (const char *)destinationFilePath.UTF8String());
+	return this->moveFile(sourceFilePath.UTF8String(), destinationFilePath.UTF8String());
 }
 
-
-
-
-bool REFileManager::isExistsAtPath(const wchar_t & path, bool * isDirectory) const
+bool REFileManager::isExistsAtPath(const wchar_t * path, bool * isDirectory) const
 {
-	//TODO: .....
-	return false;
+	if (isDirectory) *isDirectory = false;
+	if (!path) return false;
+
+#if defined(RE_HAVE_STRUCT__STAT) && defined(RE_HAVE_FUNCTION__WSTAT)
+	struct _stat statbuf;
+	if (_wstat(path, &statbuf) != 0) return false;
+	if (isDirectory) *isDirectory = ((statbuf.st_mode & S_IFMT) == S_IFDIR);
+	return true;
+#elif defined(__RE_OS_WINDOWS__)
+#error "UNIMPLEMENTED REFileManager::isExistsAtPath"
+#else
+	return this->isExistsAtPath(REString(path).UTF8String(), isDirectory);
+#endif
 }
 
 bool REFileManager::isExistsAtPath(const char * path, bool * isDirectory) const
@@ -111,22 +130,14 @@ bool REFileManager::isExistsAtPath(const char * path, bool * isDirectory) const
 #if defined(RE_HAVE_STRUCT__STAT) && defined(RE_HAVE_FUNCTION__STAT)
 	struct _stat statbuf;
 	if (_stat(path, &statbuf) != 0) return false;
+	if (isDirectory) *isDirectory = ((statbuf.st_mode & S_IFMT) == S_IFDIR);
 #elif defined(RE_HAVE_STRUCT_STAT) && defined(RE_HAVE_FUNCTION_STAT)
 	struct stat statbuf;
 	if (stat(path, &statbuf) != 0) return false;
+	if (isDirectory) *isDirectory = ((statbuf.st_mode & S_IFMT) == S_IFDIR);
 #else
-#warning "UNIMPLEMENTED REFileManager::isFileExistsAtPath"
+#error "UNIMPLEMENTED REFileManager::isFileExistsAtPath"
 #endif
-
-	if (isDirectory)
-	{
-#if (defined(RE_HAVE_STRUCT__STAT) && defined(RE_HAVE_FUNCTION__STAT)) || (defined(RE_HAVE_STRUCT_STAT) && defined(RE_HAVE_FUNCTION_STAT))
-		if ((statbuf.st_mode & S_IFMT) == S_IFDIR)
-		{
-			*isDirectory = true;
-		}
-#endif
-	}
 
 	return true;
 }
@@ -139,17 +150,11 @@ bool REFileManager::isExistsAtPath(const REString & path, bool * isDirectory) co
 #if defined(__RE_OS_WINDOWS__)
 	if (path.isContainsNonASCII())
 	{
-		REWideString p(path);
-		return this->isExistsAtPath(p.wideChars(), isDirectory);
+		return this->isExistsAtPath(REWideString(path).wideChars(), isDirectory);
 	}
-	else
-	{
-		return this->isExistsAtPath(path.UTF8String(), isDirectory);
-	}
-#else
-	return this->isExistsAtPath(path.UTF8String(), isDirectory);
 #endif
 
+	return this->isExistsAtPath(path.UTF8String(), isDirectory);
 }
 
 REString REFileManager::randomName(const RESizeT nameLength)

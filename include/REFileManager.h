@@ -34,13 +34,13 @@
 class __RE_PUBLIC_CLASS_API__ REFileManager
 {
 private:
-	bool moveFile(const wchar_t * sourceFilePath, const wchar_t * destinationFilePath);
-	bool isExistsAtPath(const wchar_t & path, bool * isDirectory) const;
 
 public:
-	bool moveFile(const char * sourceFilePath, const char * destinationFilePath);
-	bool moveFile(const REString & sourceFilePath, const REString & destinationFilePath);
+	bool moveFile(const wchar_t * sourceFilePath, const wchar_t * destinationFilePath) const;
+	bool moveFile(const char * sourceFilePath, const char * destinationFilePath) const;
+	bool moveFile(const REString & sourceFilePath, const REString & destinationFilePath) const;
 
+	bool isExistsAtPath(const wchar_t * path, bool * isDirectory) const;
 	bool isExistsAtPath(const char * path, bool * isDirectory) const;
 	bool isExistsAtPath(const REString & path, bool * isDirectory) const;
 
