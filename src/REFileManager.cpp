@@ -70,7 +70,10 @@ bool REFileManager::moveFile(const wchar_t * sourceFilePath, const wchar_t * des
 {
 	if (sourceFilePath && destinationFilePath)
 	{
-#if defined(__RE_OS_WINDOWS__)
+#if defined(RE_HAVE_FUNCTION__WRENAME)
+		const int r = _wrename(sourceFilePath, destinationFilePath);
+		return (r == 0);
+#elif defined(__RE_OS_WINDOWS__)
 #error "UNIMPLEMENTED REFileManager::moveFile"
 #else
 		return this->moveFile(REString(sourceFilePath).UTF8String(), REString(destinationFilePath).UTF8String());
