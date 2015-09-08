@@ -213,26 +213,26 @@ bool REFileManager::isReadableFileAtPath(const char * path) const
 		}
 #elif defined(__RE_OS_WINDOWS__)
 		const DWORD dwAttrs = GetFileAttributesA(path);
-		if (dwAttrs == INVALID_FILE_ATTRIBUTES) 
+		if (dwAttrs == INVALID_FILE_ATTRIBUTES)
 		{
 			return false;
 		}
-		return true; 
+		return true;
 #else
 #error "Unimplemented REFileManager::isReadableFileAtPath"
-#endif	
+#endif
 	}
 	return false;
 }
 
 bool REFileManager::isReadableFileAtPath(const REString & path) const
 {
-	if ( path.isEmpty() ) 
+	if ( path.isEmpty() )
 	{
 		return false;
 	}
-	
-#if defined(HAVE_FUNCTION__WACCESS)	
+
+#if defined(HAVE_FUNCTION__WACCESS)
 	REWideString wideString(path);
 	if (_waccess(wideString.wideChars(), R_OK) == 0)
 	{
@@ -240,14 +240,14 @@ bool REFileManager::isReadableFileAtPath(const REString & path) const
 	}
 #else
 	return this->isReadableFileAtPath(path.UTF8String());
-#endif	
+#endif
 }
 
 bool REFileManager::isWritableFileAtPath(const char * path) const
 {
-	if (path) 
+	if (path)
 	{
-#if defined(HAVE_FUNCTION_ACCESS)		
+#if defined(HAVE_FUNCTION_ACCESS)
 		if (access(path, W_OK) == 0)
 		{
 			return true;
@@ -257,19 +257,19 @@ bool REFileManager::isWritableFileAtPath(const char * path) const
 		{
 			return true;
 		}
-#elif defined(__RE_OS_WINDOWS__)		
+#elif defined(__RE_OS_WINDOWS__)
 		const DWORD dwAttrs = GetFileAttributesA(path);
-		if (dwAttrs == INVALID_FILE_ATTRIBUTES) 
+		if (dwAttrs == INVALID_FILE_ATTRIBUTES)
 		{
 			return false;
 		}
-		if (!(dwAttrs & FILE_ATTRIBUTE_READONLY)) 
-		{ 
-			return true; 
-		} 
+		if (!(dwAttrs & FILE_ATTRIBUTE_READONLY))
+		{
+			return true;
+		}
 #else
 #error "Unimplemented REFileManager::isWritableFileAtPath"
-#endif		
+#endif
 	}
 	return false;
 
@@ -277,12 +277,12 @@ bool REFileManager::isWritableFileAtPath(const char * path) const
 
 bool REFileManager::isWritableFileAtPath(const REString & path) const
 {
-	if ( path.isEmpty() ) 
+	if ( path.isEmpty() )
 	{
 		return false;
 	}
 
-#if defined(HAVE_FUNCTION__WACCESS)	
+#if defined(HAVE_FUNCTION__WACCESS)
 	REWideString wideString(path);
 	if (_waccess(wideString.wideChars(), W_OK) == 0)
 	{
@@ -292,24 +292,24 @@ bool REFileManager::isWritableFileAtPath(const REString & path) const
 #elif defined(__RE_OS_WINDOWS__)
 	REWideString wideString(path);
 	const DWORD dwAttrs = GetFileAttributesW(wideString.wideChars());
-	if (dwAttrs == INVALID_FILE_ATTRIBUTES) 
+	if (dwAttrs == INVALID_FILE_ATTRIBUTES)
 	{
 		return false;
 	}
-	if (!(dwAttrs & FILE_ATTRIBUTE_READONLY)) 
-	{ 
-		return true; 
-	} 
+	if (!(dwAttrs & FILE_ATTRIBUTE_READONLY))
+	{
+		return true;
+	}
 	return false;
 #else
 	return this->isWritableFileAtPath(path.UTF8String());
-#endif	
-	
+#endif
+
 }
 
 bool REFileManager::createFileAtPath(const char * path, REData * withFileData) const
 {
-	if (path) 
+	if (path)
 	{
 		FILE * f = REFile::fileOpen(REString(path), "wb+");
 		if (f)
@@ -333,15 +333,15 @@ bool REFileManager::createFileAtPath(const char * path, REData * withFileData) c
 
 bool REFileManager::createFileAtPath(const REString & path, REData * withFileData) const
 {
-	if ( path.isEmpty() ) 
+	if ( path.isEmpty() )
 	{
 		return false;
 	}
 
-#ifndef __RE_OS_WINDOWS__	
+#ifndef __RE_OS_WINDOWS__
 	return this->createFileAtPath(path.UTF8String(), withFileData);
 #endif /* NOT WIN */
-	
+
 #ifdef __RE_OS_WINDOWS__
 	FILE * f = REFile::fileOpen(path, "wb+");
 	if (f)
@@ -360,90 +360,90 @@ bool REFileManager::createFileAtPath(const REString & path, REData * withFileDat
 		return (dwBytesToWrite == dwBytesWritten);
 	}
 	return false;
-#endif	/* WIN */ 
+#endif	/* WIN */
 }
 
 bool REFileManager::isFileExistsAtPath(const char * path, bool * isDirectory) const
 {
-    if (isDirectory)
-    {
-        *isDirectory = false;
-    }
-    if ( path == NULL )
-    {
-        return false;
-    }
+	if (isDirectory)
+	{
+		*isDirectory = false;
+	}
+	if ( path == NULL )
+	{
+		return false;
+	}
 
 #if defined(HAVE_STRUCT__STAT)	&& defined(HAVE_FUNCTION__STAT)
 	struct _stat statbuf;
-    if (_stat(path, &statbuf) != 0)
-    {
-        return false;
-    }
+	if (_stat(path, &statbuf) != 0)
+	{
+		return false;
+	}
 #elif defined(HAVE_STRUCT_STAT) && defined(HAVE_FUNCTION_STAT)
 	struct stat statbuf;
 	if (stat(path, &statbuf) != 0)
 	{
 		return false;
 	}
-#else	
+#else
 #error "Unimplemented REFileManager::isFileExistsAtPath"
 #endif
-	
-    if (isDirectory)
-    {
-        if ((statbuf.st_mode & S_IFMT) == S_IFDIR)
-        {
-            *isDirectory = true;
-        }
-    }
+
+	if (isDirectory)
+	{
+		if ((statbuf.st_mode & S_IFMT) == S_IFDIR)
+		{
+			*isDirectory = true;
+		}
+	}
 
 	return true;
 }
 
 bool REFileManager::isFileExistsAtPath(const REString & path, bool * isDirectory) const
 {
-	if ( path.isEmpty() ) 
+	if ( path.isEmpty() )
 	{
-		if ( isDirectory ) 
+		if ( isDirectory )
 		{
 			*isDirectory = false;
 		}
 		return false;
 	}
-	
-#ifndef __RE_OS_WINDOWS__	
+
+#ifndef __RE_OS_WINDOWS__
 	return this->isFileExistsAtPath(path.UTF8String(), isDirectory);
-#endif /* NOT WIN */	
-	
+#endif /* NOT WIN */
+
 #ifdef __RE_OS_WINDOWS__
 	REStringPresentation p(path.UTF8String());
 	const wchar_t * widePath = p.WideString();
-	if (p.GetWideLength() && widePath) 
+	if (p.GetWideLength() && widePath)
 	{
-		if (isDirectory) 
+		if (isDirectory)
 		{
 			*isDirectory = false;
 		}
-		
-        struct _stat statbuf;
-        if (_wstat(widePath, &statbuf) != 0)
-        {
-            return false;
-        }
 
-        if (isDirectory)
-        {
-            if ((statbuf.st_mode & S_IFMT) == S_IFDIR)
-            {
-                *isDirectory = true;
-            }
-        }
+		struct _stat statbuf;
+		if (_wstat(widePath, &statbuf) != 0)
+		{
+			return false;
+		}
 
-        return true;
+		if (isDirectory)
+		{
+			if ((statbuf.st_mode & S_IFMT) == S_IFDIR)
+			{
+				*isDirectory = true;
+			}
+		}
+
+		return true;
 	}
 	return false;
-#endif /* WIN */	
+#endif /* WIN */
 }
 
 bool REFileManager::createDir(const char * path)
@@ -461,55 +461,55 @@ bool REFileManager::createDir(const char * path)
 #else
 #error "Unimplemented REFileManager::createDir"
 #endif
-		
+
 	const int mkResult = errno;
 	if (mkResult == EEXIST) //allready exists - return true
 	{
 		return true;
 	}
-	
+
 	return false;
 }
 
-#ifdef __RE_OS_WINDOWS__ 
+#ifdef __RE_OS_WINDOWS__
 /// Wide char string version of CreateDir.
 bool REFileManager::CreateDir(const wchar_t * path)
 {
 	if (_wmkdir(path) == 0) //created
 	{
 		return true;
-	}	
+	}
 	const int mkResult = errno;
 	if (mkResult == EEXIST) //allready exists - return true
 	{
 		return true;
 	}
-	
+
 	return false;
 }
-#endif /* WIN */	
+#endif /* WIN */
 
 bool REFileManager::createDirectoryAtPath(const char * path, bool isCreateIntermediates)
 {
-	if (path == NULL) 
+	if (path == NULL)
 	{
 		return false;
 	}
-	
-	if (isCreateIntermediates) 
+
+	if (isCreateIntermediates)
 	{
 		const REUInt32 len = (REUInt32)strlen(path);
 		if (len == 0) { return false; }
 		REBuffer buf(len + 1);
-		if (buf.size() == (len + 1)) 
+		if (buf.size() == (len + 1))
 		{
 			memcpy(buf.buffer(), path, len);
 			char * p = (char *)buf.buffer();
 			p[len] = 0;
 			while ((*p == '/') || (*p == '\\')) { p++; } // skip first '/'
-			while (*p) 
+			while (*p)
 			{
-				if ((*p == '/') || (*p == '\\')) 
+				if ((*p == '/') || (*p == '\\'))
 				{
 					*p = 0;
 					if ( !this->createDir((const char *)buf.buffer()) )
@@ -527,27 +527,27 @@ bool REFileManager::createDirectoryAtPath(const char * path, bool isCreateInterm
 	{
 		return this->createDir(path);
 	}
-	
+
 	return false;
 }
 
 bool REFileManager::createDirectoryAtPath(const REString & path, bool isCreateIntermediates)
 {
-	if ( path.isEmpty() ) 
+	if ( path.isEmpty() )
 	{
 		return false;
 	}
-	
-#ifndef __RE_OS_WINDOWS__	
+
+#ifndef __RE_OS_WINDOWS__
 	return this->createDirectoryAtPath(path.UTF8String(), isCreateIntermediates);
-#endif /* NOT WIN */	
+#endif /* NOT WIN */
 
 #ifdef __RE_OS_WINDOWS__
 	REStringPresentation presentationOfPath(path.UTF8String());
 	const wchar_t * widePath = presentationOfPath.WideString();
-	if (presentationOfPath.GetWideLength() && widePath) 
+	if (presentationOfPath.GetWideLength() && widePath)
 	{
-		if (isCreateIntermediates) 
+		if (isCreateIntermediates)
 		{
 			const REUInt32 len = presentationOfPath.GetWideLength();
 			wchar_t * buff = const_cast<wchar_t*>(widePath);
@@ -555,9 +555,9 @@ bool REFileManager::createDirectoryAtPath(const REString & path, bool isCreateIn
 			wchar_t * p = buff;
 			p[len] = 0;
 			while ((*p == L'/') || (*p == L'\\')) { p++; } // skip first '/'
-			while (*p) 
+			while (*p)
 			{
-				if ((*p == L'/') || (*p == L'\\')) 
+				if ((*p == L'/') || (*p == L'\\'))
 				{
 					*p = 0;
 					if ( !this->CreateDir((const wchar_t*)buff) )
@@ -583,19 +583,19 @@ bool REFileManager::createDirectoryAtPath(const REString & path, bool isCreateIn
 
 
 /*
-const char REFileManager::GetPathSeparator()
-{
-#ifdef __RE_OS_WINDOWS__
+ const char REFileManager::GetPathSeparator()
+ {
+ #ifdef __RE_OS_WINDOWS__
 	return '\\';
-#endif 
-	
-#if ( defined(__RE_OS_MACOSX__) || defined(__RE_OS_LINUX__) || defined(__RE_OS_IPHONE__) )	
-	return '/';	
-#endif
-	
+ #endif
+
+ #if ( defined(__RE_OS_MACOSX__) || defined(__RE_OS_LINUX__) || defined(__RE_OS_IPHONE__) )
 	return '/';
-}
-*/
+ #endif
+
+	return '/';
+ }
+ */
 
 #endif
 
