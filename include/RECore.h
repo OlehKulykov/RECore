@@ -44,9 +44,9 @@
 
 
 #if !defined(__RE_COMPILER_MINGW__)
-#	if defined(__MINGW32__) || defined(__MINGW64__) || defined(MINGW)
-#		define __RE_COMPILER_MINGW__ 1
-#	endif
+#if defined(__MINGW32__) || defined(__MINGW64__) || defined(MINGW)
+#define __RE_COMPILER_MINGW__ 1
+#endif
 #endif
 
 
@@ -65,9 +65,9 @@
 
 
 #if defined(TARGET_OS_MAC) || defined(TARGET_OS_IPHONE) || defined(TARGET_IPHONE_SIMULATOR) || defined(__APPLE__)
-#	ifndef __APPLE__
-#		define __APPLE__ 1
-#	endif
+#ifndef __APPLE__
+#define __APPLE__ 1
+#endif
 #endif
 
 
@@ -131,8 +131,10 @@
 
 
 /* C++ Standard Library header */
+#if defined(__cplusplus) || defined(_cplusplus)
 #ifndef __RE_OS_ANDROID__
 #include <iostream>
+#endif
 #endif
 
 
