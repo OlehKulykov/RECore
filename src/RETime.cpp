@@ -230,7 +230,7 @@ bool RETime::resume()
 
 bool RETime::isTimePaused() const
 {
-	return RETime::isPaused();
+	return RETimePrivate::_time.isPaused();
 }
 
 bool RETime::isPaused()
@@ -240,7 +240,7 @@ bool RETime::isPaused()
 
 const RETimeInterval RETime::getTime() const
 {
-	return RETime::time();
+	return RETimePrivate::_time.Time();
 }
 
 const RETimeInterval RETime::time()
