@@ -1,0 +1,345 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3D0254871B9EE33D007A34E7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D0254861B9EE33D007A34E7 /* main.m */; };
+		3DE0229E1C2AD81F005471F8 /* RELZMA2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DE0229D1C2AD81F005471F8 /* RELZMA2.cpp */; };
+		3DE022A61C2ADB7E005471F8 /* REAllocator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DE022A51C2ADB7E005471F8 /* REAllocator.cpp */; };
+		3DE022A81C2ADB83005471F8 /* REBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DE022A71C2ADB83005471F8 /* REBuffer.cpp */; };
+		3DE022AA1C2ADB89005471F8 /* REMutableBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DE022A91C2ADB89005471F8 /* REMutableBuffer.cpp */; };
+		3DE022B01C2ADC21005471F8 /* Lzma2Dec.c in Sources */ = {isa = PBXBuildFile; fileRef = 3DE022AC1C2ADC21005471F8 /* Lzma2Dec.c */; };
+		3DE022B11C2ADC21005471F8 /* Lzma2Enc.c in Sources */ = {isa = PBXBuildFile; fileRef = 3DE022AE1C2ADC21005471F8 /* Lzma2Enc.c */; };
+		3DE022B61C2ADC67005471F8 /* LzmaDec.c in Sources */ = {isa = PBXBuildFile; fileRef = 3DE022B41C2ADC67005471F8 /* LzmaDec.c */; };
+		3DE022BA1C2ADC97005471F8 /* LzmaEnc.c in Sources */ = {isa = PBXBuildFile; fileRef = 3DE022B81C2ADC97005471F8 /* LzmaEnc.c */; };
+		3DE022BD1C2ADCB0005471F8 /* LzFind.c in Sources */ = {isa = PBXBuildFile; fileRef = 3DE022BB1C2ADCB0005471F8 /* LzFind.c */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		3D0254811B9EE33D007A34E7 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		3D0254831B9EE33D007A34E7 /* recore2_mac_testapp */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = recore2_mac_testapp; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D0254861B9EE33D007A34E7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		3DE0229D1C2AD81F005471F8 /* RELZMA2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RELZMA2.cpp; path = ../src/RELZMA2.cpp; sourceTree = "<group>"; };
+		3DE0229F1C2AD83D005471F8 /* RELZMA2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RELZMA2.h; path = ../include/RELZMA2.h; sourceTree = "<group>"; };
+		3DE022A11C2AD904005471F8 /* IRECompression.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IRECompression.h; path = ../include/IRECompression.h; sourceTree = "<group>"; };
+		3DE022A21C2ADB5B005471F8 /* REMutableBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = REMutableBuffer.h; path = ../include/REMutableBuffer.h; sourceTree = "<group>"; };
+		3DE022A31C2ADB67005471F8 /* REBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = REBuffer.h; path = ../include/REBuffer.h; sourceTree = "<group>"; };
+		3DE022A41C2ADB72005471F8 /* REAllocator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = REAllocator.h; path = ../include/REAllocator.h; sourceTree = "<group>"; };
+		3DE022A51C2ADB7E005471F8 /* REAllocator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = REAllocator.cpp; path = ../src/REAllocator.cpp; sourceTree = "<group>"; };
+		3DE022A71C2ADB83005471F8 /* REBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = REBuffer.cpp; path = ../src/REBuffer.cpp; sourceTree = "<group>"; };
+		3DE022A91C2ADB89005471F8 /* REMutableBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = REMutableBuffer.cpp; path = ../src/REMutableBuffer.cpp; sourceTree = "<group>"; };
+		3DE022AC1C2ADC21005471F8 /* Lzma2Dec.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Lzma2Dec.c; path = ../lzma/Lzma2Dec.c; sourceTree = "<group>"; };
+		3DE022AD1C2ADC21005471F8 /* Lzma2Dec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Lzma2Dec.h; path = ../lzma/Lzma2Dec.h; sourceTree = "<group>"; };
+		3DE022AE1C2ADC21005471F8 /* Lzma2Enc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Lzma2Enc.c; path = ../lzma/Lzma2Enc.c; sourceTree = "<group>"; };
+		3DE022AF1C2ADC21005471F8 /* Lzma2Enc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Lzma2Enc.h; path = ../lzma/Lzma2Enc.h; sourceTree = "<group>"; };
+		3DE022B21C2ADC39005471F8 /* Precomp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Precomp.h; path = ../lzma/Precomp.h; sourceTree = "<group>"; };
+		3DE022B31C2ADC46005471F8 /* Compiler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Compiler.h; path = ../lzma/Compiler.h; sourceTree = "<group>"; };
+		3DE022B41C2ADC67005471F8 /* LzmaDec.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = LzmaDec.c; path = ../lzma/LzmaDec.c; sourceTree = "<group>"; };
+		3DE022B51C2ADC67005471F8 /* LzmaDec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LzmaDec.h; path = ../lzma/LzmaDec.h; sourceTree = "<group>"; };
+		3DE022B71C2ADC7E005471F8 /* 7zTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = 7zTypes.h; path = ../lzma/7zTypes.h; sourceTree = "<group>"; };
+		3DE022B81C2ADC97005471F8 /* LzmaEnc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = LzmaEnc.c; path = ../lzma/LzmaEnc.c; sourceTree = "<group>"; };
+		3DE022B91C2ADC97005471F8 /* LzmaEnc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LzmaEnc.h; path = ../lzma/LzmaEnc.h; sourceTree = "<group>"; };
+		3DE022BB1C2ADCB0005471F8 /* LzFind.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = LzFind.c; path = ../lzma/LzFind.c; sourceTree = "<group>"; };
+		3DE022BC1C2ADCB0005471F8 /* LzFind.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LzFind.h; path = ../lzma/LzFind.h; sourceTree = "<group>"; };
+		3DE022BE1C2ADD03005471F8 /* LzHash.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = LzHash.h; path = ../lzma/LzHash.h; sourceTree = "<group>"; };
+		3DE022BF1C2AEC80005471F8 /* IREFileReadable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IREFileReadable.h; path = ../include/IREFileReadable.h; sourceTree = "<group>"; };
+		3DE022C01C2AEC80005471F8 /* IREFileWritable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IREFileWritable.h; path = ../include/IREFileWritable.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3D0254801B9EE33D007A34E7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3D02547A1B9EE33D007A34E7 = {
+			isa = PBXGroup;
+			children = (
+				3DE0229A1C2AD7AF005471F8 /* RECore */,
+				3D0254851B9EE33D007A34E7 /* recore2_mac_testapp */,
+				3D0254841B9EE33D007A34E7 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		3D0254841B9EE33D007A34E7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3D0254831B9EE33D007A34E7 /* recore2_mac_testapp */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3D0254851B9EE33D007A34E7 /* recore2_mac_testapp */ = {
+			isa = PBXGroup;
+			children = (
+				3D0254861B9EE33D007A34E7 /* main.m */,
+			);
+			path = recore2_mac_testapp;
+			sourceTree = "<group>";
+		};
+		3DE0229A1C2AD7AF005471F8 /* RECore */ = {
+			isa = PBXGroup;
+			children = (
+				3DE022AB1C2ADC1A005471F8 /* lzma */,
+				3DE0229B1C2AD7B6005471F8 /* include */,
+				3DE0229C1C2AD7BC005471F8 /* src */,
+			);
+			name = RECore;
+			sourceTree = "<group>";
+		};
+		3DE0229B1C2AD7B6005471F8 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				3DE022BF1C2AEC80005471F8 /* IREFileReadable.h */,
+				3DE022C01C2AEC80005471F8 /* IREFileWritable.h */,
+				3DE022A41C2ADB72005471F8 /* REAllocator.h */,
+				3DE022A31C2ADB67005471F8 /* REBuffer.h */,
+				3DE022A21C2ADB5B005471F8 /* REMutableBuffer.h */,
+				3DE022A11C2AD904005471F8 /* IRECompression.h */,
+				3DE0229F1C2AD83D005471F8 /* RELZMA2.h */,
+			);
+			name = include;
+			sourceTree = "<group>";
+		};
+		3DE0229C1C2AD7BC005471F8 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				3DE022A51C2ADB7E005471F8 /* REAllocator.cpp */,
+				3DE022A71C2ADB83005471F8 /* REBuffer.cpp */,
+				3DE022A91C2ADB89005471F8 /* REMutableBuffer.cpp */,
+				3DE0229D1C2AD81F005471F8 /* RELZMA2.cpp */,
+			);
+			name = src;
+			sourceTree = "<group>";
+		};
+		3DE022AB1C2ADC1A005471F8 /* lzma */ = {
+			isa = PBXGroup;
+			children = (
+				3DE022BE1C2ADD03005471F8 /* LzHash.h */,
+				3DE022BB1C2ADCB0005471F8 /* LzFind.c */,
+				3DE022BC1C2ADCB0005471F8 /* LzFind.h */,
+				3DE022B81C2ADC97005471F8 /* LzmaEnc.c */,
+				3DE022B91C2ADC97005471F8 /* LzmaEnc.h */,
+				3DE022B71C2ADC7E005471F8 /* 7zTypes.h */,
+				3DE022B41C2ADC67005471F8 /* LzmaDec.c */,
+				3DE022B51C2ADC67005471F8 /* LzmaDec.h */,
+				3DE022B31C2ADC46005471F8 /* Compiler.h */,
+				3DE022B21C2ADC39005471F8 /* Precomp.h */,
+				3DE022AD1C2ADC21005471F8 /* Lzma2Dec.h */,
+				3DE022AC1C2ADC21005471F8 /* Lzma2Dec.c */,
+				3DE022AF1C2ADC21005471F8 /* Lzma2Enc.h */,
+				3DE022AE1C2ADC21005471F8 /* Lzma2Enc.c */,
+			);
+			name = lzma;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3D0254821B9EE33D007A34E7 /* recore2_mac_testapp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3D02548A1B9EE33D007A34E7 /* Build configuration list for PBXNativeTarget "recore2_mac_testapp" */;
+			buildPhases = (
+				3D02547F1B9EE33D007A34E7 /* Sources */,
+				3D0254801B9EE33D007A34E7 /* Frameworks */,
+				3D0254811B9EE33D007A34E7 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = recore2_mac_testapp;
+			productName = recore2_mac_testapp;
+			productReference = 3D0254831B9EE33D007A34E7 /* recore2_mac_testapp */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		3D02547B1B9EE33D007A34E7 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0640;
+				ORGANIZATIONNAME = "Resident evil";
+				TargetAttributes = {
+					3D0254821B9EE33D007A34E7 = {
+						CreatedOnToolsVersion = 6.4;
+					};
+				};
+			};
+			buildConfigurationList = 3D02547E1B9EE33D007A34E7 /* Build configuration list for PBXProject "recore2_mac_testapp" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 3D02547A1B9EE33D007A34E7;
+			productRefGroup = 3D0254841B9EE33D007A34E7 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				3D0254821B9EE33D007A34E7 /* recore2_mac_testapp */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3D02547F1B9EE33D007A34E7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3DE022B11C2ADC21005471F8 /* Lzma2Enc.c in Sources */,
+				3DE022AA1C2ADB89005471F8 /* REMutableBuffer.cpp in Sources */,
+				3DE022BA1C2ADC97005471F8 /* LzmaEnc.c in Sources */,
+				3DE022B61C2ADC67005471F8 /* LzmaDec.c in Sources */,
+				3DE022B01C2ADC21005471F8 /* Lzma2Dec.c in Sources */,
+				3DE022A61C2ADB7E005471F8 /* REAllocator.cpp in Sources */,
+				3DE022BD1C2ADCB0005471F8 /* LzFind.c in Sources */,
+				3D0254871B9EE33D007A34E7 /* main.m in Sources */,
+				3DE022A81C2ADB83005471F8 /* REBuffer.cpp in Sources */,
+				3DE0229E1C2AD81F005471F8 /* RELZMA2.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		3D0254881B9EE33D007A34E7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					"_7ZIP_ST=1",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		3D0254891B9EE33D007A34E7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = "_7ZIP_ST=1";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		3D02548B1B9EE33D007A34E7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		3D02548C1B9EE33D007A34E7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3D02547E1B9EE33D007A34E7 /* Build configuration list for PBXProject "recore2_mac_testapp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3D0254881B9EE33D007A34E7 /* Debug */,
+				3D0254891B9EE33D007A34E7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3D02548A1B9EE33D007A34E7 /* Build configuration list for PBXNativeTarget "recore2_mac_testapp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3D02548B1B9EE33D007A34E7 /* Debug */,
+				3D02548C1B9EE33D007A34E7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 3D02547B1B9EE33D007A34E7 /* Project object */;
+}
