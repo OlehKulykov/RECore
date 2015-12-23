@@ -30,7 +30,7 @@
 class __RE_PUBLIC_CLASS_API__ IREFileWritable : public IREFileReadable
 {
 public:
-	virtual RESizeT fileRead(const void * bufferForWrite, const RESizeT dataSizeToWrite) = 0;
+	virtual RESizeT fileWrite(const void * bufferForWrite, const RESizeT dataSizeToWrite) = 0;
 
 	/**
 	 @brief Default destructor.
