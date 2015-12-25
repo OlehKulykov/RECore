@@ -23,6 +23,8 @@
 
 #include "../include/REBuffer.h"
 #include "../include/REMutableBuffer.h"
+#include "../include/REBufferR.h"
+#include "../include/REMutableBufferRW.h"
 
 #include <string.h>
 
@@ -61,22 +63,6 @@ REBuffer::REBuffer(const char * string) :
 	}
 }
 
-REBuffer::REBuffer(const REBuffer & buffer) :
-	_allocator(kREAllocatorMalloc),
-	_buff(NULL),
-	_size(0)
-{
-	if (buffer._buff && buffer._size)
-	{
-		_buff = _allocator.allocateMemory(buffer._size);
-		if (_buff)
-		{
-			memcpy(_buff, buffer._buff, (size_t)buffer._size);
-			_size = buffer._size;
-		}
-	}
-}
-
 REBuffer::REBuffer(const void * memory, const RESizeT size) :
 	_allocator(kREAllocatorMalloc),
 	_buff(NULL),
@@ -102,6 +88,70 @@ REBuffer::REBuffer(const RESizeT size) :
 	if (_buff)
 	{
 		_size = size;
+	}
+}
+
+REBuffer::REBuffer(const REBuffer & buffer) :
+	_allocator(kREAllocatorMalloc),
+	_buff(NULL),
+	_size(0)
+{
+	if (buffer._buff && buffer._size)
+	{
+		_buff = _allocator.allocateMemory(buffer._size);
+		if (_buff)
+		{
+			memcpy(_buff, buffer._buff, (size_t)buffer._size);
+			_size = buffer._size;
+		}
+	}
+}
+
+REBuffer::REBuffer(const REMutableBuffer & buffer) :
+	_allocator(kREAllocatorMalloc),
+	_buff(NULL),
+	_size(0)
+{
+	if (buffer._buff && buffer._size)
+	{
+		_buff = _allocator.allocateMemory(buffer._size);
+		if (_buff)
+		{
+			memcpy(_buff, buffer._buff, (size_t)buffer._size);
+			_size = buffer._size;
+		}
+	}
+}
+
+REBuffer::REBuffer(const REBufferR & buffer) :
+	_allocator(kREAllocatorMalloc),
+	_buff(NULL),
+	_size(0)
+{
+	if (buffer.buffer() && buffer.size())
+	{
+		_buff = _allocator.allocateMemory(buffer.size());
+		if (_buff)
+		{
+			memcpy(_buff, buffer._buff, (size_t)buffer.size());
+			_size = buffer.size();
+		}
+	}
+}
+
+REBuffer::REBuffer(const REMutableBufferRW & buffer) :
+	_allocator(kREAllocatorMalloc),
+	_buff(NULL),
+	_size(0)
+{
+	if (buffer.buffer() && buffer.size())
+	{
+		_buff = _allocator.allocateMemory(buffer.size());
+		if (_buff)
+		{
+			memcpy(_buff, buffer._buff, (size_t)buffer.size());
+			_size = buffer.size();
+		}
 	}
 }
 

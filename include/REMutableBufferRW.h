@@ -21,58 +21,22 @@
  */
 
 
-#ifndef __REBUFFER_H__
-#define __REBUFFER_H__
+#ifndef __REMUTABLEBUFFERW_H__
+#define __REMUTABLEBUFFERW_H__
 
-#include "RECore.h"
-#include "REAllocator.h"
+#include "REBufferR.h"
+#include "IREFileWritable.h"
 
-class REMutableBuffer;
-class REBufferR;
-class REMutableBufferRW;
-
-class __RE_PUBLIC_CLASS_API__ REBuffer
+class __RE_PUBLIC_CLASS_API__ REMutableBufferRW : public REBufferR, public IREFileWritable
 {
-protected:
-	REAllocator _allocator;
-	union
-	{
-		void * _buff;
-		const char * _constCharBuffer;
-		const unsigned char * _constUnsignedCharBuffer;
-	};
-	RESizeT _size;
-
 public:
-	/**
-	 @brief Checks is buffer equal with another buffer.
-	 @return True if this buffer has the same size as another and content is byte-to-byte equal, othervice false.
-	 */
-	bool isEqualToBuffer(const REBuffer & anotherBuffer) const;
-
-
-	/**
-	 @brief Get raw constant pointer to the buffer memory.
-	 @return Constant void pointer to the buffer memory.
-	 */
-	const void * buffer() const;
-
-
-	/**
-	 @brief Get size of the buffer memory in bytes.
-	 @return Size of the buffer memory.
-	 */
-	RESizeT size() const;
-
-	REBuffer(const char * string);
-	REBuffer(const void * memory, const RESizeT size);
-	REBuffer(const RESizeT size);
-	REBuffer(const REBuffer & buffer);
-	REBuffer(const REMutableBuffer & buffer);
-	REBuffer(const REBufferR & buffer);
-	REBuffer(const REMutableBufferRW & buffer);
-	REBuffer();
-	virtual ~REBuffer();
+	REMutableBufferRW(const char * string);
+	REMutableBufferRW(const REMutableBuffer & buffer);
+	REMutableBufferRW(const REBuffer & buffer);
+	REMutableBufferRW(const void * memory, const RESizeT size);
+	REMutableBufferRW(const RESizeT size);
+	REMutableBufferRW();
+	virtual ~REMutableBufferRW();
 };
 
 #endif 
