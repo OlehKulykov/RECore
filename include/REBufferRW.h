@@ -21,23 +21,33 @@
  */
 
 
-#ifndef __IREFILEWRITABLE_H__
-#define __IREFILEWRITABLE_H__
+#ifndef __REBUFFERRW_H__
+#define __REBUFFERRW_H__
 
-#include "RECore.h"
+#include "REBufferR.h"
+#include "REMutableBuffer.h"
 #include "IREFileReadable.h"
+#include "IREFileWritable.h"
 
-class __RE_PUBLIC_CLASS_API__ IREFileWritable
+
+class __RE_PUBLIC_CLASS_API__ REBufferRW : public REBufferR, public IREFileWritable
 {
-public:
-	virtual RESizeT fileWrite(const void * bufferForWrite, const RESizeT dataSizeToWrite) = 0;
+protected:
+	bool resize(const RESizeT newSize, bool isCopyPrevData);
 
-	/**
-	 @brief Default destructor.
-	 */
-	virtual ~IREFileWritable() { }
+public:
+	virtual RESizeT fileWrite(const void * bufferForWrite, const RESizeT dataSizeToWrite);
+
+	REBufferRW(const char * string);
+	REBufferRW(const REMutableBuffer & buffer);
+	REBufferRW(const REBufferRW & buffer);
+	REBufferRW(const REBuffer & buffer);
+	REBufferRW(const REBufferR & buffer);
+	REBufferRW(const void * memory, const RESizeT size);
+	REBufferRW(const RESizeT size);
+	REBufferRW();
+	virtual ~REBufferRW();
 };
 
-
-#endif
+#endif 
 

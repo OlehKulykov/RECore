@@ -23,7 +23,7 @@
 
 #include "../include/REBufferR.h"
 #include "../include/REMutableBuffer.h"
-#include "../include/REMutableBufferRW.h"
+#include "../include/REBufferRW.h"
 
 #include <string.h>
 
@@ -141,7 +141,7 @@ REBufferR::REBufferR(const REMutableBuffer & buffer) : REBuffer(buffer),
 
 }
 
-REBufferR::REBufferR(const REMutableBufferRW & buffer) : REBuffer(buffer),
+REBufferR::REBufferR(const REBufferRW & buffer) : REBuffer(buffer),
 	_offset(0)
 {
 

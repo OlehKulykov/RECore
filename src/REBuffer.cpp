@@ -24,7 +24,7 @@
 #include "../include/REBuffer.h"
 #include "../include/REMutableBuffer.h"
 #include "../include/REBufferR.h"
-#include "../include/REMutableBufferRW.h"
+#include "../include/REBufferRW.h"
 
 #include <string.h>
 
@@ -139,7 +139,7 @@ REBuffer::REBuffer(const REBufferR & buffer) :
 	}
 }
 
-REBuffer::REBuffer(const REMutableBufferRW & buffer) :
+REBuffer::REBuffer(const REBufferRW & buffer) :
 	_allocator(kREAllocatorMalloc),
 	_buff(NULL),
 	_size(0)

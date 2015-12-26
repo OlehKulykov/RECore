@@ -8,12 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-#import "REMutableBufferRW.h"
+#import "REBufferRW.h"
 
 int t1()
 {
 	REBufferR r;
-	REMutableBufferRW rw;
+	REBufferRW rw;
 
 	rw.fileWrite("hello", 5);
 	rw.fileWrite(" world", 7);

@@ -29,7 +29,7 @@
 
 class REMutableBuffer;
 class REBufferR;
-class REMutableBufferRW;
+class REBufferRW;
 
 class __RE_PUBLIC_CLASS_API__ REBuffer
 {
@@ -70,7 +70,7 @@ public:
 	REBuffer(const REBuffer & buffer);
 	REBuffer(const REMutableBuffer & buffer);
 	REBuffer(const REBufferR & buffer);
-	REBuffer(const REMutableBufferRW & buffer);
+	REBuffer(const REBufferRW & buffer);
 	REBuffer();
 	virtual ~REBuffer();
 };
