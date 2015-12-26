@@ -29,32 +29,72 @@
 
 RESizeT REBufferR::fileRead(void * bufferForReading, const RESizeT dataSizeToRead)
 {
+	if (_constCharBuffer && _size && bufferForReading && dataSizeToRead)
+	{
+		const char * buff = _constCharBuffer;
+		RESizeT sizeToRead = dataSizeToRead;
+		const RESizeT avaiableSize = _size - _offset;
+		if (avaiableSize < sizeToRead)
+		{
+			sizeToRead = avaiableSize;
+		}
+		buff += _offset;
+		memcpy(bufferForReading, buff, sizeToRead);
+		_offset += sizeToRead;
+		return sizeToRead;
+	}
 	return 0;
 }
 
 RESizeT REBufferR::fileTell()
 {
-	return 0;
+	return _offset;
 }
 
 RESizeT REBufferR::fileSeek(const RESizeT fileOffset, int origin)
 {
+	RESizeT resultOffset = fileOffset;
+
+	switch (origin)
+	{
+		case SEEK_CUR:
+			resultOffset += _offset;
+			break;
+
+		case SEEK_END:
+			if (_size < fileOffset)
+			{
+				return 2; // out of bounds
+			}
+			resultOffset = (_size - fileOffset);
+			break;
+
+		default:
+			break;
+	}
+
+	if (resultOffset > _size) // common for SEEK_CUR && SEEK_SET
+	{
+		return 3; // out of bounds
+	}
+
+	_offset = resultOffset;
 	return 0;
 }
 
 RESizeT REBufferR::fileSeekFromEndFile(const RESizeT fileOffset)
 {
-	return 0;
+	return this->fileSeek(fileOffset, SEEK_END);
 }
 
 RESizeT REBufferR::fileSeekFromBeginFile(const RESizeT fileOffset)
 {
-	return 0;
+	return this->fileSeek(fileOffset, SEEK_SET);
 }
 
 RESizeT REBufferR::fileSeekFromCurrentFilePos(const RESizeT fileOffset)
 {
-	return 0;
+	return this->fileSeek(fileOffset, SEEK_CUR);
 }
 
 RESizeT REBufferR::fileFError()
@@ -69,9 +109,8 @@ RESizeT REBufferR::fileClose()
 
 bool REBufferR::isEndOfFile()
 {
-	return 0;
+	return (_size == _offset);
 }
-
 
 RESizeT REBufferR::offset() const
 {
@@ -85,6 +124,18 @@ REBufferR::REBufferR(const char * string)  : REBuffer(string),
 }
 
 REBufferR::REBufferR(const REBuffer & buffer) : REBuffer(buffer),
+	_offset(0)
+{
+
+}
+
+REBufferR::REBufferR(const REBufferR & buffer) : REBuffer(buffer),
+	_offset(0)
+{
+
+}
+
+REBufferR::REBufferR(const REMutableBuffer & buffer) : REBuffer(buffer),
 	_offset(0)
 {
 

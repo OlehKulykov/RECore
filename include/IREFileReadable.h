@@ -104,7 +104,7 @@ public:
 
 	/**
 	 @brief Check if reading position in the end of file.
-	 @return Treu - on the end of the file, othervice false.
+	 @return True - on the end of the file, othervice false.
 	 */
 	virtual bool isEndOfFile() = 0;
 

@@ -8,8 +8,26 @@
 
 #import <Foundation/Foundation.h>
 
-int main(int argc, const char * argv[]) {
-	@autoreleasepool {
+#import "REMutableBufferRW.h"
+
+int t1()
+{
+	REBufferR r;
+	REMutableBufferRW rw;
+
+	rw.fileWrite("hello", 5);
+	rw.fileWrite(" world", 7);
+
+
+
+	return 0;
+}
+
+int main(int argc, const char * argv[])
+{
+	@autoreleasepool
+	{
+		t1();
 	    // insert code here...
 	    NSLog(@"Hello, World!");
 	}

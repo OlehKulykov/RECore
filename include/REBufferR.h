@@ -27,6 +27,7 @@
 #include "REBuffer.h"
 #include "IREFileReadable.h"
 
+class REMutableBuffer;
 class REMutableBufferRW;
 
 class __RE_PUBLIC_CLASS_API__ REBufferR : public REBuffer, public IREFileReadable
@@ -106,7 +107,7 @@ public:
 
 	/**
 	 @brief Check if reading position in the end of file.
-	 @return Treu - on the end of the file, othervice false.
+	 @return True - on the end of the file, othervice false.
 	 */
 	virtual bool isEndOfFile();
 
@@ -114,6 +115,8 @@ public:
 	RESizeT offset() const;
 	REBufferR(const char * string);
 	REBufferR(const REBuffer & buffer);
+	REBufferR(const REBufferR & buffer);
+	REBufferR(const REMutableBuffer & buffer);
 	REBufferR(const REMutableBufferRW & buffer);
 	REBufferR(const void * memory, const RESizeT size);
 	REBufferR(const RESizeT size);

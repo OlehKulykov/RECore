@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3D0254871B9EE33D007A34E7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D0254861B9EE33D007A34E7 /* main.m */; };
+		3D0254871B9EE33D007A34E7 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3D0254861B9EE33D007A34E7 /* main.mm */; };
 		3D0E30FE1C2B0A2B0030DA64 /* REBufferR.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D0E30FD1C2B0A2B0030DA64 /* REBufferR.cpp */; };
 		3D0E31001C2B0C9A0030DA64 /* REMutableBufferRW.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D0E30FF1C2B0C9A0030DA64 /* REMutableBufferRW.cpp */; };
 		3DE0229E1C2AD81F005471F8 /* RELZMA2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DE0229D1C2AD81F005471F8 /* RELZMA2.cpp */; };
@@ -35,7 +35,7 @@
 
 /* Begin PBXFileReference section */
 		3D0254831B9EE33D007A34E7 /* recore2_mac_testapp */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = recore2_mac_testapp; sourceTree = BUILT_PRODUCTS_DIR; };
-		3D0254861B9EE33D007A34E7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		3D0254861B9EE33D007A34E7 /* main.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
 		3D0E30FC1C2B0A140030DA64 /* REBufferR.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = REBufferR.h; path = ../include/REBufferR.h; sourceTree = "<group>"; };
 		3D0E30FD1C2B0A2B0030DA64 /* REBufferR.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = REBufferR.cpp; path = ../src/REBufferR.cpp; sourceTree = "<group>"; };
 		3D0E30FF1C2B0C9A0030DA64 /* REMutableBufferRW.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = REMutableBufferRW.cpp; path = ../src/REMutableBufferRW.cpp; sourceTree = "<group>"; };
@@ -98,7 +98,7 @@
 		3D0254851B9EE33D007A34E7 /* recore2_mac_testapp */ = {
 			isa = PBXGroup;
 			children = (
-				3D0254861B9EE33D007A34E7 /* main.m */,
+				3D0254861B9EE33D007A34E7 /* main.mm */,
 			);
 			path = recore2_mac_testapp;
 			sourceTree = "<group>";
@@ -227,7 +227,7 @@
 				3DE022B01C2ADC21005471F8 /* Lzma2Dec.c in Sources */,
 				3DE022A61C2ADB7E005471F8 /* REAllocator.cpp in Sources */,
 				3DE022BD1C2ADCB0005471F8 /* LzFind.c in Sources */,
-				3D0254871B9EE33D007A34E7 /* main.m in Sources */,
+				3D0254871B9EE33D007A34E7 /* main.mm in Sources */,
 				3DE022A81C2ADB83005471F8 /* REBuffer.cpp in Sources */,
 				3DE0229E1C2AD81F005471F8 /* RELZMA2.cpp in Sources */,
 				3D0E31001C2B0C9A0030DA64 /* REMutableBufferRW.cpp in Sources */,

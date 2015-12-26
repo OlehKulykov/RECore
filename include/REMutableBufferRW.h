@@ -25,14 +25,99 @@
 #define __REMUTABLEBUFFERW_H__
 
 #include "REBufferR.h"
+#include "REMutableBuffer.h"
+#include "IREFileReadable.h"
 #include "IREFileWritable.h"
 
-class __RE_PUBLIC_CLASS_API__ REMutableBufferRW : public REBufferR, public IREFileWritable
+
+class __RE_PUBLIC_CLASS_API__ REMutableBufferRW : public REMutableBuffer, public IREFileWritable
 {
+protected:
+	RESizeT _offset;
+
 public:
+	virtual RESizeT fileWrite(const void * bufferForWrite, const RESizeT dataSizeToWrite);
+
+	/**
+	 @brief Reads data from object to the buffer pointer.
+	 @detailed Buffer must be at least of 'dataSizeToRead'.
+	 @param bufferForReading The buffer for writing data.
+	 @param dataSizeToRead Size in bytes for readed data.
+	 @result Returns number of bytes readed.
+	 */
+	virtual RESizeT fileRead(void * bufferForReading, const RESizeT dataSizeToRead);
+
+
+	/**
+	 @brief Read position of the object.
+	 @result Return readable position.
+	 */
+	virtual RESizeT fileTell();
+
+
+	/**
+	 @brief Setting position in bytes of reading.
+	 @detailed Apply read offset of the object.
+	 @param fileOffset Offset in bytes.
+	 @param origin Position used as reference for the fileOffset. SEEK_SET - Beginning of file. SEEK_CUR - Current position of the file pointer. SEEK_END - End of file.
+	 @return If successful, the function returns a zero value, otherwise nonzero value.
+	 */
+	virtual RESizeT fileSeek(const RESizeT fileOffset, int origin);
+
+
+	/**
+	 @brief Setting position in bytes of reading from end of the file.
+	 @detailed Apply read offset of the object from end of the file using SEEK_END value.
+	 @param fileOffset Offset in bytes.
+	 @return If successful, the function returns a zero value, otherwise nonzero value.
+	 */
+	virtual RESizeT fileSeekFromEndFile(const RESizeT fileOffset);
+
+
+	/**
+	 @brief Setting position in bytes of reading from begining of the file.
+	 @detailed Apply read offset of the object from begining of the file using SEEK_SET value.
+	 @param fileOffset Offset in bytes.
+	 @return If successful, the function returns a zero value, otherwise nonzero value.
+	 */
+	virtual RESizeT fileSeekFromBeginFile(const RESizeT fileOffset);
+
+
+	/**
+	 @brief Setting position in bytes of reading from current location of the file.
+	 @detailed Apply read offset of the object from current location of the file using SEEK_CUR value.
+	 @param fileOffset Offset in bytes.
+	 @return If successful, the function returns a zero value, otherwise nonzero value.
+	 */
+	virtual RESizeT fileSeekFromCurrentFilePos(const RESizeT fileOffset);
+
+
+	/**
+	 @brief Checks if the error indicator associated with stream is set.
+	 @detailed This indicator is generaly set by a previous operation on the stream that failed.
+	 @return Returning a value different from zero if it is.
+	 */
+	virtual RESizeT fileFError();
+
+
+	/**
+	 @brief Closes the file associated with the stream and disassociates it.
+	 @return If the stream is successfully closed, a zero value is returned. On failure, 1 is returned.
+	 */
+	virtual RESizeT fileClose();
+
+
+	/**
+	 @brief Check if reading position in the end of file.
+	 @return True - on the end of the file, othervice false.
+	 */
+	virtual bool isEndOfFile();
+	RESizeT offset() const;
 	REMutableBufferRW(const char * string);
 	REMutableBufferRW(const REMutableBuffer & buffer);
+	REMutableBufferRW(const REMutableBufferRW & buffer);
 	REMutableBufferRW(const REBuffer & buffer);
+	REMutableBufferRW(const REBufferR & buffer);
 	REMutableBufferRW(const void * memory, const RESizeT size);
 	REMutableBufferRW(const RESizeT size);
 	REMutableBufferRW();
