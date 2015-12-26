@@ -42,8 +42,6 @@ typedef struct RELZMA2ISeqOutStreamStruct : public ISeqOutStream
 	{
 		return buffer.append(buf, size) ? size : 0;
 	}
-
-	RELZMA2ISeqOutStreamStruct() { }
 } RELZMA2ISeqOutStream;
 
 typedef struct RELZMA2ISeqInStreamStruct : public ISeqInStream
@@ -57,7 +55,7 @@ typedef struct RELZMA2ISeqInStreamStruct : public ISeqInStream
 		*s = MIN(*s, size - pos);
 		if (*s)
 		{
-			const char * cBuff = (const char *)buff;
+			const uint8_t * cBuff = (const uint8_t *)buff;
 			cBuff += pos;
 			memcpy(b, cBuff, *s);
 		}
@@ -65,16 +63,7 @@ typedef struct RELZMA2ISeqInStreamStruct : public ISeqInStream
 		return SZ_OK;
 	}
 
-	RELZMA2ISeqInStreamStruct() :
-		buff(NULL),
-		size(0),
-		pos(0)
-	{
-
-	}
-
 } RELZMA2ISeqInStream;
-
 
 static size_t RELZMA2ImplWrite(void * p, const void * buf, size_t size)
 {
@@ -112,19 +101,7 @@ RESizeT RELZMA2Compressor::size() const
 
 RESizeT RELZMA2Compressor::compress(const void * inBuffer, const RESizeT inBufferSize)
 {
-	if (_inStream)
-	{
-		RELZMA2ISeqInStream * stream = static_cast<RELZMA2ISeqInStream *>(_inStream);
-		delete stream;
-		_inStream = NULL;
-	}
-
-	if (_outStream)
-	{
-		RELZMA2ISeqOutStream * stream = static_cast<RELZMA2ISeqOutStream *>(_outStream);
-		delete stream;
-		_outStream = NULL;
-	}
+	this->cleanupStreams();
 
 	RELZMA2ISeqInStream * inStream = new RELZMA2ISeqInStream();
 	RELZMA2ISeqOutStream * outStream = new RELZMA2ISeqOutStream();
@@ -134,7 +111,6 @@ RESizeT RELZMA2Compressor::compress(const void * inBuffer, const RESizeT inBuffe
 		if (outStream) delete outStream;
 		return 0;
 	}
-
 	_inStream = static_cast<void *>(inStream);
 	_outStream = static_cast<void *>(outStream);
 
@@ -146,7 +122,7 @@ RESizeT RELZMA2Compressor::compress(const void * inBuffer, const RESizeT inBuffe
 
 	CLzma2EncProps props;
 	Lzma2EncProps_Init(&props);
-	props.lzmaProps.writeEndMark = 1; // 0 or 1
+	props.lzmaProps.writeEndMark = 1; // !!! need mark for extract
 	props.lzmaProps.level = 9;
 	props.lzmaProps.numThreads = 1;
 	props.numTotalThreads = 1;
@@ -154,36 +130,32 @@ RESizeT RELZMA2Compressor::compress(const void * inBuffer, const RESizeT inBuffe
 	SRes res = Lzma2Enc_SetProps(enc, &props);
 	assert(res == SZ_OK);
 
-//	RESizeT propsSize = LZMA_PROPS_SIZE;
-//	outStream->buffer.resize(propsSize, false);
+	outStream->buffer.resize(sizeof(Byte) + sizeof(uint32_t), false);
 
-	Byte properties = Lzma2Enc_WriteProperties(enc);
-	outStream->buffer.append(&properties, sizeof(Byte));
-
-	const uint32_t uncompressedSize = (uint32_t)inBufferSize;
-	outStream->buffer.append(&uncompressedSize, sizeof(uint32_t));
+	Byte * outBytes = (Byte *)outStream->buffer.buffer();
+	*outBytes = Lzma2Enc_WriteProperties(enc);
+	outBytes += sizeof(Byte);
+	*((uint32_t *)outBytes) = (uint32_t)inBufferSize;
 
 	outStream->Write = RELZMA2ImplWrite;
 
 	inStream->Read = RELZMA2ImplRead;
 	inStream->buff = inBuffer;
 	inStream->size = inBufferSize;
+	inStream->pos = 0;
 
 	res = Lzma2Enc_Encode(enc, outStream, inStream, 0);
+	if (res != SZ_OK)
+	{
+		this->cleanupStreams();
+	}
 
 	Lzma2Enc_Destroy(enc);
 
-	return (res == SZ_OK) ? outStream->buffer.size() : 0;
+	return this->size();
 }
 
-RELZMA2Compressor::RELZMA2Compressor() :
-	_inStream(NULL),
-	_outStream(NULL)
-{
-
-}
-
-RELZMA2Compressor::~RELZMA2Compressor()
+void RELZMA2Compressor::cleanupStreams()
 {
 	if (_inStream)
 	{
@@ -200,25 +172,44 @@ RELZMA2Compressor::~RELZMA2Compressor()
 	}
 }
 
+RELZMA2Compressor::RELZMA2Compressor() :
+	_inStream(NULL),
+	_outStream(NULL)
+{
 
+}
+
+RELZMA2Compressor::~RELZMA2Compressor()
+{
+	this->cleanupStreams();
+}
 
 
 
 const void * RELZMA2Decompressor::data() const
 {
-	return 0;
+	return _buffer.buffer();
 }
 
 RESizeT RELZMA2Decompressor::size() const
 {
-	return 0;
+	return _buffer.size();
 }
-
-#define IN_BUF_SIZE (1 << 16)
-#define OUT_BUF_SIZE (1 << 16)
 
 RESizeT RELZMA2Decompressor::decompress(const void * inBuffer, const RESizeT inBufferSize)
 {
+	const Byte * inBytes = (const Byte *)inBuffer;
+	const Byte properties = *inBytes;
+	inBytes += sizeof(Byte);
+
+	const uint32_t uncompressedSize = *((const uint32_t *)inBytes);
+	inBytes += sizeof(uint32_t);
+
+	if (!_buffer.resize(uncompressedSize, false))
+	{
+		return 0;
+	}
+
 	CLzma2Dec dec;
 	Lzma2Dec_Construct(&dec);
 
@@ -226,43 +217,33 @@ RESizeT RELZMA2Decompressor::decompress(const void * inBuffer, const RESizeT inB
 	allc.Alloc = RELZMA2ImplAlloc;
 	allc.Free = RELZMA2ImplFree;
 
-	const Byte * inBytes = (const Byte *)inBuffer;
-
-	// The second parameter is a temporary workaround.
-	SRes res = Lzma2Dec_Allocate(&dec, *inBytes, &allc);
+	SRes res = Lzma2Dec_Allocate(&dec, properties, &allc);
 	assert(res == SZ_OK);
-
-	inBytes++;
-	uint32_t unpackSize = *(const uint32_t *)inBytes;
-	inBytes += sizeof(uint32_t);
 
     Lzma2Dec_Init(&dec);
 
-	Byte outBuf[OUT_BUF_SIZE];
-	size_t inPos = 0, inSize = 0, outPos = 0;
 	ELzmaStatus status = LZMA_STATUS_NOT_SPECIFIED;
-
-	while (1)
+	while (status != LZMA_STATUS_FINISHED_WITH_MARK)
 	{
-		SizeT outSize = 0;
-		SizeT inSize = inBufferSize;
-		SRes res = Lzma2Dec_DecodeToBuf(&dec,
-										&outBuf[0],
-										&outSize,
-										inBytes,
-										&inSize,
-										LZMA_FINISH_END,
-										&status);
-		if (res == SZ_OK)
-		{
-			int y = 0;
-			y += 5;
-		}
+		SizeT outSize = _buffer.size();
+		SizeT inSize = inBufferSize - 5;
+		res = Lzma2Dec_DecodeToBuf(&dec,
+								   (Byte *)_buffer.buffer(),
+								   &outSize,
+								   inBytes,
+								   &inSize,
+								   LZMA_FINISH_END,
+								   &status);
+	}
+
+	if ((status != LZMA_STATUS_FINISHED_WITH_MARK) || (res != SZ_OK))
+	{
+		_buffer.clear();
 	}
 
 	Lzma2Dec_Free(&dec, &allc);
 
-	return 0;
+	return _buffer.size();
 }
 
 RELZMA2Decompressor::RELZMA2Decompressor()
@@ -274,9 +255,4 @@ RELZMA2Decompressor::~RELZMA2Decompressor()
 {
 
 }
-
-
-
-
-
 

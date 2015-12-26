@@ -26,14 +26,15 @@
 
 #include "RECore.h"
 #include "IRECompression.h"
-
+#include "REMutableBuffer.h"
 
 class __RE_PUBLIC_CLASS_API__ RELZMA2Compressor : public IRECompressor
 {
 private:
 	void * _inStream;
 	void * _outStream;
-	
+	void cleanupStreams();
+
 public:
 	virtual const void * data() const;
 	virtual RESizeT size() const;
@@ -46,8 +47,7 @@ public:
 class __RE_PUBLIC_CLASS_API__ RELZMA2Decompressor : public IREDecompressor
 {
 private:
-	void * _inStream;
-	void * _outStream;
+	REMutableBuffer _buffer;
 
 public:
 	virtual const void * data() const;
