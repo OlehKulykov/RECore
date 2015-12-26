@@ -22,6 +22,9 @@ int t1()
 	RELZMA2Compressor compr;
 	compr.compress(inText, strlen(inText));
 
+	RELZMA2Decompressor decompr;
+	decompr.decompress(compr.data(), compr.size());
+
 	return 0;
 }
 

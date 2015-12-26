@@ -52,7 +52,7 @@ private:
 public:
 	virtual const void * data() const;
 	virtual RESizeT size() const;
-	virtual RESizeT compress(const void * inBuffer, const RESizeT inBufferSize);
+	virtual RESizeT decompress(const void * inBuffer, const RESizeT inBufferSize);
 
 	RELZMA2Decompressor();
 	virtual ~RELZMA2Decompressor();

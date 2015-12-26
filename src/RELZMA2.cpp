@@ -29,7 +29,10 @@
 #endif
 
 #include <assert.h>
+#include <vector>
+
 #include "../lzma/Lzma2Enc.h"
+#include "../lzma/Lzma2Dec.h"
 
 typedef struct RELZMA2ISeqOutStreamStruct : public ISeqOutStream
 {
@@ -157,6 +160,9 @@ RESizeT RELZMA2Compressor::compress(const void * inBuffer, const RESizeT inBuffe
 	Byte properties = Lzma2Enc_WriteProperties(enc);
 	outStream->buffer.append(&properties, sizeof(Byte));
 
+	const uint32_t uncompressedSize = (uint32_t)inBufferSize;
+	outStream->buffer.append(&uncompressedSize, sizeof(uint32_t));
+
 	outStream->Write = RELZMA2ImplWrite;
 
 	inStream->Read = RELZMA2ImplRead;
@@ -208,8 +214,54 @@ RESizeT RELZMA2Decompressor::size() const
 	return 0;
 }
 
-RESizeT RELZMA2Decompressor::compress(const void * inBuffer, const RESizeT inBufferSize)
+#define IN_BUF_SIZE (1 << 16)
+#define OUT_BUF_SIZE (1 << 16)
+
+RESizeT RELZMA2Decompressor::decompress(const void * inBuffer, const RESizeT inBufferSize)
 {
+	CLzma2Dec dec;
+	Lzma2Dec_Construct(&dec);
+
+	ISzAlloc allc;
+	allc.Alloc = RELZMA2ImplAlloc;
+	allc.Free = RELZMA2ImplFree;
+
+	const Byte * inBytes = (const Byte *)inBuffer;
+
+	// The second parameter is a temporary workaround.
+	SRes res = Lzma2Dec_Allocate(&dec, *inBytes, &allc);
+	assert(res == SZ_OK);
+
+	inBytes++;
+	uint32_t unpackSize = *(const uint32_t *)inBytes;
+	inBytes += sizeof(uint32_t);
+
+    Lzma2Dec_Init(&dec);
+
+	Byte outBuf[OUT_BUF_SIZE];
+	size_t inPos = 0, inSize = 0, outPos = 0;
+	ELzmaStatus status = LZMA_STATUS_NOT_SPECIFIED;
+
+	while (1)
+	{
+		SizeT outSize = 0;
+		SizeT inSize = inBufferSize;
+		SRes res = Lzma2Dec_DecodeToBuf(&dec,
+										&outBuf[0],
+										&outSize,
+										inBytes,
+										&inSize,
+										LZMA_FINISH_END,
+										&status);
+		if (res == SZ_OK)
+		{
+			int y = 0;
+			y += 5;
+		}
+	}
+
+	Lzma2Dec_Free(&dec, &allc);
+
 	return 0;
 }
 
