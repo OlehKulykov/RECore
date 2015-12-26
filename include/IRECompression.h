@@ -25,15 +25,13 @@
 #define __IRECOMPRESSION_H__
 
 #include "RECore.h"
-#include "REBuffer.h"
 
 class __RE_PUBLIC_CLASS_API__ IRECompressor
 {
 public:
-	virtual const REBuffer & buffer() const = 0;
 	virtual const void * data() const = 0;
 	virtual RESizeT size() const = 0;
-	virtual RESizeT compress(const void * inBuffer, unsigned int inBufferSize) = 0;
+	virtual RESizeT compress(const void * inBuffer, const RESizeT inBufferSize) = 0;
 	virtual ~IRECompressor() { }
 };
 
@@ -41,10 +39,9 @@ public:
 class __RE_PUBLIC_CLASS_API__ IREDecompressor
 {
 public:
-	virtual const REBuffer & buffer() const = 0;
 	virtual const void * data() const = 0;
 	virtual RESizeT size() const = 0;
-	virtual RESizeT decompress(const REBuffer & compressedBuffer) = 0;
+	virtual RESizeT decompress(const void * inBuffer, const RESizeT inBufferSize) = 0;
 	virtual ~IREDecompressor() { }
 };
 

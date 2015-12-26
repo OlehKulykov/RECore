@@ -23,8 +23,6 @@
 
 #include "../include/REBuffer.h"
 #include "../include/REMutableBuffer.h"
-#include "../include/REBufferR.h"
-#include "../include/REBufferRW.h"
 
 #include <string.h>
 
@@ -119,38 +117,6 @@ REBuffer::REBuffer(const REMutableBuffer & buffer) :
 		{
 			memcpy(_buff, buffer._buff, (size_t)buffer._size);
 			_size = buffer._size;
-		}
-	}
-}
-
-REBuffer::REBuffer(const REBufferR & buffer) :
-	_allocator(kREAllocatorMalloc),
-	_buff(NULL),
-	_size(0)
-{
-	if (buffer.buffer() && buffer.size())
-	{
-		_buff = _allocator.allocateMemory(buffer.size());
-		if (_buff)
-		{
-			memcpy(_buff, buffer._buff, (size_t)buffer.size());
-			_size = buffer.size();
-		}
-	}
-}
-
-REBuffer::REBuffer(const REBufferRW & buffer) :
-	_allocator(kREAllocatorMalloc),
-	_buff(NULL),
-	_size(0)
-{
-	if (buffer.buffer() && buffer.size())
-	{
-		_buff = _allocator.allocateMemory(buffer.size());
-		if (_buff)
-		{
-			memcpy(_buff, buffer._buff, (size_t)buffer.size());
-			_size = buffer.size();
 		}
 	}
 }

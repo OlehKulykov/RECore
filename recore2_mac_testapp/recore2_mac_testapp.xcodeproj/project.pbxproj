@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		3D0254871B9EE33D007A34E7 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3D0254861B9EE33D007A34E7 /* main.mm */; };
-		3D0E30FE1C2B0A2B0030DA64 /* REBufferR.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D0E30FD1C2B0A2B0030DA64 /* REBufferR.cpp */; };
-		3D0E31001C2B0C9A0030DA64 /* REBufferRW.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D0E30FF1C2B0C9A0030DA64 /* REBufferRW.cpp */; };
 		3DE0229E1C2AD81F005471F8 /* RELZMA2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DE0229D1C2AD81F005471F8 /* RELZMA2.cpp */; };
 		3DE022A61C2ADB7E005471F8 /* REAllocator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DE022A51C2ADB7E005471F8 /* REAllocator.cpp */; };
 		3DE022A81C2ADB83005471F8 /* REBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DE022A71C2ADB83005471F8 /* REBuffer.cpp */; };
@@ -36,10 +34,6 @@
 /* Begin PBXFileReference section */
 		3D0254831B9EE33D007A34E7 /* recore2_mac_testapp */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = recore2_mac_testapp; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D0254861B9EE33D007A34E7 /* main.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
-		3D0E30FC1C2B0A140030DA64 /* REBufferR.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = REBufferR.h; path = ../include/REBufferR.h; sourceTree = "<group>"; };
-		3D0E30FD1C2B0A2B0030DA64 /* REBufferR.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = REBufferR.cpp; path = ../src/REBufferR.cpp; sourceTree = "<group>"; };
-		3D0E30FF1C2B0C9A0030DA64 /* REBufferRW.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = REBufferRW.cpp; path = ../src/REBufferRW.cpp; sourceTree = "<group>"; };
-		3D0E31011C2B0CAD0030DA64 /* REBufferRW.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = REBufferRW.h; path = ../include/REBufferRW.h; sourceTree = "<group>"; };
 		3DE0229D1C2AD81F005471F8 /* RELZMA2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RELZMA2.cpp; path = ../src/RELZMA2.cpp; sourceTree = "<group>"; };
 		3DE0229F1C2AD83D005471F8 /* RELZMA2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RELZMA2.h; path = ../include/RELZMA2.h; sourceTree = "<group>"; };
 		3DE022A11C2AD904005471F8 /* IRECompression.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IRECompression.h; path = ../include/IRECompression.h; sourceTree = "<group>"; };
@@ -116,8 +110,6 @@
 		3DE0229B1C2AD7B6005471F8 /* include */ = {
 			isa = PBXGroup;
 			children = (
-				3D0E30FC1C2B0A140030DA64 /* REBufferR.h */,
-				3D0E31011C2B0CAD0030DA64 /* REBufferRW.h */,
 				3DE022BF1C2AEC80005471F8 /* IREFileReadable.h */,
 				3DE022C01C2AEC80005471F8 /* IREFileWritable.h */,
 				3DE022A41C2ADB72005471F8 /* REAllocator.h */,
@@ -132,8 +124,6 @@
 		3DE0229C1C2AD7BC005471F8 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				3D0E30FD1C2B0A2B0030DA64 /* REBufferR.cpp */,
-				3D0E30FF1C2B0C9A0030DA64 /* REBufferRW.cpp */,
 				3DE022A51C2ADB7E005471F8 /* REAllocator.cpp */,
 				3DE022A71C2ADB83005471F8 /* REBuffer.cpp */,
 				3DE022A91C2ADB89005471F8 /* REMutableBuffer.cpp */,
@@ -222,7 +212,6 @@
 				3DE022B11C2ADC21005471F8 /* Lzma2Enc.c in Sources */,
 				3DE022AA1C2ADB89005471F8 /* REMutableBuffer.cpp in Sources */,
 				3DE022BA1C2ADC97005471F8 /* LzmaEnc.c in Sources */,
-				3D0E30FE1C2B0A2B0030DA64 /* REBufferR.cpp in Sources */,
 				3DE022B61C2ADC67005471F8 /* LzmaDec.c in Sources */,
 				3DE022B01C2ADC21005471F8 /* Lzma2Dec.c in Sources */,
 				3DE022A61C2ADB7E005471F8 /* REAllocator.cpp in Sources */,
@@ -230,7 +219,6 @@
 				3D0254871B9EE33D007A34E7 /* main.mm in Sources */,
 				3DE022A81C2ADB83005471F8 /* REBuffer.cpp in Sources */,
 				3DE0229E1C2AD81F005471F8 /* RELZMA2.cpp in Sources */,
-				3D0E31001C2B0C9A0030DA64 /* REBufferRW.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
