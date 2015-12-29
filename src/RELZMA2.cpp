@@ -29,6 +29,7 @@
 #endif
 
 #include <assert.h>
+#include <string.h>
 
 #if defined(RE_BUILD_WITH_LZMA2)
 #include "../lzma/Lzma2Enc.h"
