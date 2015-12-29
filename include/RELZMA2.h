@@ -27,6 +27,15 @@
 #include "IRECompression.h"
 #include "REMutableBuffer.h"
 
+/**
+ @brief LZMA2 compressor.
+ Used maximum compression level.
+ Compressed data format: 
+ <li> 1 byte - lzma settings
+ <li> 4 bytes - unsigned int 32 with source/original data size
+ <li> lzma2 compressed data
+ <li> 1 byte - end mark of the compressed stream, eg. EOPM
+ */
 class __RE_PUBLIC_CLASS_API__ RELZMA2Compressor : public IRECompressor
 {
 private:
@@ -43,6 +52,11 @@ public:
 	virtual ~RELZMA2Compressor();
 };
 
+
+/**
+ LZMA2 decompressor.
+ Decompress LZMA2 compressed data. Data format same as result of the RELZMA2Compressor compressor.
+ */
 class __RE_PUBLIC_CLASS_API__ RELZMA2Decompressor : public IREDecompressor
 {
 private:

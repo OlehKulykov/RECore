@@ -26,21 +26,61 @@
 
 #include "RECore.h"
 
+/**
+ @brief Class interface for compressing data.
+ */
 class __RE_PUBLIC_CLASS_API__ IRECompressor
 {
 public:
+	/**
+	 @brief Pointer to the compressed data.
+	 @return Data pointer or NULL.
+	 */
 	virtual const void * data() const = 0;
+
+
+	/**
+	 @brief Get compressed data size in bytes.
+	 @return Size of the compressed data in bytes or 0.
+	 */
 	virtual RESizeT size() const = 0;
+
+
+	/**
+	 @brief Compress data buffer.
+	 @param inBuffer Data pointer to compress.
+	 @param inBufferSize Provided data size in bytes.
+	 */
 	virtual RESizeT compress(const void * inBuffer, const RESizeT inBufferSize) = 0;
 	virtual ~IRECompressor() { }
 };
 
 
+/**
+ @brief Class interface for decompressing data.
+ */
 class __RE_PUBLIC_CLASS_API__ IREDecompressor
 {
 public:
+	/**
+	 @brief Pointer to the decompressed data.
+	 @return Data pointer or NULL.
+	 */
 	virtual const void * data() const = 0;
+
+
+	/**
+	 @brief Get decompressed data size in bytes.
+	 @return Size of the decompressed data in bytes or 0.
+	 */
 	virtual RESizeT size() const = 0;
+
+
+	/**
+	 @brief Decompress data buffer.
+	 @param inBuffer Data pointer to decompress.
+	 @param inBufferSize Provided data size in bytes.
+	 */
 	virtual RESizeT decompress(const void * inBuffer, const RESizeT inBufferSize) = 0;
 	virtual ~IREDecompressor() { }
 };

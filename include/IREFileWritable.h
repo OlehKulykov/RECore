@@ -27,10 +27,21 @@
 #include "RECore.h"
 #include "IREFileReadable.h"
 
+/**
+ @brief Interface for classes that can be used for writings some data.
+ @detailed Members is simular to 'c FILE' functions.
+ */
 class __RE_PUBLIC_CLASS_API__ IREFileWritable
 {
 public:
+	/**
+	 @brief Write data to object.
+	 @param bufferForWrite The buffer for writing data.
+	 @param dataSizeToWrite Size in bytes for provided data.
+	 @result Returns number of bytes writed.
+	 */
 	virtual RESizeT fileWrite(const void * bufferForWrite, const RESizeT dataSizeToWrite) = 0;
+
 
 	/**
 	 @brief Default destructor.
