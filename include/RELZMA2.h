@@ -24,7 +24,6 @@
 #ifndef __RELZMA2_H__
 #define __RELZMA2_H__
 
-#include "RECore.h"
 #include "IRECompression.h"
 #include "REMutableBuffer.h"
 

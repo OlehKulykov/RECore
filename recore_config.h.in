@@ -35,6 +35,10 @@
 #cmakedefine RECORE_BUILD_NUMBER @RECORE_BUILD_NUMBER@ 
 
 
+/* Build with RELZMA2 compression/decompression support  */
+#cmakedefine RE_BUILD_WITH_LZMA2 @RE_BUILD_WITH_LZMA2@ 
+
+
 /* CoreFoundation/CoreFoundation.h */
 #cmakedefine RE_HAVE_COREFOUNDATION_FRAMEWORK @RE_HAVE_COREFOUNDATION_FRAMEWORK@
 

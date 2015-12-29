@@ -29,8 +29,8 @@
 #endif
 
 #include <assert.h>
-#include <vector>
 
+#if defined(RE_BUILD_WITH_LZMA2)
 #include "../lzma/Lzma2Enc.h"
 #include "../lzma/Lzma2Dec.h"
 
@@ -86,21 +86,31 @@ static void RELZMA2ImplFree(void * p, void * address)
 {
 	if (address) free(address);
 }
+#endif
 
 const void * RELZMA2Compressor::data() const
 {
+#if defined(RE_BUILD_WITH_LZMA2)
 	RELZMA2ISeqOutStream * stream = static_cast<RELZMA2ISeqOutStream *>(_outStream);
 	return stream ? stream->buffer.buffer() : NULL;
+#else
+	return NULL;
+#endif
 }
 
 RESizeT RELZMA2Compressor::size() const
 {
+#if defined(RE_BUILD_WITH_LZMA2)
 	RELZMA2ISeqOutStream * stream = static_cast<RELZMA2ISeqOutStream *>(_outStream);
 	return stream ? stream->buffer.size() : 0;
+#else
+	return 0;
+#endif
 }
 
 RESizeT RELZMA2Compressor::compress(const void * inBuffer, const RESizeT inBufferSize)
 {
+#if defined(RE_BUILD_WITH_LZMA2)
 	this->cleanupStreams();
 
 	RELZMA2ISeqInStream * inStream = new RELZMA2ISeqInStream();
@@ -151,12 +161,15 @@ RESizeT RELZMA2Compressor::compress(const void * inBuffer, const RESizeT inBuffe
 	}
 
 	Lzma2Enc_Destroy(enc);
-
 	return this->size();
+#else
+	return 0;
+#endif
 }
 
 void RELZMA2Compressor::cleanupStreams()
 {
+#if defined(RE_BUILD_WITH_LZMA2)
 	if (_inStream)
 	{
 		RELZMA2ISeqInStream * stream = static_cast<RELZMA2ISeqInStream *>(_inStream);
@@ -170,6 +183,7 @@ void RELZMA2Compressor::cleanupStreams()
 		delete stream;
 		_outStream = NULL;
 	}
+#endif
 }
 
 RELZMA2Compressor::RELZMA2Compressor() :
@@ -181,23 +195,34 @@ RELZMA2Compressor::RELZMA2Compressor() :
 
 RELZMA2Compressor::~RELZMA2Compressor()
 {
+#if defined(RE_BUILD_WITH_LZMA2)
 	this->cleanupStreams();
+#endif
 }
 
 
 
 const void * RELZMA2Decompressor::data() const
 {
+#if defined(RE_BUILD_WITH_LZMA2)
 	return _buffer.buffer();
+#else
+	return NULL;
+#endif
 }
 
 RESizeT RELZMA2Decompressor::size() const
 {
+#if defined(RE_BUILD_WITH_LZMA2)
 	return _buffer.size();
+#else
+	return 0;
+#endif
 }
 
 RESizeT RELZMA2Decompressor::decompress(const void * inBuffer, const RESizeT inBufferSize)
 {
+#if defined(RE_BUILD_WITH_LZMA2)
 	const Byte * inBytes = (const Byte *)inBuffer;
 	const Byte properties = *inBytes;
 	inBytes += sizeof(Byte);
@@ -244,6 +269,9 @@ RESizeT RELZMA2Decompressor::decompress(const void * inBuffer, const RESizeT inB
 	Lzma2Dec_Free(&dec, &allc);
 
 	return _buffer.size();
+#else
+	return 0;
+#endif
 }
 
 RELZMA2Decompressor::RELZMA2Decompressor()

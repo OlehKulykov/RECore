@@ -16,11 +16,16 @@ int t1()
 	const char * inText = "I am trying to create a function that uncompresses";
 
 	RELZMA2Compressor compr;
-	RESizeT len = strlen(inText);
+	const RESizeT len = strlen(inText);
 	compr.compress(inText, len);
 
 	RELZMA2Decompressor decompr;
 	decompr.decompress(compr.data(), compr.size());
+
+	if (strncmp(inText, (const char *)compr.data(), len) == 0)
+	{
+		fprintf(stderr, "");
+	}
 
 	NSLog(@"[%s]", (char*)decompr.data());
 

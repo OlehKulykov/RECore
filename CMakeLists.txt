@@ -33,10 +33,9 @@ set(CPACK_PACKAGE_VERSION_MINOR "0")
 set(CPACK_PACKAGE_VERSION "${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}")
 set(CPACK_PACKAGE_VENDOR "info@resident.name")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "${PACKAGE} ${PACKAGE_VERSION}")
-set(SOVERSION "3.0.2")
+set(SOVERSION "3.0.3")
 set(CPACK_SOURCE_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}")
 set(VERSION "${CPACK_PACKAGE_VERSION}")
-
 
 
 include(CheckLibraryExists)
@@ -51,6 +50,13 @@ include(CheckSymbolExists)
 
 include(CheckCCompilerFlag)
 include(CheckCXXCompilerFlag)
+
+
+# Build options
+option(BUILD_RECORE_WITH_LZMA2 "Build with RELZMA2 compression/decompression support" ON)
+if(BUILD_RECORE_WITH_LZMA2)
+	set(RE_BUILD_WITH_LZMA2 1)
+endif(BUILD_RECORE_WITH_LZMA2)
 
 
 # C with -fPIC
@@ -530,6 +536,7 @@ set(RECORE_SOURCES	src/REAllocator.cpp
 		src/REInt24.cpp
 		src/REJsonUtilsPrivate.cpp
 		src/RELog.cpp
+		src/RELZMA2.cpp
 		src/REMutableBuffer.cpp
 		src/REMutableString.cpp
 		src/REMutex.cpp
@@ -545,10 +552,12 @@ set(RECORE_SOURCES	src/REAllocator.cpp
 		src/REVariantList.cpp
 		src/REVariantMap.cpp
 		src/REWideString.cpp
-				)
+		)
 
 
-set(RECORE_HEADERS include/IREFileReadable.h
+set(RECORE_HEADERS include/IRECompression.h
+		include/IREFileReadable.h
+		include/IREFileWritable.h
 		include/REAllocator.h
 		include/REBuffer.h
 		include/REBufferNoCopy.h
@@ -559,6 +568,7 @@ set(RECORE_HEADERS include/IREFileReadable.h
 		include/REInt24.h
 		include/REList.h
 		include/RELog.h
+		include/RELZMA2.h
 		include/REMap.h
 		include/REMutableBuffer.h
 		include/REMutableString.h
@@ -570,14 +580,25 @@ set(RECORE_HEADERS include/IREFileReadable.h
 		include/REString.h
 		include/REStringBase.h
 		include/REStringList.h
+		include/RESwap.h
 		include/RETime.h
 		include/REUUIDv4.h
 		include/REVariant.h
 		include/REVariantList.h
 		include/REVariantMap.h
 		include/REWideString.h
-				)
+		)
 
+if(BUILD_RECORE_WITH_LZMA2)
+add_definitions(-D_7ZIP_ST)
+list(APPEND RECORE_SOURCES
+		lzma/LzFind.c
+		lzma/Lzma2Dec.c
+		lzma/Lzma2Enc.c
+		lzma/LzmaDec.c
+		lzma/LzmaEnc.c
+		)
+endif(BUILD_RECORE_WITH_LZMA2)
 
 add_definitions(-DHAVE_RECORE_CONFIG_H)
 

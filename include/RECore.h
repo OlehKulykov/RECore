@@ -26,7 +26,7 @@
 
 #define RECORE_VERSION_MAJOR 3
 #define RECORE_VERSION_MINOR 0
-#define RECORE_VERSION_PATCH 2
+#define RECORE_VERSION_PATCH 3
 
 
 #if !defined(__RE_OS_WINDOWS__) && !defined(__RE_OS_ANDROID__)
