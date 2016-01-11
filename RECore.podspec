@@ -22,7 +22,7 @@ C++ core implementation.
   
   s.source_files = 
   'include/*.{h}',
-  'src/*.{cpp}',
+  'src/*.{h,cpp}',
   'lzma/*.{h,c}',
   'jansson/src/*.{h,c}',
   'builds/mac/*.{h}'
