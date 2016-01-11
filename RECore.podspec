@@ -20,7 +20,9 @@ C++ core implementation.
 # Build  
   s.public_header_files = 'include/*.{h}'
   
-  s.source_files = 'src/*.{cpp}',
+  s.source_files = 
+  'include/*.{h}',
+  'src/*.{cpp}',
   'lzma/*.{h,c}',
   'jansson/src/*.{h,c}',
   'builds/mac/*.{h}'
