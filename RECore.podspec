@@ -28,6 +28,7 @@ C++ core implementation.
   'builds/mac/*.{h}'
   
   s.compiler_flags = '-D_7ZIP_ST=1', '-DRE_BUILD_WITH_LZMA2=1', '-DHAVE_RECORE_CONFIG_H=1'
+  s.xcconfig = { 'HEADER_SEARCH_PATHS' => '"${PODS_ROOT}/RECore/jansson/src"' }
   
   s.requires_arc = false
   s.libraries = 'pthread', 'stdc++', 'z'
