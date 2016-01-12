@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
 
 # Common settings
   s.name         = "RECore"
-  s.version      = "3.0.3"
+  s.version      = "3.0.4"
   s.summary      = "C++ core implementation"
   s.description  = <<-DESC
 C++ core implementation.
@@ -10,7 +10,7 @@ C++ core implementation.
   s.homepage     = "https://github.com/OlehKulykov/RECore"
   s.license      = { :type => 'MIT', :file => 'LICENSE' }
   s.author       = { "Oleh Kulykov" => "info@resident.name" }
-  s.source       = { :git => 'https://github.com/OlehKulykov/RECore.git', :tag => s.version.to_s }
+  s.source       = { :git => 'https://github.com/OlehKulykov/RECore.git', :tag => s.version.to_s, :submodules => "true" }
 
 # Platforms
   s.ios.deployment_target = "7.0"
@@ -23,10 +23,16 @@ C++ core implementation.
   s.source_files = 'include/*.{h}',
   'src/*.{h,cpp}',
   'lzma/*.{h,c}',
+  'jansson/src/*.{h,c}',
   'builds/mac/*.{h}'
   
   s.compiler_flags = '-D_7ZIP_ST=1', '-DRE_BUILD_WITH_LZMA2=1', '-DHAVE_RECORE_CONFIG_H=1'
   
+  s.xcconfig = { 'HEADER_SEARCH_PATHS' => '"${PODS_ROOT}/RECore/jansson/src"',
+  'ALWAYS_SEARCH_USER_PATHS' => 'YES',
+  'USER_HEADER_SEARCH_PATHS' => '"${PODS_ROOT}/RECore/jansson/src"'
+  }
+
   s.requires_arc = false
   s.libraries = 'pthread', 'stdc++', 'z'
 
