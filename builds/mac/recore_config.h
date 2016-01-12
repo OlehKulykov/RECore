@@ -48,7 +48,7 @@
 
 
 /* jansson.h */
-#define RE_HAVE_JANSSON_H 1 
+/* #undef RE_HAVE_JANSSON_H */
 
 
 /* Windows OS */
