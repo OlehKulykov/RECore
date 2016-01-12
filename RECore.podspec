@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
 
 # Common settings
   s.name         = "RECore"
-  s.version      = "3.0.4"
+  s.version      = "3.0.5"
   s.summary      = "C++ core implementation"
   s.description  = <<-DESC
 C++ core implementation.
