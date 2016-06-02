@@ -67,7 +67,7 @@ bool REMutex::lock() const
 #if defined(RE_HAVE_ASSERT_H)
 		assert(m);
 #endif
-		const bool r = TryEnterCriticalSection(m) ? true : false;
+		const bool r = EnterCriticalSection(m) ? true : false;
 #if defined(RE_HAVE_ASSERT_H)
 		assert(r);
 #endif
