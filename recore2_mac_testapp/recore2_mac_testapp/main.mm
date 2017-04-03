@@ -10,9 +10,7 @@
 
 #import "RELZMA2.h"
 
-int t1()
-{
-
+int t1() {
 	const char * inText = "I am trying to create a function that uncompresses";
 
 	RELZMA2Compressor compr;
@@ -22,8 +20,7 @@ int t1()
 	RELZMA2Decompressor decompr;
 	decompr.decompress(compr.data(), compr.size());
 
-	if (strncmp(inText, (const char *)compr.data(), len) == 0)
-	{
+	if (strncmp(inText, (const char *)compr.data(), len) == 0) {
 		fprintf(stderr, "");
 	}
 
@@ -32,10 +29,8 @@ int t1()
 	return 0;
 }
 
-int main(int argc, const char * argv[])
-{
-	@autoreleasepool
-	{
+int main(int argc, const char * argv[]) {
+	@autoreleasepool {
 		t1();
 	    // insert code here...
 	    NSLog(@"Hello, World!");

@@ -1,5 +1,5 @@
 /*
- *   Copyright (c) 2012 - 2016 Kulykov Oleh <info@resident.name>
+ *   Copyright (c) 2012 - 2017 Kulykov Oleh <info@resident.name>
  *
  *   Permission is hereby granted, free of charge, to any person obtaining a copy
  *   of this software and associated documentation files (the "Software"), to deal
@@ -29,8 +29,7 @@
 /**
  @brief Class interface for compressing data.
  */
-class __RE_PUBLIC_CLASS_API__ IRECompressor
-{
+class __RE_PUBLIC_CLASS_API__ IRECompressor {
 public:
 	/**
 	 @brief Pointer to the compressed data.
@@ -59,8 +58,7 @@ public:
 /**
  @brief Class interface for decompressing data.
  */
-class __RE_PUBLIC_CLASS_API__ IREDecompressor
-{
+class __RE_PUBLIC_CLASS_API__ IREDecompressor {
 public:
 	/**
 	 @brief Pointer to the decompressed data.

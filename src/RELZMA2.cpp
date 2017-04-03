@@ -1,5 +1,5 @@
 /*
- *   Copyright (c) 2012 - 2016 Kulykov Oleh <info@resident.name>
+ *   Copyright (c) 2012 - 2017 Kulykov Oleh <info@resident.name>
  *
  *   Permission is hereby granted, free of charge, to any person obtaining a copy
  *   of this software and associated documentation files (the "Software"), to deal
@@ -35,27 +35,22 @@
 #include "../lzma/Lzma2Enc.h"
 #include "../lzma/Lzma2Dec.h"
 
-typedef struct RELZMA2ISeqOutStreamStruct : public ISeqOutStream
-{
+typedef struct RELZMA2ISeqOutStreamStruct : public ISeqOutStream {
 	REMutableBuffer buffer;
 
-	size_t write(const void * buf, size_t size)
-	{
+	size_t write(const void * buf, size_t size) {
 		return buffer.append(buf, size) ? size : 0;
 	}
 } RELZMA2ISeqOutStream;
 
-typedef struct RELZMA2ISeqInStreamStruct : public ISeqInStream
-{
+typedef struct RELZMA2ISeqInStreamStruct : public ISeqInStream {
 	const void * buff;
 	RESizeT size;
 	RESizeT pos;
 
-	SRes read(void * b, size_t * s)
-	{
+	SRes read(void * b, size_t * s) {
 		*s = MIN(*s, size - pos);
-		if (*s)
-		{
+		if (*s) {
 			const uint8_t * cBuff = (const uint8_t *)buff;
 			cBuff += pos;
 			memcpy(b, cBuff, *s);
@@ -66,31 +61,26 @@ typedef struct RELZMA2ISeqInStreamStruct : public ISeqInStream
 
 } RELZMA2ISeqInStream;
 
-static size_t RELZMA2ImplWrite(void * p, const void * buf, size_t size)
-{
+static size_t RELZMA2ImplWrite(void * p, const void * buf, size_t size) {
 	RELZMA2ISeqOutStreamStruct * stream = static_cast<RELZMA2ISeqOutStreamStruct *>(p);
 	return stream->write(buf, size);
 }
 
-static SRes RELZMA2ImplRead(void * p, void * buf, size_t * size)
-{
+static SRes RELZMA2ImplRead(void * p, void * buf, size_t * size) {
 	RELZMA2ISeqInStream * stream = static_cast<RELZMA2ISeqInStream *>(p);
 	return stream->read(buf, size);
 }
 
-static void * RELZMA2ImplAlloc(void * p, size_t size)
-{
+static void * RELZMA2ImplAlloc(void * p, size_t size) {
 	return malloc(size);
 }
 
-static void RELZMA2ImplFree(void * p, void * address)
-{
+static void RELZMA2ImplFree(void * p, void * address) {
 	if (address) free(address);
 }
 #endif
 
-const void * RELZMA2Compressor::data() const
-{
+const void * RELZMA2Compressor::data() const {
 #if defined(RE_BUILD_WITH_LZMA2)
 	RELZMA2ISeqOutStream * stream = static_cast<RELZMA2ISeqOutStream *>(_outStream);
 	return stream ? stream->buffer.buffer() : NULL;
@@ -99,8 +89,7 @@ const void * RELZMA2Compressor::data() const
 #endif
 }
 
-RESizeT RELZMA2Compressor::size() const
-{
+RESizeT RELZMA2Compressor::size() const {
 #if defined(RE_BUILD_WITH_LZMA2)
 	RELZMA2ISeqOutStream * stream = static_cast<RELZMA2ISeqOutStream *>(_outStream);
 	return stream ? stream->buffer.size() : 0;
@@ -109,15 +98,13 @@ RESizeT RELZMA2Compressor::size() const
 #endif
 }
 
-RESizeT RELZMA2Compressor::compress(const void * inBuffer, const RESizeT inBufferSize)
-{
+RESizeT RELZMA2Compressor::compress(const void * inBuffer, const RESizeT inBufferSize) {
 #if defined(RE_BUILD_WITH_LZMA2)
 	this->cleanupStreams();
 
 	RELZMA2ISeqInStream * inStream = new RELZMA2ISeqInStream();
 	RELZMA2ISeqOutStream * outStream = new RELZMA2ISeqOutStream();
-	if (!inStream || !outStream)
-	{
+	if (!inStream || !outStream) {
 		if (inStream) delete inStream;
 		if (outStream) delete outStream;
 		return 0;
@@ -156,8 +143,7 @@ RESizeT RELZMA2Compressor::compress(const void * inBuffer, const RESizeT inBuffe
 	inStream->pos = 0;
 
 	res = Lzma2Enc_Encode(enc, outStream, inStream, 0);
-	if (res != SZ_OK)
-	{
+	if (res != SZ_OK) {
 		this->cleanupStreams();
 	}
 
@@ -168,18 +154,15 @@ RESizeT RELZMA2Compressor::compress(const void * inBuffer, const RESizeT inBuffe
 #endif
 }
 
-void RELZMA2Compressor::cleanupStreams()
-{
+void RELZMA2Compressor::cleanupStreams() {
 #if defined(RE_BUILD_WITH_LZMA2)
-	if (_inStream)
-	{
+	if (_inStream) {
 		RELZMA2ISeqInStream * stream = static_cast<RELZMA2ISeqInStream *>(_inStream);
 		delete stream;
 		_inStream = NULL;
 	}
 
-	if (_outStream)
-	{
+	if (_outStream) {
 		RELZMA2ISeqOutStream * stream = static_cast<RELZMA2ISeqOutStream *>(_outStream);
 		delete stream;
 		_outStream = NULL;
@@ -189,13 +172,11 @@ void RELZMA2Compressor::cleanupStreams()
 
 RELZMA2Compressor::RELZMA2Compressor() :
 	_inStream(NULL),
-	_outStream(NULL)
-{
+	_outStream(NULL) {
 
 }
 
-RELZMA2Compressor::~RELZMA2Compressor()
-{
+RELZMA2Compressor::~RELZMA2Compressor() {
 #if defined(RE_BUILD_WITH_LZMA2)
 	this->cleanupStreams();
 #endif
@@ -203,8 +184,7 @@ RELZMA2Compressor::~RELZMA2Compressor()
 
 
 
-const void * RELZMA2Decompressor::data() const
-{
+const void * RELZMA2Decompressor::data() const {
 #if defined(RE_BUILD_WITH_LZMA2)
 	return _buffer.buffer();
 #else
@@ -212,8 +192,7 @@ const void * RELZMA2Decompressor::data() const
 #endif
 }
 
-RESizeT RELZMA2Decompressor::size() const
-{
+RESizeT RELZMA2Decompressor::size() const {
 #if defined(RE_BUILD_WITH_LZMA2)
 	return _buffer.size();
 #else
@@ -221,8 +200,7 @@ RESizeT RELZMA2Decompressor::size() const
 #endif
 }
 
-RESizeT RELZMA2Decompressor::decompress(const void * inBuffer, const RESizeT inBufferSize)
-{
+RESizeT RELZMA2Decompressor::decompress(const void * inBuffer, const RESizeT inBufferSize) {
 #if defined(RE_BUILD_WITH_LZMA2)
 	const Byte * inBytes = (const Byte *)inBuffer;
 	const Byte properties = *inBytes;
@@ -249,8 +227,7 @@ RESizeT RELZMA2Decompressor::decompress(const void * inBuffer, const RESizeT inB
     Lzma2Dec_Init(&dec);
 
 	ELzmaStatus status = LZMA_STATUS_NOT_SPECIFIED;
-	while (status != LZMA_STATUS_FINISHED_WITH_MARK)
-	{
+	while (status != LZMA_STATUS_FINISHED_WITH_MARK) {
 		SizeT outSize = _buffer.size();
 		SizeT inSize = inBufferSize - 5;
 		res = Lzma2Dec_DecodeToBuf(&dec,
@@ -262,8 +239,7 @@ RESizeT RELZMA2Decompressor::decompress(const void * inBuffer, const RESizeT inB
 								   &status);
 	}
 
-	if ((status != LZMA_STATUS_FINISHED_WITH_MARK) || (res != SZ_OK))
-	{
+	if ((status != LZMA_STATUS_FINISHED_WITH_MARK) || (res != SZ_OK)) {
 		_buffer.clear();
 	}
 
@@ -275,13 +251,11 @@ RESizeT RELZMA2Decompressor::decompress(const void * inBuffer, const RESizeT inB
 #endif
 }
 
-RELZMA2Decompressor::RELZMA2Decompressor()
-{
+RELZMA2Decompressor::RELZMA2Decompressor() {
 
 }
 
-RELZMA2Decompressor::~RELZMA2Decompressor()
-{
+RELZMA2Decompressor::~RELZMA2Decompressor() {
 
 }
 

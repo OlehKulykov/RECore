@@ -1,5 +1,5 @@
 /*
- *   Copyright (c) 2012 - 2016 Kulykov Oleh <info@resident.name>
+ *   Copyright (c) 2012 - 2017 Kulykov Oleh <info@resident.name>
  *
  *   Permission is hereby granted, free of charge, to any person obtaining a copy
  *   of this software and associated documentation files (the "Software"), to deal
@@ -36,8 +36,7 @@
  <li> lzma2 compressed data
  <li> 1 byte - end mark of the compressed stream, eg. EOPM
  */
-class __RE_PUBLIC_CLASS_API__ RELZMA2Compressor : public IRECompressor
-{
+class __RE_PUBLIC_CLASS_API__ RELZMA2Compressor : public IRECompressor {
 private:
 	void * _inStream;
 	void * _outStream;
@@ -57,8 +56,7 @@ public:
  LZMA2 decompressor.
  Decompress LZMA2 compressed data. Data format same as result of the RELZMA2Compressor compressor.
  */
-class __RE_PUBLIC_CLASS_API__ RELZMA2Decompressor : public IREDecompressor
-{
+class __RE_PUBLIC_CLASS_API__ RELZMA2Decompressor : public IREDecompressor {
 private:
 	REMutableBuffer _buffer;
 

@@ -1,5 +1,5 @@
 /*
- *   Copyright (c) 2012 - 2016 Kulykov Oleh <info@resident.name>
+ *   Copyright (c) 2012 - 2017 Kulykov Oleh <info@resident.name>
  *
  *   Permission is hereby granted, free of charge, to any person obtaining a copy
  *   of this software and associated documentation files (the "Software"), to deal
@@ -25,57 +25,47 @@
 
 #include <string.h>
 
-REBufferNoCopy::REBufferNoCopy(const char * string) : REBuffer()
-{
+REBufferNoCopy::REBufferNoCopy(const char * string) : REBuffer() {
 	_allocator = kREAllocatorNULL;
 	char * s = string ? const_cast<char *>(string) : NULL;
-	if (s)
-	{
+	if (s) {
 		_buff = static_cast<void *>(s);
-		if (_buff)
-		{
+		if (_buff) {
 			_size = (RESizeT)(strlen(string) + 1);
 		}
 	}
 }
 
-REBufferNoCopy::REBufferNoCopy(const REMutableBuffer & buffer) : REBuffer()
-{
+REBufferNoCopy::REBufferNoCopy(const REMutableBuffer & buffer) : REBuffer() {
 	_allocator = kREAllocatorNULL;
 	_buff = buffer.buffer();
 	_size = buffer.size();
 }
 
-REBufferNoCopy::REBufferNoCopy(const REBuffer & buffer) : REBuffer()
-{
+REBufferNoCopy::REBufferNoCopy(const REBuffer & buffer) : REBuffer() {
 	_allocator = kREAllocatorNULL;
 
 	const void * b = buffer.buffer();
 	const RESizeT s = buffer.size();
-	if (b && s)
-	{
+	if (b && s) {
 		_buff = const_cast<void *>(b);
-		if (_buff)
-		{
+		if (_buff) {
 			_size = s;
 		}
 	}
 }
 
-REBufferNoCopy::REBufferNoCopy(void * memory, const RESizeT size) : REBuffer()
-{
+REBufferNoCopy::REBufferNoCopy(void * memory, const RESizeT size) : REBuffer() {
 	_allocator = kREAllocatorNULL;
 	_buff = memory;
 	_size = size;
 }
 
-REBufferNoCopy::REBufferNoCopy() : REBuffer()
-{
+REBufferNoCopy::REBufferNoCopy() : REBuffer() {
 	_allocator = kREAllocatorNULL;
 }
 
-REBufferNoCopy::~REBufferNoCopy()
-{
+REBufferNoCopy::~REBufferNoCopy() {
 
 }
 

@@ -1,5 +1,5 @@
 /*
- *   Copyright (c) 2012 - 2016 Kulykov Oleh <info@resident.name>
+ *   Copyright (c) 2012 - 2017 Kulykov Oleh <info@resident.name>
  *
  *   Permission is hereby granted, free of charge, to any person obtaining a copy
  *   of this software and associated documentation files (the "Software"), to deal
@@ -26,8 +26,7 @@
 
 #include "RECore.h"
 
-typedef struct _REAllocator
-{
+typedef struct _REAllocator {
 	void * (*allocateMemory)(RESizeT);
 	void (*freeMemory)(void *);
 } REAllocator;

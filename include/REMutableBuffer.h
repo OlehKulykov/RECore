@@ -1,5 +1,5 @@
 /*
- *   Copyright (c) 2012 - 2016 Kulykov Oleh <info@resident.name>
+ *   Copyright (c) 2012 - 2017 Kulykov Oleh <info@resident.name>
  *
  *   Permission is hereby granted, free of charge, to any person obtaining a copy
  *   of this software and associated documentation files (the "Software"), to deal
@@ -26,9 +26,7 @@
 
 #include "REBuffer.h"
 
-class __RE_PUBLIC_CLASS_API__ REMutableBuffer : public REBuffer
-{
-
+class __RE_PUBLIC_CLASS_API__ REMutableBuffer : public REBuffer {
 public:
 	/**
 	 @brief Set new size of memory buffer, copy from inputed buffer data with size to destination(this).

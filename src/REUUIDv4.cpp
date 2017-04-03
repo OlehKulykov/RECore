@@ -24,28 +24,23 @@
 #include "../include/REUUIDv4.h"
 #include "../include/RERandomizer.h"
 
-const char * REUUIDv4::uuid() const
-{
+const char * REUUIDv4::uuid() const {
 	return (const char *)&_u[0];
 }
 
-unsigned int REUUIDv4::length()
-{
+unsigned int REUUIDv4::length() {
 	return 36;
 }
 
-REUUIDv4::REUUIDv4(bool isLowercase)
-{
+REUUIDv4::REUUIDv4(bool isLowercase) {
 	RERandomizer r;
 
 	const char * format = isLowercase ? "%x" : "%X";
 
 	char * s = (char *)&_u[0];
 	const unsigned int len = REUUIDv4::length();
-	for (unsigned int i = 0; i < len; i++)
-	{
-		switch (i)
-		{
+	for (unsigned int i = 0; i < len; i++) {
+		switch (i) {
 			case 8:
 			case 13:
 			case 18:

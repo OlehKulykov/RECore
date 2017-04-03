@@ -1,5 +1,5 @@
 /*
- *   Copyright (c) 2012 - 2016 Kulykov Oleh <info@resident.name>
+ *   Copyright (c) 2012 - 2017 Kulykov Oleh <info@resident.name>
  *
  *   Permission is hereby granted, free of charge, to any person obtaining a copy
  *   of this software and associated documentation files (the "Software"), to deal
@@ -25,15 +25,12 @@
 
 #include <string.h>
 
-bool REMutableBuffer::set(const void * buff, const RESizeT buffSize)
-{
+bool REMutableBuffer::set(const void * buff, const RESizeT buffSize) {
 	this->clear();
 
-	if (buff && buffSize)
-	{
+	if (buff && buffSize) {
 		void * newBuff = _allocator.allocateMemory(buffSize);
-		if (newBuff)
-		{
+		if (newBuff) {
 			memcpy(newBuff, buff, (size_t)buffSize);
 			_buff = newBuff;
 			_size = buffSize;
@@ -44,20 +41,16 @@ bool REMutableBuffer::set(const void * buff, const RESizeT buffSize)
 	return false;
 }
 
-REMutableBuffer & REMutableBuffer::operator=(const REBuffer & anotherBuff)
-{
+REMutableBuffer & REMutableBuffer::operator=(const REBuffer & anotherBuff) {
 	this->set(anotherBuff.buffer(), anotherBuff.size());
 	return *this;
 }
 
-bool REMutableBuffer::append(const void * buff, const RESizeT buffSize)
-{
-	if (_size && _buff)
-	{
+bool REMutableBuffer::append(const void * buff, const RESizeT buffSize) {
+	if (_size && _buff) {
 		const RESizeT newSize = _size + buffSize;
 		REUByte * newBuff = (REUByte *)_allocator.allocateMemory(newSize);
-		if (newBuff)
-		{
+		if (newBuff) {
 			memcpy(newBuff, _buff, (size_t)_size);
 			memcpy(&newBuff[_size], buff, (size_t)buffSize);
 			_allocator.freeMemory(_buff);
@@ -71,41 +64,32 @@ bool REMutableBuffer::append(const void * buff, const RESizeT buffSize)
 	return this->set(buff, buffSize);
 }
 
-bool REMutableBuffer::append(const REBuffer & anotherBuff)
-{
+bool REMutableBuffer::append(const REBuffer & anotherBuff) {
 	return this->append(anotherBuff.buffer(), anotherBuff.size());
 }
 
-REMutableBuffer & REMutableBuffer::operator+=(const REBuffer & anotherBuff)
-{
+REMutableBuffer & REMutableBuffer::operator+=(const REBuffer & anotherBuff) {
 	this->append(anotherBuff.buffer(), anotherBuff.size());
 	return *this;
 }
 
-void REMutableBuffer::clear()
-{
+void REMutableBuffer::clear() {
 	_allocator.freeMemory(_buff);
 	_buff = NULL;
 	_size = 0;
 }
 
-bool REMutableBuffer::resize(const RESizeT newSize, bool isCopyPrevData)
-{
-	if (_size == newSize)
-	{
+bool REMutableBuffer::resize(const RESizeT newSize, bool isCopyPrevData) {
+	if (_size == newSize) {
 		return true;
 	}
 
 	void * newBuff = _allocator.allocateMemory(newSize);
-	if (newBuff)
-	{
-		if (_buff)
-		{
-			if (isCopyPrevData)
-			{
+	if (newBuff) {
+		if (_buff) {
+			if (isCopyPrevData) {
 				const RESizeT copySize = MIN(newSize, _size);
-				if (copySize)
-				{
+				if (copySize) {
 					memcpy(newBuff, _buff, (size_t)copySize);
 				}
 			}
@@ -122,43 +106,35 @@ bool REMutableBuffer::resize(const RESizeT newSize, bool isCopyPrevData)
 	return false;
 }
 
-void * REMutableBuffer::buffer() const
-{
+void * REMutableBuffer::buffer() const {
 	return _buff;
 }
 
-REMutableBuffer::REMutableBuffer(const char * string) : REBuffer(string)
-{
+REMutableBuffer::REMutableBuffer(const char * string) : REBuffer(string) {
 
 }
 
-REMutableBuffer::REMutableBuffer(const REMutableBuffer & buffer) : REBuffer(buffer.buffer(), buffer.size())
-{
+REMutableBuffer::REMutableBuffer(const REMutableBuffer & buffer) : REBuffer(buffer.buffer(), buffer.size()) {
 
 }
 
-REMutableBuffer::REMutableBuffer(const REBuffer & buffer) : REBuffer(buffer.buffer(), buffer.size())
-{
+REMutableBuffer::REMutableBuffer(const REBuffer & buffer) : REBuffer(buffer.buffer(), buffer.size()) {
 
 }
 
-REMutableBuffer::REMutableBuffer(const void * memory, const RESizeT size) : REBuffer(memory, size)
-{
+REMutableBuffer::REMutableBuffer(const void * memory, const RESizeT size) : REBuffer(memory, size) {
 
 }
 
-REMutableBuffer::REMutableBuffer(const RESizeT size) : REBuffer(size)
-{
+REMutableBuffer::REMutableBuffer(const RESizeT size) : REBuffer(size) {
 
 }
 
-REMutableBuffer::REMutableBuffer() : REBuffer()
-{
+REMutableBuffer::REMutableBuffer() : REBuffer() {
 
 }
 
-REMutableBuffer::~REMutableBuffer()
-{
+REMutableBuffer::~REMutableBuffer() {
 
 }
 

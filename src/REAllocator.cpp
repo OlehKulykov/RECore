@@ -1,5 +1,5 @@
 /*
- *   Copyright (c) 2012 - 2016 Kulykov Oleh <info@resident.name>
+ *   Copyright (c) 2012 - 2017 Kulykov Oleh <info@resident.name>
  *
  *   Permission is hereby granted, free of charge, to any person obtaining a copy
  *   of this software and associated documentation files (the "Software"), to deal
@@ -29,50 +29,39 @@
 
 #include <string.h>
 
-void * REMalloc(RESizeT size)
-{
+void * REMalloc(RESizeT size) {
 	return (size > 0) ? malloc((size_t)size) : NULL;
 }
 
-void * REMallocZero(RESizeT size)
-{
+void * REMallocZero(RESizeT size) {
 	void * m = (size > 0) ? malloc(size) : NULL;
-	if (m)
-	{
+	if (m) {
 		memset(m, 0, size);
 	}
 	return m;
 }
 
-void * REMallocAlignedA(RESizeT size, RESizeT * allocatedSize)
-{
-	if (size > 0)
-	{
+void * REMallocAlignedA(RESizeT size, RESizeT * allocatedSize) {
+	if (size > 0) {
 #if defined(RE_HAVE_FUNCTION_POSIX_MEMALIGN)
 		const size_t alignment = sizeof(void *);
-		if (size < alignment)
-		{
+		if (size < alignment) {
 			size = alignment;
-		}
-		else
-		{
+		} else {
 			const size_t left = (size % alignment);
-			if (left > 0)
-			{
+			if (left > 0) {
 				size += (alignment - left);
 			}
 		}
 
 		void * m = NULL;
-		if (posix_memalign((void**)&m, alignment, size) == 0)
-		{
+		if (posix_memalign((void**)&m, alignment, size) == 0) {
 			if (allocatedSize) *allocatedSize = size;
 			return m;
 		}
 #else
 		void * m = malloc(size);
-		if (m)
-		{
+		if (m) {
 			if (allocatedSize) *allocatedSize = size;
 			return m;
 		}
@@ -83,39 +72,32 @@ void * REMallocAlignedA(RESizeT size, RESizeT * allocatedSize)
 	return NULL;
 }
 
-void * REMallocAlignedZero(RESizeT size)
-{
+void * REMallocAlignedZero(RESizeT size) {
 	RESizeT asize = 0;
 	void * m = REMallocAlignedA(size, &asize);
-	if (m && asize)
-	{
+	if (m && asize) {
 		memset(m, 0, asize);
 	}
 	return m;
 }
 
-void * REMallocAligned(RESizeT size)
-{
+void * REMallocAligned(RESizeT size) {
 	return REMallocAlignedA(size, NULL);
 }
 
-void REFree(void * memory)
-{
+void REFree(void * memory) {
 	if (memory) free(memory);
 }
 
-void * REMallocNULL(RESizeT size)
-{
+void * REMallocNULL(RESizeT size) {
 	return NULL;
 }
 
-void REFreeNULL(void * m)
-{
+void REFreeNULL(void * m) {
 
 }
 
-REAllocator kREAllocatorMalloc =
-{
+REAllocator kREAllocatorMalloc = {
 #if defined(__clang__)
 	.allocateMemory = &REMalloc,
 	.freeMemory = &REFree
@@ -125,8 +107,7 @@ REAllocator kREAllocatorMalloc =
 #endif
 };
 
-REAllocator kREAllocatorNULL =
-{
+REAllocator kREAllocatorNULL = {
 #if defined(__clang__)
 	.allocateMemory = &REMallocNULL,
 	.freeMemory = &REFreeNULL
